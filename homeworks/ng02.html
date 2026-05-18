@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take-Home NG02 — Going Deeper — CAI1001C</title>
+<style>
+  :root{ --purple:#6C3483; --purple-d:#4A235A; --ink:#333; --line:#DDD6E2; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--purple);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#E8DAF0;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#F0E6F6;}
+  .pill{display:inline-block;background:#fff;color:var(--purple-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--purple);border-bottom:2px solid var(--purple);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--purple);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--purple-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul,ol{padding-left:22px;}
+  code{background:#F2F0F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .purpleb{background:#F4ECF7;border-left:5px solid #6C3483;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;} .purpleb .lbl{color:#4A235A;}
+  label.fld{display:block;font-weight:600;color:var(--purple-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #D7BDE2;border-color:var(--purple);}
+  .paste{border:2px dashed var(--purple);border-radius:6px;min-height:120px;padding:10px;margin:8px 0;background:#FCFAFD;}
+  .paste:empty:before{content:attr(data-ph);color:#A99;font-style:italic;}
+  #wordcount{font-weight:700;font-size:.85rem;}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.9rem;vertical-align:top;}
+  th{background:var(--purple);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--purple);word-break:break-word;}
+  .footer strong{color:var(--purple-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.paste{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Optional Take-Home</div>
+  <h1>NG02 — Going Deeper: When Grounding Isn't Enough</h1>
+  <div class="meta">
+    <span class="pill">30 points</span>
+    <span class="pill">Individual</span>
+    <span class="pill">Optional</span><br>
+    Session 3 · Chapter 2: Digital Literacy and Data &nbsp;|&nbsp;
+    <strong>Due: Sunday, 11:59 PM</strong>
+  </div>
+</div>
+
+<div class="box purpleb"><span class="lbl">📓 WHAT THIS IS</span>
+  In the group lab you built a notebook grounded in sources you trusted. This take-home pushes the
+  other way: you will <strong>deliberately add one weak source</strong> and watch what happens — then
+  reflect on what grounding does and does not protect you from. Work on your own. Use your group's
+  notebook from GRP02 as the starting point, or rebuild a quick one if you would rather.</div>
+
+<div class="box blueb"><span class="lbl">💡 HOW THIS IS GRADED</span>
+  Honest observation earns the points. "I expected X, but the notebook actually did Y, and that
+  surprised me because Z" is exactly the kind of answer this assignment rewards. A guess dressed up
+  as a confident answer is not. There is a full rubric at the end.</div>
+
+<label class="fld">Your name:</label>
+<input type="text">
+
+<!-- PART 1 -->
+<h2><span class="step">1</span>Add one weak source</h2>
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Find a source that <strong>fails the five-question test</strong> from Section 2.2 — for example,
+  an anonymous post, an outdated page, a claim with no traceable evidence, or content from someone
+  with a clear stake in selling you something. Add it to your notebook alongside the trustworthy
+  sources.</div>
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Choosing a source that is merely <em>boring</em> rather than genuinely <em>weak</em>. You want one
+  that clearly fails the test on purpose — that contrast is what makes the rest of the assignment work.</div>
+<label class="fld">The weak source — title and link:</label>
+<input type="text">
+<label class="fld">Which of the five questions does it fail, and why? (Who · How current · What evidence · What purpose · Does it hold up)</label>
+<textarea rows="3"></textarea>
+
+<!-- PART 2 -->
+<h2><span class="step">2</span>See what it does to the answers</h2>
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Ask your notebook a question the weak source would <strong>influence</strong> — something that
+  source has an opinion or claim about. Read the answer and check the citations: notice whether the
+  weak source gets cited, and how its claims sit next to the trustworthy ones.</div>
+<label class="fld">The question I asked:</label>
+<textarea rows="2"></textarea>
+<label class="fld">The answer NotebookLM gave (summarize it, and note whether the weak source was cited):</label>
+<textarea rows="4"></textarea>
+<label class="fld">Paste a screenshot of the answer with its citations (click below, then Ctrl/Cmd+V):</label>
+<div class="paste" contenteditable="true" data-ph="Click here and paste your screenshot…"></div>
+<label class="fld">What changed compared to a notebook with only trustworthy sources? What did you notice?</label>
+<textarea rows="3"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before the reflection, make sure you can answer this in your own head: did the weak source make
+  the <em>answer</em> look any less trustworthy — or did it blend right in, cited just like the good
+  sources? Hold onto that observation; it is the heart of Part 3.</div>
+
+<!-- PART 3 -->
+<h2><span class="step">3</span>Reflection — about 300 words</h2>
+<div class="box blueb"><span class="lbl">💡 ADDRESS ALL FOUR QUESTIONS</span>
+  <ol style="margin:6px 0;">
+    <li>NotebookLM grounded its answer in your sources and cited them — but did grounding make the
+      answer <strong>trustworthy</strong>?</li>
+    <li>Whose <strong>judgment</strong> was actually responsible for the quality of the result?</li>
+    <li>Could a curated source set still be <strong>biased</strong> even if every source in it is
+      individually "credible" — for instance, if all of them share the same viewpoint?</li>
+    <li>How would you <strong>guard against</strong> that?</li>
+  </ol></div>
+<label class="fld">Your reflection:</label>
+<textarea id="reflection" rows="10"></textarea>
+<p style="text-align:right;margin:4px 0;"><span id="wordcount">0 words</span> <span style="color:#888;font-size:.82rem;">· target ≈ 300</span></p>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File &rarr; Print &rarr; Save as PDF</strong>. Confirm your weak
+  source, your observations, your screenshot, and your full reflection all appear and nothing is
+  cut off. Upload the PDF to the <strong>NG02</strong> assignment in Canvas by
+  <strong>Sunday, 11:59 PM</strong>.</div>
+
+<!-- RUBRIC -->
+<h2>How your 30 points are earned</h2>
+<table>
+  <tr><th>Criterion</th><th>Excellent</th><th>Good</th><th>Needs Work</th></tr>
+  <tr>
+    <td><strong>The weak source &amp; what changed</strong> — a genuinely weak source is chosen, its
+      failures are named against the five questions, and the effect on the answer is observed honestly.</td>
+    <td><strong>10</strong> — clear weak source, failures named, effect described with a specific detail.</td>
+    <td><strong>7</strong> — weak source and effect described, but thin on specifics.</td>
+    <td><strong>3</strong> — attempted, but the source isn't clearly weak or the effect isn't observed.</td>
+  </tr>
+  <tr>
+    <td><strong>Reflection — trust, responsibility &amp; hidden bias</strong> — all four questions
+      addressed with reasoning that draws on Chapter 2.</td>
+    <td><strong>20</strong> — all four answered thoughtfully; connects to chapter ideas; ~300 words.</td>
+    <td><strong>14</strong> — most questions addressed; reasoning present but partial.</td>
+    <td><strong>6</strong> — an honest attempt that misses several questions or stays surface-level.</td>
+  </tr>
+</table>
+<div class="box purpleb"><span class="lbl">📓 NOTE</span>
+  An honest attempt is never worth zero. If something did not work, write what you tried and what
+  you saw — that reasoning is the work this assignment is really asking for.</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 2 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch02-digital-literacy-data/">https://c-marq.github.io/cai1001c-ai-thinking/ch02-digital-literacy-data/</a><br>
+  Guided Demo GD02 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd02.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd02.html</a><br>
+  Group Lab GRP02 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp02.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp02.html</a><br>
+  Session 3 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/sessions/session03/">https://c-marq.github.io/cai1001c-ai-thinking/sessions/session03/</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+  var refl = document.getElementById('reflection');
+  var wc = document.getElementById('wordcount');
+  function count(){
+    var n = refl.value.trim() ? refl.value.trim().split(/\s+/).length : 0;
+    wc.textContent = n + (n === 1 ? ' word' : ' words');
+    wc.style.color = (n >= 270 && n <= 360) ? '#1E8449' : '#7D6608';
+  }
+  refl.addEventListener('input', count);
+  count();
+</script>
+
+</body>
+</html>
