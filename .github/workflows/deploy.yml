@@ -34,6 +34,12 @@ jobs:
         run: npm install -g mystmd
       - name: Build HTML Assets
         run: myst build --html
+      # MyST only builds the pages registered in myst.yml. The standalone
+      # HTML worksheets (guided demos, group labs, homeworks) are not MyST
+      # pages, so they must be copied into the build output by hand or they
+      # will never reach the deployed site.
+      - name: Copy standalone HTML worksheets into the build
+        run: cp -r guided-demos group-labs homeworks _build/html/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
