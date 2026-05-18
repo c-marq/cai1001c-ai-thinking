@@ -1,0 +1,52 @@
+# MyST project configuration
+# Docs: https://mystmd.org/guide/configuration
+version: 1
+project:
+  title: "Mind the Machine"
+  subtitle: "Understanding, Applying, and Questioning Artificial Intelligence"
+  authors:
+    - name: Professor Carlos Marquez
+      affiliations:
+        - Miami Dade College
+  description: |
+    A demystifying, hands-on introduction to artificial intelligence for
+    CAI1001C at Miami Dade College. Students cut through the AI hype, learn how
+    core AI technologies actually work, apply current AI tools to real problems
+    of their own choosing, and reflect on the ethics of what they build.
+    Designed for a mixed, open-enrollment audience — no programming experience
+    required.
+  keywords:
+    - Artificial Intelligence
+    - Machine Learning
+    - AI Literacy
+    - Generative AI
+    - Gemini
+    - NotebookLM
+    - Computer Vision
+    - Natural Language Processing
+    - AI Ethics
+    - CAI1001C
+  license: CC-BY-4.0
+  open_access: true
+  github: https://github.com/c-marq/cai1001c-ai-thinking
+  edit_url: null
+  # Numbering
+  numbering:
+    heading_1: true
+    heading_2: true
+    heading_3: true
+    figure: true
+    table: true
+    equation: true
+  # PDF export
+  exports:
+    - format: pdf
+  # Table of contents — chapters added here as they are written
+  toc:
+    - file: index.md
+
+site:
+  title: "Mind the Machine"
+  options:
+    logo_text: "Mind the Machine"
+    logo_url: "/cai1001c-ai-thinking/"
