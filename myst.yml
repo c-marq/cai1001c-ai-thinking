@@ -30,14 +30,16 @@ project:
   open_access: true
   github: https://github.com/c-marq/cai1001c-ai-thinking
   edit_url: null
-  # Numbering
+  # Numbering — headings, figures and diagrams are numbered manually in the
+  # text (the book uses separate "Figure X.Y" and "Diagram X.Y" sequences),
+  # so MyST auto-numbering is turned off to avoid double numbering.
   numbering:
-    heading_1: true
-    heading_2: true
-    heading_3: true
-    figure: true
-    table: true
-    equation: true
+    heading_1: false
+    heading_2: false
+    heading_3: false
+    figure: false
+    table: false
+    equation: false
   # PDF export
   exports:
     - format: pdf
