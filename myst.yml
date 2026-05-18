@@ -41,9 +41,31 @@ project:
   # PDF export
   exports:
     - format: pdf
-  # Table of contents — chapters added here as they are written
+  # Table of contents
   toc:
     - file: index.md
+    - title: Front Matter
+      children:
+        - file: front-matter/dedication.md
+        - file: front-matter/foreword.md
+        - file: front-matter/how-to-use.md
+    - title: Chapters
+      children:
+        - file: chapters/ch01-age-of-ai.md
+        - file: chapters/ch02-digital-literacy-data.md
+        - file: chapters/ch03-working-with-data.md
+        - file: chapters/ch04-machine-learning.md
+        - file: chapters/ch05-computer-vision.md
+        - file: chapters/ch06-language-conversation.md
+        - file: chapters/ch07-generative-media.md
+        - file: chapters/ch08-ai-real-world.md
+    - title: Addenda
+      children:
+        - file: addenda/addendum-a-course-map.md
+        - file: addenda/addendum-b-glossary.md
+        - file: addenda/addendum-c-grading.md
+        - file: addenda/addendum-d-academic-integrity.md
+        - file: addenda/addendum-e-tool-reference.md
 
 site:
   title: "Mind the Machine"
