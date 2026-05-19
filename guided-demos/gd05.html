@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD05 — Teachable Machine: Train a Real Classifier — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD05 — Teachable Machine: Train a Real Classifier</h1>
+  <div class="meta">
+    Session 5 · Wednesday, May 27, 2026 &nbsp;|&nbsp; Chapter 4: Machine Learning &nbsp;|&nbsp;
+    <strong>Demo tools:</strong> Teachable Machine + TensorFlow Playground
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the Chapter 4 lecture. Paced for roughly
+    <strong>28 minutes</strong>. Both tools tonight — Teachable Machine and TensorFlow Playground —
+    are free, browser-based, and have <strong>no age limit</strong>, a change from last session's 18+
+    demo tool. This is still an instructor-led walkthrough; students get their own hands-on time with
+    Teachable Machine in the breakout lab.
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>This demo only lands if students <em>watch a model fail and then watch the same model improve</em>
+  — with nothing changing but the data. Set it up so you can stage that on purpose.</p>
+  <ul>
+    <li>Open <code>teachablemachine.withgoogle.com</code> in one tab — no account, no sign-in needed.</li>
+    <li>Decide your two demo classes ahead of time and have the objects on the desk. Simple and physical
+      works best — for example a <strong>Mug</strong> and a <strong>Phone</strong>. Two classes is plenty.</li>
+    <li>Test the classroom webcam and screen mirroring before students arrive — the demo is live video.</li>
+    <li>Open <code>playground.tensorflow.org</code> in a second tab for the back half of the demo.</li>
+    <li>Keep the Chapter 4 page open in a third tab — you will point back to Sections 4.2 and 4.3.</li>
+    <li>Plan to be <em>deliberately sloppy</em> on the first training pass (Card 2): few examples, one
+      angle, one light. The brittleness that causes is the whole lesson.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame it — we are opening the box</span><span class="clock">⏱ 0:00 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Pull up Teachable Machine, full screen. Hold up the mug and the phone. Don't touch the tool yet —
+      just set the stage.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "The lecture said classification is just <em>drawing a boundary between groups</em>, and that the
+      classifiers making real decisions about people are not black boxes. Time to prove it. In about two
+      minutes, with no code, I am going to train a working machine learning model on these two objects —
+      and then I am going to break it on purpose, so you see exactly where its quality comes from."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist re-teaching the five algorithms here — that was the lecture. This card is the
+      <em>doing</em> part. Keep it short and get to the webcam.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Create the classes and add examples — the lazy way</span><span class="clock">⏱ 0:03 · ~6 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      <ul>
+        <li>Choose a <strong>New Project → Image Project → Standard image model</strong>.</li>
+        <li>Rename the two classes meaningfully — <code>Mug</code> and <code>Phone</code>.</li>
+        <li>For each class, hold the object to the webcam and hold <strong>Record</strong> — but be
+          deliberately lazy: grab only a handful of frames, from one angle, in the current lighting.</li>
+      </ul></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "These webcam frames are the <em>training data</em>. Watch how little care I am taking — same
+      angle, same light, just a few shots. Everything from Chapter 1 said more and more <em>varied</em>
+      examples make a stronger model. I am doing the opposite, on purpose. Hold that thought."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      The Teachable Machine layout is stable, but if a control has moved, find the equivalent — the flow
+      is always: create classes, add example images, train, preview. Also: keep captured frames
+      appropriate, and don't record a student's face without asking.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Train it, test it — and break it</span><span class="clock">⏱ 0:09 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Click <strong>Train Model</strong> — in seconds it learns the boundary between your two classes.
+      Test it live in the preview panel: show the mug, show the phone, read the confidence scores aloud.
+      Then break it — change the angle, move to a different background, dim or brighten the light.
+      Watch the confidence wobble or flip to the wrong class.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "It worked beautifully on exactly what I showed it — and the moment I change the lighting, it falls
+      apart. It did not learn 'mug.' It learned 'a mug at this angle in this light.' This is Section 4.3
+      live: a model that <em>memorizes</em> its examples instead of learning the pattern. The honest word
+      for it is brittle."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      A thin model sometimes still guesses right — if it refuses to fail, push harder: a hand partly over
+      the object, a cluttered background, a new angle. An <em>honest</em> failure is the lesson; don't
+      fake one, but do hunt for the real one.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Retrain it honestly — change only the data</span><span class="clock">⏱ 0:14 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Add many more examples to each class — different angles, distances, lighting, backgrounds, even a
+      second person holding the object. Click <strong>Train Model</strong> again. Now re-run the exact
+      hard tests that broke it in Card 3.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Same tool. Same algorithm. Same two classes. The <em>only</em> thing I changed is the training
+      data — more examples, more variety — and look how much steadier it is. This is the single most
+      important practical lesson in the whole chapter: a model's quality lives in its data. A biased or
+      careless dataset becomes a biased or careless model, wearing a confident number."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Don't rush this card to save time — this contrast <em>is</em> the demo. If you must trim, trim
+      Card 1, not this one.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Switch tools — watch a network learn in TensorFlow Playground</span><span class="clock">⏱ 0:19 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open <code>playground.tensorflow.org</code> and press <strong>play</strong> — a small neural
+      network starts separating two colours of dots; watch the boundary form. Then switch the dataset to
+      the <strong>spiral</strong>: with the default setup the network struggles. Add a hidden layer or
+      two and more neurons, and watch the boundary gain the flexibility to wrap around the spiral.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is the <em>neural network</em> from Section 4.2, learning right in front of you. A simple,
+      straight-ish boundary cannot catch a spiral — but stack more small units in layers and the boundary
+      can bend into almost any shape. That flexibility is exactly what makes neural networks powerful,
+      and exactly what makes them harder to read than a decision tree."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Don't dive into the feature toggles or the math — this is an AI-literacy class. The visible idea —
+      a boundary forming and bending — carries the whole point.</div>
+  </div>
+</div>
+
+<!-- CARD 6 -->
+<div class="card">
+  <div class="card-head"><span class="num">6</span><span class="t">Push too far — see overfitting, then hand off</span><span class="clock">⏱ 0:24 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      On the spiral, pile on neurons and let it run a long while. Point at the two loss numbers: the
+      <strong>training loss</strong> keeps falling while the <strong>test loss</strong> starts rising,
+      and the boundary stops being a clean curve and starts contorting around individual dots.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "That divergence — training score improving, test score getting worse — <em>is</em> overfitting,
+      made visible. The network has stopped learning the pattern and started memorizing dots. And it ties
+      straight back to our mug model: the brittle first version overfit its few same-angle photos. Whether
+      it is a webcam classifier or a neural net, the failure is the same — memorizing instead of learning."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Close both tabs. "Now it is your turn — same tool, your own classifier." Pull up the
+      <strong>Group Lab (GRP05)</strong> and send students into breakout rooms to train, break, and
+      diagnose a model of their own.</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "what counts as enough data?"</span>
+      Be honest: there is no single number. It depends on how varied the real world is. The lab's whole
+      point is for students to <em>feel</em> the difference between too little and enough — let them
+      discover it rather than handing them a target.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 4 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/">https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/</a><br>
+  Group Lab GRP05 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp05.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp05.html</a><br>
+  Session 5 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/sessions/session05.html">https://c-marq.github.io/cai1001c-ai-thinking/sessions/session05.html</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>

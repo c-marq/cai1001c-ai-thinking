@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP05 — Train a Classifier in Teachable Machine — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  .checks{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0;}
+  .checks label{font-size:.86rem;font-weight:500;color:#444;}
+  .checks input{margin-right:4px;transform:translateY(1px);}
+  .paste{border:2px dashed var(--blue);border-radius:6px;min-height:120px;padding:10px;margin:8px 0;background:#FBFDFF;}
+  .paste:empty:before{content:attr(data-ph);color:#9AA;font-style:italic;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.paste{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP05 — Train a Classifier in Teachable Machine</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~40 minutes</span><br>
+    Session 5 · Chapter 4: Machine Learning &nbsp;|&nbsp; Featured tool: Teachable Machine &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group trains a real machine learning model — an image classifier — in
+  <strong>Teachable Machine</strong>, with no code. You will teach it from your own webcam examples,
+  then deliberately <strong>break it</strong> and diagnose why it failed. The goal is to feel the
+  chapter's central lesson first-hand: a model is only as good as its training data. Teachable Machine
+  is free, runs in the browser, needs no account, and has no age limit.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs Teachable Machine and the webcam on the shared screen</td><td><input type="text"></td></tr>
+  <tr><td>Data Interpreter — leads the training-data plan, owns the variety decisions</td><td><input type="text"></td></tr>
+  <tr><td>Presenter — delivers the share-out to the class</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — runs the break-it tests and fills in this worksheet</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Choose a classification task</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, pick a simple task a <strong>webcam image classifier</strong> could decide — two or three
+  classes. Name the classes now. Some options:
+  <ul>
+    <li><strong>Physical objects</strong> — mug vs. phone vs. notebook; pen vs. marker.</li>
+    <li><strong>Hand signs</strong> — rock vs. paper vs. scissors; thumbs-up vs. thumbs-down.</li>
+    <li><strong>Expressions</strong> — smiling vs. neutral.</li>
+  </ul>
+  Keep it appropriate, simple, and something every member can present to a webcam in class.</div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  Classification means sorting a new case into one of a few <strong>predefined categories</strong>.
+  Choosing the task and naming the classes <em>before</em> collecting any examples is the same first
+  move a data scientist makes — you decide what the model is for, then you gather data for it.</div>
+<label class="fld">Our classification task, and the classes (categories) we will train:</label>
+<textarea rows="2"></textarea>
+<label class="fld">Why this is a good fit for a webcam classifier:</label>
+<textarea rows="2"></textarea>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Plan your training data</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Before recording anything, decide as a group and <strong>write it down</strong>: how many examples
+  per class, and how you will make them <strong>varied</strong> — different angles, distances, lighting,
+  backgrounds, and group members. A plan made on purpose beats examples grabbed carelessly.</div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  This is the chapter's biggest practical lesson: the model's quality lives in its training data. The
+  algorithm is fixed — the examples you give it are the part you actually control.</div>
+<label class="fld">How many examples per class we plan to record:</label>
+<input type="text">
+<label class="fld">How we will make the examples varied (angles, distances, lighting, backgrounds, people):</label>
+<textarea rows="3"></textarea>
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Recording 30 near-identical frames from one angle in one light. That is not 30 examples of the
+  concept — it is basically one example copied 30 times. A model trained that way learns "this object,
+  here, in this light," not the object itself. Variety is the whole point.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before you record: your group can name the task, name the classes, and has a <em>written</em> plan
+  for varied training data. If the variety plan is still only spoken, write it down now.</div>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Train it</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  <ul>
+    <li>Go to <code>teachablemachine.withgoogle.com</code> and choose <strong>New Project → Image
+      Project → Standard image model</strong> — no account needed.</li>
+    <li>Create one class per category and rename each one meaningfully.</li>
+    <li>For each class, hold the object or sign to the webcam and record examples — follow your Step 2
+      plan for both the count and the variety.</li>
+    <li>Click <strong>Train Model</strong>. In seconds it learns the boundary between your classes.</li>
+    <li>Test it live in the preview panel — show the webcam each class and watch the confidence scores.</li>
+  </ul></div>
+<label class="fld">How many examples we actually recorded per class (final count):</label>
+<input type="text">
+<label class="fld">Paste a screenshot of your trained model with its classes (click below, then Ctrl/Cmd+V):</label>
+<div class="paste" contenteditable="true" data-ph="Click here and paste your trained-model screenshot…"></div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>Break it on purpose</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  Now make your model fail — honestly. Try a new lighting condition, a new background, a different
+  angle, a different person, or an object it was never trained on. Find a situation where it predicts
+  the <strong>wrong class</strong> or wobbles with low confidence. Then diagnose <strong>why</strong>,
+  using this chapter's vocabulary — training data, variety, overfitting, generalization.</div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  A model that only works in the exact conditions it was trained in has not learned the concept — it
+  memorized your examples. Breaking it on purpose is how you find out whether it
+  <strong>generalizes</strong> to anything new.</div>
+<label class="fld">The failure we found — what we showed it, and what it predicted:</label>
+<textarea rows="2"></textarea>
+<label class="fld">Why it failed, in this chapter's terms — name the training-data cause (this is graded):</label>
+<textarea rows="3"></textarea>
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  "It works perfectly — we can't break it." You probably have not pushed hard enough. Change two things
+  at once (new background <em>and</em> new lighting), or show it something outside all of its classes.
+  Every model has a breaking point; finding it is the assignment.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  You have a working model, your final examples-per-class count is recorded, and you found one real
+  failure with a <em>why</em> written in chapter vocabulary. If the "why" just says "it didn't work,"
+  sharpen it — name what about the training data caused the failure.</div>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Prepare your share-out</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Your Presenter gives the class a 60-second report: demo the model live, show your one failure, and
+  explain its cause. Fill this in together.</div>
+<label class="fld">One-paragraph description of our model — the task, the classes, what it does:</label>
+<textarea rows="4"></textarea>
+<label class="fld">Our one failure and what about the training data caused it (about three sentences):</label>
+<textarea rows="3"></textarea>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your trained-model screenshot, your
+  final examples-per-class count, the one-paragraph model description, and three sentences on one
+  failure and its training-data cause.</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm your screenshot is not
+  cut off, then upload the PDF to the <strong>GRP05</strong> assignment in Canvas. One submission per
+  group, with every member's name in the roles table. Due by the end of class.</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>Teachable Machine can't see our webcam.</td><td>Allow camera access when the browser asks. Make sure no other app or tab (Zoom, another meeting) is already holding the camera, then reload the page.</td></tr>
+  <tr><td>The model predicts the same class no matter what we show it.</td><td>Usually one class has far more examples than the others, or the classes look too similar to the camera. Balance the example counts and pick more visually distinct classes.</td></tr>
+  <tr><td>Confidence scores jump around wildly.</td><td>The background or lighting is doing the work, not the object. Re-record with cleaner, more varied examples — adding a class for "nothing"/empty background can also help.</td></tr>
+  <tr><td>It works on us but fails on a classmate.</td><td>That is the lesson, not a bug — the model generalizes only to what is in its training data. Add that classmate's examples and retrain.</td></tr>
+  <tr><td>A pasted screenshot won't show when printing.</td><td>Click inside the dashed box first, then paste. If it still clips, paste a smaller image.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 4 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/">https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/</a><br>
+  Guided Demo GD05 (Teachable Machine) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd05.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd05.html</a><br>
+  Session 5 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/sessions/session05.html">https://c-marq.github.io/cai1001c-ai-thinking/sessions/session05.html</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>

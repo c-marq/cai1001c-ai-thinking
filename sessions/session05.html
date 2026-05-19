@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 — Machine Learning — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#9FB6D4;}
+  .masthead h1{margin:8px 0 10px;font-size:1.6rem;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.8rem;padding:3px 11px;border-radius:12px;margin:0 8px 6px 0;}
+  .masthead .meta{font-size:.93rem;color:#C9D2E3;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  p,li{font-size:.96rem;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .intro{background:#D6EAF8;border-left:5px solid var(--blue);padding:14px 16px;border-radius:4px;margin:18px 0;}
+  table.info{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.info td{border:1px solid var(--line);padding:8px 11px;font-size:.93rem;}
+  table.info td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  table.sched{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.sched th,table.sched td{border:1px solid var(--line);padding:8px 11px;text-align:left;font-size:.92rem;}
+  table.sched th{background:var(--blue);color:#fff;}
+  table.sched td:first-child{white-space:nowrap;font-weight:600;color:var(--blue-d);}
+  ul.checklist{list-style:none;padding-left:2px;margin:12px 0;}
+  ul.checklist li{margin:7px 0;}
+  ul.checklist label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;}
+  ul.checklist input{margin-top:4px;transform:scale(1.15);flex:0 0 auto;}
+  .blocks{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+  .blockcard{flex:1;min-width:250px;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px;padding:14px 16px;}
+  .blockcard h3{margin:0 0 6px;color:var(--navy);font-size:1.02rem;}
+  .blockcard p{margin:0;font-size:.93rem;}
+  .links{margin:14px 0;}
+  a.linkcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;padding:13px 16px;margin:11px 0;transition:background .12s,border-color .12s;}
+  a.linkcard:hover{background:#F4F9FD;border-left-color:var(--navy);}
+  .linkcard .lc-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);}
+  .linkcard .lc-title{display:block;font-weight:700;color:var(--navy);font-size:1.02rem;margin:2px 0 3px;}
+  .linkcard .lc-desc{font-size:.9rem;color:#555;}
+  .linkcard .lc-url{display:block;font-size:.8rem;color:#8893A2;word-break:break-all;margin-top:4px;}
+  .footer{margin-top:38px;border-top:1px solid var(--line);padding-top:14px;font-size:.85rem;color:#888;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .masthead,table.sched th,.pill,.blockcard,a.linkcard,.intro{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .blockcard,a.linkcard,table.sched,table.info,.intro{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a.linkcard:hover{background:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Course Session</div>
+  <h1>Session 5 — Machine Learning</h1>
+  <div>
+    <span class="pill">Session 5 of 11</span>
+    <span class="pill">Week 3</span>
+    <span class="pill">Chapter 4</span>
+  </div>
+  <div class="meta">Wednesday, May 27, 2026 &nbsp;·&nbsp; 6:00–9:20 PM</div>
+</div>
+
+<div class="intro">
+  "AI is a black box" is one of the most repeated ideas about artificial intelligence — and for the
+  classifiers that make the most consequential everyday decisions about people, it simply is not true.
+  Tonight we open the box: we see what it means for a machine to <em>learn to decide</em>, meet the five
+  workhorse algorithms that draw the boundary between categories, and learn why a model must be judged on
+  data it has never seen — and why accuracy alone can lie. In the second half, your group trains a real,
+  working classifier in Teachable Machine, then breaks it on purpose to see why a model is only as good
+  as its training data.
+</div>
+
+<table class="info">
+  <tr><td>Course</td><td>CAI1001C — AI Thinking</td></tr>
+  <tr><td>Chapter</td><td>Chapter 4: Machine Learning</td></tr>
+  <tr><td>Featured tool</td><td>Teachable Machine &nbsp;(instructor demo also uses TensorFlow Playground)</td></tr>
+</table>
+
+<h2>Tonight's schedule</h2>
+<table class="sched">
+  <tr><th>Time</th><th>Block</th><th>Focus</th></tr>
+  <tr><td>6:00–7:30</td><td>Block A</td><td>Recap, lecture, and the live Teachable Machine + TensorFlow Playground demo</td></tr>
+  <tr><td>7:30–7:45</td><td>Break</td><td>15-minute break</td></tr>
+  <tr><td>7:45–9:20</td><td>Block B</td><td>Use-case discussion, then breakout lab: train a classifier in Teachable Machine</td></tr>
+</table>
+
+<h2>Before class</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Read <strong>Chapter 4: Machine Learning</strong> (link below).</label></li>
+  <li><label><input type="checkbox"> No account needed for tonight's hands-on tool — Teachable Machine runs in the browser at <code>teachablemachine.withgoogle.com</code>, and has no age limit.</label></li>
+  <li><label><input type="checkbox"> Come with one real decision from your work, studies, or daily life that could be framed as a yes/no classification — approve/deny, urgent/routine, safe/at-risk. We open Block B by discussing it.</label></li>
+</ul>
+
+<h2>What we're doing</h2>
+<div class="blocks">
+  <div class="blockcard">
+    <h3>Block A — Lecture &amp; live demo</h3>
+    <p>The chapter's core idea: classification is drawing a <strong>boundary</strong> between groups of
+    labelled examples, and the five workhorse algorithms — k-NN, decision trees, linear classifiers, SVM,
+    and neural networks — are just five ways to draw it. We also cover the part that separates a useful
+    model from a useless one: testing on unseen data, <strong>overfitting</strong>, and why a
+    99%-accurate model can still be worthless. Then a live demo — training a real classifier from webcam
+    examples in <strong>Teachable Machine</strong>, and watching a neural network learn (and overfit) in
+    <strong>TensorFlow Playground</strong>.</p>
+  </div>
+  <div class="blockcard">
+    <h3>Block B — Discussion &amp; breakout lab</h3>
+    <p>A short use-case discussion opens the block: where in your own field does a real decision become a
+    classification problem, and what bias might already hide in the training examples? Then you move into
+    groups for the lab — each group trains its own image classifier in Teachable Machine, breaks it on
+    purpose, and diagnoses the failure using this chapter's vocabulary.</p>
+  </div>
+</div>
+
+<h2>Wrap-up</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Finish the <strong>group lab</strong> worksheet and submit it as a PDF to Canvas (4 points).</label></li>
+  <li><label><input type="checkbox"> Answer the five review questions and the discussion question at the end of Chapter 4.</label></li>
+</ul>
+
+<h2>Session links</h2>
+<div class="links">
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/">
+    <span class="lc-label">Chapter</span>
+    <span class="lc-title">Chapter 4: Machine Learning</span>
+    <span class="lc-desc">The full chapter — read this before class.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/ch04-machine-learning/</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd05.html">
+    <span class="lc-label">Guided Demo · GD05</span>
+    <span class="lc-title">Teachable Machine: Train a Real Classifier</span>
+    <span class="lc-desc">Instructor walkthrough of tonight's live demo.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd05.html</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp05.html">
+    <span class="lc-label">Group Lab · GRP05</span>
+    <span class="lc-title">Train a Classifier in Teachable Machine</span>
+    <span class="lc-desc">Tonight's breakout worksheet — fill in and submit as a PDF.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp05.html</span>
+  </a>
+</div>
+
+<div class="footer">
+  CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez
+</div>
+
+</body>
+</html>
