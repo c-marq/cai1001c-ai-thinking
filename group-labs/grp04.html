@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP04 — Build an Honest Chart — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  .checks{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0;}
+  .checks label{font-size:.86rem;font-weight:500;color:#444;}
+  .checks input{margin-right:4px;transform:translateY(1px);}
+  .paste{border:2px dashed var(--blue);border-radius:6px;min-height:120px;padding:10px;margin:8px 0;background:#FBFDFF;}
+  .paste:empty:before{content:attr(data-ph);color:#9AA;font-style:italic;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.paste{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP04 — Build an Honest Chart</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~40 minutes</span><br>
+    Session 4 · Chapter 3: Working with Data &nbsp;|&nbsp; Featured tool: Datawrapper &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group takes a real dataset from someone's <strong>line of work</strong> — a job, a
+  field of study, a community role — and walks it up the Chapter 3 staircase: explore it, clean it,
+  and turn it into one honest chart in Datawrapper. The goal is honest work, not a fancy chart.
+  Datawrapper is free, runs in the browser, and needs no account.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs Datawrapper on the shared screen</td><td><input type="text"></td></tr>
+  <tr><td>Data Interpreter — leads explore &amp; clean, owns the cleaning decision</td><td><input type="text"></td></tr>
+  <tr><td>Presenter — delivers the share-out to the class</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — stress-tests the chart and fills this worksheet</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Choose a dataset from someone's line of work</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  As a group, pick <strong>one real, small dataset</strong> tied to a member's job, studies, or
+  community role. It needs at least one <strong>date or category</strong> column and one
+  <strong>number</strong> column. Real examples by field:
+  <ul>
+    <li><strong>Healthcare</strong> — monthly patient-visit counts; supplies used per week.</li>
+    <li><strong>Business / retail</strong> — weekly sales; orders per product; foot traffic by day.</li>
+    <li><strong>Skilled trades</strong> — job durations; material costs per month.</li>
+    <li><strong>Community / nonprofit</strong> — a food pantry's monthly demand; event attendance.</li>
+    <li><strong>Student life</strong> — study hours per week; club attendance; monthly expenses.</li>
+  </ul>
+  No real dataset on hand? Type a small honest one from memory (10–15 rows), or use a small public
+  dataset.</div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  A chart only matters when it answers a real question someone actually has. Starting from a
+  member's own work means the question is real — and the person who knows the data can tell the
+  group whether a strange value is an error or a true story.</div>
+<label class="fld">Whose line of work this dataset comes from, and what it records:</label>
+<textarea rows="2"></textarea>
+<label class="fld">The question we want our chart to answer:</label>
+<textarea rows="2"></textarea>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Explore and clean it together</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  Apply Sections 3.1 and 3.2. As a group: note the dataset's <strong>size</strong> (rows and
+  columns), confirm what each column is, and hunt for <strong>at least one problem</strong> —
+  a missing value, an error, a duplicate, or an inconsistent format. Decide together how to handle
+  it, and <strong>write the decision down</strong>.</div>
+<label class="fld">Size — how many rows and columns:</label>
+<input type="text">
+<label class="fld">The problem we found (tick the type, then describe it):</label>
+<div class="checks">Type:
+  <label><input type="checkbox">Missing value</label>
+  <label><input type="checkbox">Error</label>
+  <label><input type="checkbox">Duplicate</label>
+  <label><input type="checkbox">Inconsistent format</label>
+</div>
+<textarea rows="2"></textarea>
+<label class="fld">How we decided to handle it — and why (this is graded):</label>
+<textarea rows="3"></textarea>
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Deleting every row with a blank "to be safe." A cleaning choice is a judgment call — if the rows
+  you drop all belong to one group, you have quietly erased that group from the chart. Decide on
+  purpose, and record the decision.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before building: your group can state the dataset's size, you have found one real problem, and
+  you have written down your handling decision. If the decision isn't written, write it now.</div>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Build the chart in Datawrapper</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  <ul>
+    <li>Go to <code>datawrapper.de</code> and create a new chart — no account needed.</li>
+    <li>Paste or upload your cleaned data. Check that each column is read correctly (date, number, category).</li>
+    <li>Choose the chart type that fits your question (Section 3.4): <strong>bar</strong> to compare,
+      <strong>line</strong> for change over time, <strong>scatter</strong> for a relationship.</li>
+    <li>Give it an honest title that <strong>states the point</strong> — "Patient visits rose 22%
+      over the spring," not "Visits Chart."</li>
+    <li>Confirm the axis <strong>starts at zero</strong> and the labels are clear.</li>
+  </ul></div>
+<label class="fld">Chart type we chose, and why it fits our question:</label>
+<textarea rows="2"></textarea>
+<label class="fld">Our chart's title (the one that states the point):</label>
+<input type="text">
+<label class="fld">Paste a screenshot of your finished chart (click below, then Ctrl/Cmd+V):</label>
+<div class="paste" contenteditable="true" data-ph="Click here and paste your chart screenshot…"></div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>Stress-test your own chart</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Turn Section 3.5 on your own chart. Check it honestly against all four tricks — and fix anything
+  that fails before you submit.</div>
+<table>
+  <tr><th>Misleading trick</th><th>Is our chart clear of it?</th></tr>
+  <tr><td>Truncated axis — does the axis start at zero?</td><td><input type="text"></td></tr>
+  <tr><td>Cherry-picked range — does it show the full relevant span?</td><td><input type="text"></td></tr>
+  <tr><td>Wrong chart type — does the type fit the question?</td><td><input type="text"></td></tr>
+  <tr><td>Missing context — do the numbers have something to compare to?</td><td><input type="text"></td></tr>
+</table>
+<label class="fld">Anything we fixed after the stress-test:</label>
+<textarea rows="2"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Could anyone reasonably accuse your chart of misleading? If yes, fix it now — an honest chart is
+  the whole point of tonight.</div>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Prepare your share-out</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Your Presenter gives the class a 60-second report. Fill this in together.</div>
+<label class="fld">The data problem we found and how we handled it (one sentence):</label>
+<textarea rows="2"></textarea>
+<label class="fld">Our chart's main point, in one sentence:</label>
+<textarea rows="2"></textarea>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your finished chart, one sentence on
+  the data problem you found and your decision, and one sentence on the chart's main point.</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm your chart screenshot
+  is not cut off, then upload the PDF to the <strong>GRP04</strong> assignment in Canvas. One
+  submission per group, with every member's name in the roles table. Due by the end of class.</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>Datawrapper reads our number column as text.</td><td>Check for stray characters — a currency symbol, a comma, a space. Clean those out of the data and re-paste.</td></tr>
+  <tr><td>Our dates won't line up on the axis.</td><td>Inconsistent date formats. Make them all one format (Section 3.2) before pasting — Datawrapper charts what you give it.</td></tr>
+  <tr><td>The chart looks flat and uninteresting.</td><td>That may be the honest truth of the data. Do not truncate the axis to manufacture drama — a flat result is a real result.</td></tr>
+  <tr><td>The group can't agree on a chart type.</td><td>Go back to your Step 1 question. Comparing categories → bar. Change over time → line. A relationship between two numbers → scatter.</td></tr>
+  <tr><td>A pasted screenshot won't show when printing.</td><td>Click inside the dashed box first, then paste. If it still clips, paste a smaller image.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 3 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch03-working-with-data/">https://c-marq.github.io/cai1001c-ai-thinking/ch03-working-with-data/</a><br>
+  Guided Demo GD04 (Google AI Studio) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd04.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd04.html</a><br>
+  Session 4 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session04/">https://c-marq.github.io/cai1001c-ai-thinking/session04/</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>

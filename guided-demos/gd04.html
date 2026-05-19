@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD04 — Google AI Studio for Data Cleaning — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD04 — Google AI Studio: Cleaning a Real Dataset</h1>
+  <div class="meta">
+    Session 4 · Wednesday, May 20, 2026 &nbsp;|&nbsp; Chapter 3: Working with Data &nbsp;|&nbsp;
+    <strong>Demo tool:</strong> Google AI Studio
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the Chapter 3 lecture and the Datawrapper
+    walkthrough. Paced for roughly <strong>20 minutes</strong>. This is a <strong>demonstration
+    only</strong> — Google AI Studio requires users to be 18 or older, so students do not follow
+    along. Their hands-on tool tonight is Datawrapper.
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>The demo lands only if students have just felt how tedious manual cleaning is. Have a genuinely
+  messy table ready and let them see the mess first.</p>
+  <ul>
+    <li>Sign in to <code>aistudio.google.com</code> with your Google account ahead of time, and
+      open a fresh prompt.</li>
+    <li>Have the messy demo dataset below ready to paste — it is the Chapter 3 coffee-shop sales,
+      deliberately dirtied with the four problem types from Section 3.2:</li>
+  </ul>
+<pre>date,day_sales,category
+2025-01-02,310,Regular
+Jan 3 2025,295,regular
+2025-01-04,,Regular
+2025-01-04,,Regular
+2025-01-05,4200,Holiday
+2025/01/06,3.05,Regular
+2025-01-07,288,REGULAR</pre>
+  <ul>
+    <li>Spot the planted problems so you can name them live: a <strong>missing value</strong> (Jan 4),
+      a <strong>duplicate row</strong> (Jan 4 twice), an <strong>error</strong> (4200 — and 3.05,
+      a price-style typo), and <strong>inconsistent formats</strong> (three date styles; "Regular"
+      in four casings).</li>
+    <li>Mirror your screen; keep the Chapter 3 page open in a second tab for Section 3.2.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame the problem — show the mess</span><span class="clock">⏱ 0:00 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Display the messy table above. Walk the four planted problems out loud, pointing at each cell:
+      the blank, the repeated row, the impossible 4200, the three date formats.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is Section 3.2 in one little table — missing value, duplicate, error, inconsistent
+      format. Cleaning this by hand is the 80% of data work nobody photographs. Let me show you a
+      developer's tool that can take a first pass at it — and exactly where it still needs a human."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Keep this a demo, not a follow-along — AI Studio is 18+. Tell students plainly: watch this one;
+      your tool tonight is Datawrapper, which has no age limit and no account.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Open AI Studio and set a system instruction</span><span class="clock">⏱ 0:03 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      In AI Studio, find the <strong>System instructions</strong> field (separate from the chat box)
+      and type a role for the AI:
+      <pre>You are a careful data-cleaning assistant.
+Standardize all dates to YYYY-MM-DD.
+Make category capitalization consistent.
+Remove exact duplicate rows.
+NEVER guess or invent a missing value — leave it blank and flag it.
+Flag any value that looks impossible instead of silently fixing it.</pre></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is what the Gemini chat box hides. A <em>system instruction</em> fixes the AI's job
+      before it sees any data. Notice the most important line — <em>never guess a missing value</em>.
+      That is Section 3.2 talking: a missing value is a question, not a blank to paper over. We are
+      building our cleaning judgment into the tool's rules."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      If the AI Studio layout has shifted, the System instructions field may be under a settings
+      or panel toggle. The idea is what matters — a standing instruction, set apart from the prompt.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Turn on structured output</span><span class="clock">⏱ 0:08 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      In the run settings, switch the response format from plain text to <strong>structured output</strong>
+      (JSON). Point out that you are asking for clean, table-ready rows — not a paragraph describing
+      the data.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Structured output is the second thing the chat box hides. Normal chat gives you prose — nice
+      to read, useless to load into Datawrapper or a model. Structured output forces clean, regular
+      rows that drop straight into the next tool. This is the difference between AI as a chatbot and
+      AI as a data-pipeline part."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do not go deep on JSON syntax — this is an AI-literacy class, not a coding class. "Regular,
+      table-shaped data" is the whole point; the brackets are just how the machine writes it.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Run it on the messy data</span><span class="clock">⏱ 0:12 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Paste the messy table into the prompt and run it. Put the result next to the original and read
+      the changes against your four planted problems:
+      <ul>
+        <li>Dates — all three formats now <code>YYYY-MM-DD</code>.</li>
+        <li>Category — one consistent capitalization.</li>
+        <li>The duplicate Jan 4 row — removed.</li>
+        <li>The blank — still blank, and <strong>flagged</strong>, not invented.</li>
+        <li>The 4200 (and 3.05) — flagged as suspicious, not silently changed.</li>
+      </ul></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Look at what it did and did not do. Formats and the duplicate — fixed; safe, mechanical work.
+      The missing value and the impossible number — flagged and handed back to us. That is the tool
+      respecting the rule we gave it. The machine did the tedious 80%; the judgment stays ours."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      The model may behave imperfectly — it might still alter a flagged value, or miss one. Do not
+      hide that. If it slips, name it: this is why a human reviews AI-cleaned data against the
+      original. An imperfect run is a better lesson than a perfect one.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Land the point — and hand off to the lab</span><span class="clock">⏱ 0:17 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Two takeaways. First — a system instruction plus structured output turns a chat model into a
+      real data-cleaning aid, and you just watched one. Second, and bigger: the tool was only as good
+      as the rules <em>we</em> wrote. We told it never to guess. A careless instruction — 'just make
+      the data clean' — and it might have quietly filled that blank with an average and erased the
+      question. Cleaning is judgment, whether a person or an AI does the typing."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Close AI Studio. "Now it is your turn — with a tool every one of you can use." Pull up the
+      <strong>Group Lab (GRP04)</strong> and send students to breakout rooms to build an honest
+      chart in Datawrapper.</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "can we use this?"</span>
+      Be direct: AI Studio is 18+, so it is not a graded task here. Students 13+ can get AI help on
+      a dataset through Gemini (Chapter 1) — upload a file, ask questions — and then judge the answer
+      with the cleaning eye this chapter gave them.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 3 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch03-working-with-data/">https://c-marq.github.io/cai1001c-ai-thinking/ch03-working-with-data/</a><br>
+  Group Lab GRP04 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp04.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp04.html</a><br>
+  Session 4 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session04/">https://c-marq.github.io/cai1001c-ai-thinking/session04/</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
