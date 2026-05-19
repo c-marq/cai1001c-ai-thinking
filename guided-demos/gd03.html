@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD03 — NotebookLM Walkthrough — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD03 — NotebookLM: Research That Cites Its Sources</h1>
+  <div class="meta">
+    Session 3 · Monday, May 18, 2026 &nbsp;|&nbsp; Chapter 2: Digital Literacy and Data &nbsp;|&nbsp;
+    <strong>Featured tool:</strong> NotebookLM
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the welcome and lecture. The walkthrough below
+    is paced for roughly <strong>45 minutes</strong>. It mirrors Chapter 2, Section 2.6 — students
+    have read it, so the demo is you showing them what they read.
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo notebook</h3>
+  <p>NotebookLM answers <em>only</em> from sources you add, so the demo is only as good as the
+  notebook you walk in with. Build it in advance:</p>
+  <ul>
+    <li>Sign in to <code>notebooklm.google.com</code> with your MDC Google account ahead of time.</li>
+    <li>Create one notebook and curate <strong>about four trustworthy sources</strong> on a single
+      question. Suggested topic, because it reinforces Section 2.3: <em>"Has the Internet of Things
+      actually made cities better?"</em> — e.g., a city government smart-city page, a reputable
+      tech or engineering explainer, a research overview, and one short explainer video. Swap in
+      your own topic if you prefer; keep it to one focused question.</li>
+    <li>Have <strong>one citation already clicked once</strong> so you know which passage it jumps to.</li>
+    <li>Optional but recommended: start an <strong>Audio Overview generating</strong> right before
+      class so it is ready when you reach Card 4 — it takes a minute or two.</li>
+    <li>Mirror your screen and keep the Chapter 2 page open in a second tab.</li>
+  </ul>
+</div>
+
+<h2>The Walkthrough</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Open NotebookLM and create a notebook</span><span class="clock">⏱ 0:00 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Go to <code>notebooklm.google.com</code>, signed in. Click <strong>Create new</strong> (or
+      <strong>New notebook</strong>). Give it a clear name tied to the question.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Last chapter we met Gemini — it answers from <em>everything</em> it was trained on, and that
+      is why it can drift into a confident guess. NotebookLM is the opposite tool. It answers
+      <em>only</em> from sources <em>we</em> hand it, and it shows us exactly where each answer came
+      from. Same kind of model underneath — pointed at a different job."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      A student may not be able to follow along yet — that is fine, this card is just you. Reassure
+      them: as of May 2026 NotebookLM is free with any Google account and open to anyone 13 or older,
+      so everyone can use it in the lab.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Add your curated sources</span><span class="clock">⏱ 0:03 · ~6 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open the <strong>Sources</strong> panel and click <strong>Add</strong>. Show the range of
+      source types as you add your four: <strong>upload a PDF</strong>, <strong>paste a website
+      address</strong>, <strong>link a Google Doc</strong>, and <strong>add a video</strong>. Let
+      students watch each one get ingested.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is the most important step in the whole tool. The five questions from Section 2.2 —
+      who made it, how current, what evidence, what purpose, does it hold up — that is the work
+      that happens <em>before</em> a source ever lands here. <em>Curate before you add.</em>
+      Feed it four weak sources and it will give you beautifully cited weak answers."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Flag the ethics point now, not later: never upload someone else's private material — patient
+      records, a colleague's file, confidential business documents — into a personal AI tool.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Ask questions — and click the citations</span><span class="clock">⏱ 0:09 · ~8 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      In the <strong>Chat</strong> panel, ask two or three plain-language questions, e.g.
+      <em>"What are the main benefits this material identifies?"</em> and
+      <em>"Summarize the concerns raised across all the sources."</em> When an answer appears,
+      <strong>click a numbered citation</strong> — it jumps to the exact passage in the source.
+      Click two or three.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Every claim comes with a numbered citation. Clicking one takes you to the sentence that
+      backs it. That click is you doing Section 2.2's question 3 — <em>what is the evidence?</em> —
+      in about one second. Get in the habit of clicking them."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist answering from your own knowledge. If a question's answer is not in the sources, that
+      is the demo working — save it; you will use exactly that behavior in Card 6.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Tour the Studio panel</span><span class="clock">⏱ 0:17 · ~12 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open the <strong>Studio</strong> panel and show what it can build from the same sources:
+      <ul>
+        <li><strong>Audio Overview</strong> — a podcast-style discussion of the sources (the one
+          you pre-generated; play 15–20 seconds).</li>
+        <li><strong>Video Overview</strong> — a narrated visual summary.</li>
+        <li><strong>Mind Map</strong> — click into a node to expand it.</li>
+        <li><strong>Slides</strong> — a generated deck of the key points.</li>
+        <li><strong>Reports / Briefing doc</strong> — a written summary of the sources.</li>
+        <li><strong>Flashcards</strong> and <strong>Quiz</strong> — study and self-check material.</li>
+      </ul></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Every one of these is generated from <em>your</em> curated sources — so unlike a generic AI,
+      it stays on your topic. The Audio Overview is a study podcast for the commute. The flashcards
+      and quiz are made from your actual material, not a textbook average."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Generation takes a minute or two — never wait on it live. Pre-start the Audio Overview, and
+      while a second item generates, keep talking or click into the mind map.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Prompt the Studio apps &amp; the outputs &rarr; notes &rarr; sources loop</span><span class="clock">⏱ 0:29 · ~7 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Show that Studio outputs are <strong>steerable</strong>: when generating an Audio Overview,
+      report, or quiz, open <strong>Customize</strong> and give a short focus instruction —
+      <em>"focus on the safety section,"</em> <em>"explain it for a beginner,"</em>
+      <em>"make the quiz harder."</em> Then show the loop: <strong>save</strong> a strong chat
+      answer or Studio output as a <strong>Note</strong> &rarr; select your notes &rarr;
+      <strong>convert a note into a source</strong>.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Here is the loop that makes this powerful. You ask a question, you get a cited answer, you
+      save the good ones as Notes. Then your notes — your own synthesis — can become sources
+      themselves. The notebook gets richer over time, and it stays grounded the whole way, because
+      everything traces back to material you chose."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Controls and labels shift between NotebookLM updates. Tell students plainly: if a button has
+      moved, find the equivalent — the idea (steer it, save it, reuse it) does not change.</div>
+  </div>
+</div>
+
+<!-- CARD 6 -->
+<div class="card">
+  <div class="card-head"><span class="num">6</span><span class="t">Show what NotebookLM will NOT do</span><span class="clock">⏱ 0:36 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Ask the notebook a question your sources clearly do <strong>not</strong> cover. Let the class
+      see it say the answer is not in the material rather than invent one.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Watch this. It is <em>refusing</em> — and that refusal is the tool working correctly. Ask
+      Gemini the same thing and it will happily produce a confident answer with no sources behind
+      it. That difference is the whole point of grounding."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do not let "it cites its sources" become "so it must be true." Say it directly: a citation
+      shows you <em>where</em> a claim came from, not that the claim is correct. Garbage sources
+      produce well-cited garbage. The judgment stays with the person who chose the sources.</div>
+  </div>
+</div>
+
+<!-- CARD 7 -->
+<div class="card">
+  <div class="card-head"><span class="num">7</span><span class="t">NotebookLM + Gemini, then open the use-case discussion</span><span class="clock">⏱ 0:40 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "The two tools are a pair. The workflow you'll use all term: <strong>research grounded in
+      NotebookLM</strong> — gather credible sources, ask until you understand, every claim cited —
+      <strong>then draft with Gemini</strong>, which is stronger at shaping writing. NotebookLM
+      keeps the facts honest; Gemini helps with the words."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — run the use-case discussion</span>
+      Put up these uses and ask the room which fits their own field, then ask for ideas of their own:
+      <ul>
+        <li><strong>Healthcare student</strong> — load assigned readings and lecture notes; get a
+          hard concept explained and a practice quiz, all cited to the actual course material.</li>
+        <li><strong>Small-business owner</strong> — drop in three vendor contracts; ask for a plain
+          comparison of the cancellation terms, each point traceable to the contract.</li>
+        <li><strong>Skilled trades</strong> — load an equipment manual and a safety standard; ask
+          for the exact procedure for a task, cited to the page.</li>
+        <li><strong>Anyone facing a dense document</strong> — a lease, a benefits packet, a policy:
+          add it and ask plain questions instead of guessing.</li>
+      </ul></div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — transition</span>
+      Keep the discussion to a few minutes, then hand off to Block B: pull up the
+      <strong>Group Lab (GRP03)</strong> link and send students to breakout rooms to build a
+      grounded notebook of their own.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 2 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch02-digital-literacy-data/">https://c-marq.github.io/cai1001c-ai-thinking/ch02-digital-literacy-data/</a><br>
+  Group Lab GRP03 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp03.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp03.html</a><br>
+  Take-Home NG02 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/homeworks/ng02.html">https://c-marq.github.io/cai1001c-ai-thinking/homeworks/ng02.html</a><br>
+  Session 3 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/sessions/session03.html">https://c-marq.github.io/cai1001c-ai-thinking/sessions/session03.html</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
