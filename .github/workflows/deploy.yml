@@ -35,11 +35,16 @@ jobs:
       - name: Build HTML Assets
         run: myst build --html
       # MyST only builds the pages registered in myst.yml. The standalone
-      # HTML worksheets (guided demos, group labs, homeworks) are not MyST
-      # pages, so they must be copied into the build output by hand or they
-      # will never reach the deployed site.
-      - name: Copy standalone HTML worksheets into the build
-        run: cp -r guided-demos group-labs homeworks _build/html/
+      # HTML files (guided demos, group labs, homeworks, and any standalone
+      # session pages) are not MyST pages, so they must be copied into the
+      # build output by hand or they will never reach the deployed site.
+      # Session pages: only the .html files are copied — the .md session
+      # pages are still built into the book by MyST and must not be
+      # duplicated here.
+      - name: Copy standalone HTML files into the build
+        run: |
+          cp -r guided-demos group-labs homeworks _build/html/
+          mkdir -p _build/html/sessions && cp sessions/*.html _build/html/sessions/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
