@@ -61,9 +61,8 @@ project:
         - file: chapters/ch06-language-conversation.md
         - file: chapters/ch07-generative-media.md
         - file: chapters/ch08-ai-real-world.md
-    - title: Course Sessions
-      children:
-        - file: sessions/session03.md
+    # Course Sessions are standalone HTML hub pages under /sessions/,
+    # published by the deploy workflow's copy step — not MyST book pages.
     - title: Addenda
       children:
         - file: addenda/addendum-a-course-map.md
