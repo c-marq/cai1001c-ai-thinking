@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP06 — Stress-Test a Vision Model — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  table.results th:nth-child(1){width:34%;}
+  table.results th:nth-child(2){width:24%;}
+  table.results th:nth-child(3){width:14%;}
+  table.results th:nth-child(4){width:28%;}
+  table.results td input[type=text]{padding:4px 6px;font-size:.9rem;}
+  table.results td textarea{min-height:44px;padding:5px 7px;font-size:.9rem;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP06 — Stress-Test a Vision Model</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~40 minutes</span><br>
+    Session 7 · Chapter 5: Computer Vision &nbsp;|&nbsp; Featured tool: Hugging Face Spaces &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group puts a real <strong>object-detection model</strong> to work — and then tries
+  to break it on purpose. You will pick a real-world use case (accessibility, security, retail,
+  traffic, healthcare, or wildlife), feed it ten of your own images, and decide whether the model
+  is fit for that purpose. Honest evaluation is the point — not a perfect score. The Space is free,
+  runs in the browser, and needs no account.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs the Space on the shared screen and uploads images</td><td><input type="text"></td></tr>
+  <tr><td>Data Interpreter — reads and records the model's outputs and confidence scores</td><td><input type="text"></td></tr>
+  <tr><td>Presenter — delivers the share-out to the class</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — stress-tests the diagnosis and fills this worksheet</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Pick a use case and open the Space</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, pick <strong>one real-world use case</strong> for an object-detection model. The
+  model you'll use is trained on <strong>COCO</strong> — about 80 everyday categories like people,
+  vehicles, animals, household items, and sports equipment. Pick a use case it might plausibly
+  serve:
+  <ul>
+    <li><strong>Accessibility</strong> — a smartphone app that describes a scene out loud to a person with low vision.</li>
+    <li><strong>Security / safety</strong> — a school-hallway camera flagging unattended bags.</li>
+    <li><strong>Retail</strong> — a self-checkout camera identifying produce on the belt.</li>
+    <li><strong>Traffic / city ops</strong> — a downtown camera counting cars, buses, and bicycles.</li>
+    <li><strong>Healthcare</strong> — a clinic camera checking the contents of a supply shelf.</li>
+    <li><strong>Wildlife / environment</strong> — a Florida camera trap identifying animals.</li>
+  </ul>
+  Then open the Space your instructor posted in the Zoom chat — primary:
+  <code>huggingface.co/spaces/Xenova/yolov9-web</code>. It runs in your browser; give it 10 seconds
+  to load the model the first time.</div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  A vision model is excellent at the things it was trained on and useless at the things it has
+  never seen. Naming a use case forces you to evaluate the model in <em>context</em> — "is it good
+  enough for the job we'd ask it to do?" — instead of cheering an impressive number. That is the
+  habit Section 4.4 and Section 5.2 want you to carry forward into every model from now on.</div>
+<label class="fld">The use case our group is evaluating the model for:</label>
+<textarea rows="2"></textarea>
+<label class="fld">The person who would use it, and the decision they'd make from its output:</label>
+<textarea rows="2"></textarea>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Run 5 clear images and record</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  As a group, feed the Space <strong>five clear, ordinary images</strong> from a member's phone —
+  the kind of photo a normal user of your use case would upload. For each, write down what the
+  model said (its top label or labels), the confidence score, and whether the answer was right
+  <em>for your use case</em>.</div>
+<table class="results">
+  <tr><th>Image (one-line description)</th><th>Model's top label(s)</th><th>Confidence</th><th>Right for our use case? (Y/N + 1 line)</th></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+</table>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  Five clear examples establish a baseline. If the model already fails on easy photos in your use
+  case, you can stop — it isn't the right tool. If it succeeds on the easy ones, you've earned the
+  right to ask the harder question next: where does it break, and does that matter?</div>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Now try to break it on purpose</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  Feed the Space <strong>five hard images</strong>. Push deliberately on at least three of the
+  stress dimensions below — note which one you pushed on in column 2:
+  <ul>
+    <li><strong>Unusual angle</strong> — from above, from below, extreme close-up.</li>
+    <li><strong>Poor lighting</strong> — backlit, deep shadow, low light, glare.</li>
+    <li><strong>Partial occlusion</strong> — the subject is half hidden behind something.</li>
+    <li><strong>Out-of-distribution subject</strong> — something COCO probably wasn't trained on (a
+      Florida iguana, a guava, a piragua cart, a Cuban café cup, a specific cultural object).</li>
+    <li><strong>Cluttered scene</strong> — many overlapping objects, busy background.</li>
+    <li><strong>Ambiguous case</strong> — could plausibly be two categories.</li>
+  </ul></div>
+<table class="results">
+  <tr><th>Image (one-line description)</th><th>What we pushed on</th><th>Confidence</th><th>What it missed or got wrong</th></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
+</table>
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Picking "hard" images that are also tiny, hopelessly blurry, or just bad photos. A model failing
+  on a 50-pixel-wide smudge teaches no one anything. <em>Hard</em> means clear-enough that a
+  person reads it fine, but with one stress dimension pushed on. The chapter's point is that a
+  model can fail on images <em>you</em> read instantly.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before Step 4, your two tables have ten rows of real outputs and confidence numbers — actual
+  labels the Space produced, not "I think it would say…" If a row is blank or guessed, go fix it.</div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>Diagnose one failure using Chapter 5</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Pick the most <em>interesting</em> failure from your tables — not the worst, the most
+  <em>instructive</em>. As a group, write <strong>three sentences</strong> explaining why it
+  failed, using vocabulary from Chapters 4 and 5. Reach for the right words: <em>pixels-as-numbers,
+  training data, confidence score, decision boundary, out-of-distribution, overfitting,
+  generalization, bias in training data.</em></div>
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  "It got it wrong" is not a diagnosis. "It got it wrong <em>because</em> [chapter language]" is
+  the skill this chapter is teaching. Naming <em>why</em> a model fails is the difference between
+  a person who knows what AI does and a person who knows what it <em>is</em>.</div>
+<label class="fld">Three-sentence diagnosis (this is graded):</label>
+<textarea rows="4"></textarea>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Verdict and share-out prep</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, answer the verdict honestly. Your Presenter delivers a 60-second report to the
+  class.</div>
+<label class="fld">Would we trust this model for our use case? Why or why not? (one short paragraph)</label>
+<textarea rows="4"></textarea>
+<label class="fld">The one failure we'll show the class, and what it reveals (one sentence):</label>
+<textarea rows="2"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Your verdict isn't a single word. "Yes" or "no" alone is not a verdict — <em>why</em> is the
+  verdict. If the answer fits on one line, you haven't argued it yet.</div>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your use case, your ten image
+  observations, your three-sentence diagnosis, and your verdict.</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm both tables and all
+  text fields are visible — nothing cut off — then upload the PDF to the <strong>GRP06</strong>
+  assignment in Canvas. One submission per group, with every member's name in the roles table.
+  Due by the end of class.</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>The Space won't load, or shows an error.</td><td>Refresh once. If it's still down, your instructor will post the fallback Space link in chat — switch to that and keep going.</td></tr>
+  <tr><td>The model reports nothing on what looks like a clear image.</td><td>It only detects ~80 COCO categories. If your subject isn't one of them (a guava, a piragua, an iguana), it may not appear at all — and <em>that</em> is a finding worth recording, not a problem to fix.</td></tr>
+  <tr><td>The bounding box covers half the image, or two objects in one.</td><td>A confident wrong answer. Record it as a failure mode — exactly the kind of mistake a deployed model needs a human to catch.</td></tr>
+  <tr><td>The model reads 99% confidence on a clearly wrong answer.</td><td>Section 4.4: confidence and correctness are not the same thing. Record both numbers and use this image as your Step 4 diagnosis — it is the chapter's lesson made visible.</td></tr>
+  <tr><td>The group can't agree on whether an output is "right."</td><td>Go back to your Step 1 use case. <em>Right</em> is a context question. 60% confidence on "person" might be plenty for crowd-counting and nowhere near enough for a security alert.</td></tr>
+  <tr><td>Uploading from a phone is slow.</td><td>Have one member AirDrop or email the photos to the Lead Driver, who uploads from a laptop. Faster than uploading one at a time from phones.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 5 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</a><br>
+  Guided Demo GD07 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html</a><br>
+  Session 7 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session07/">https://c-marq.github.io/cai1001c-ai-thinking/session07/</a><br>
+  Object detection Space — <a href="https://huggingface.co/spaces/Xenova/yolov9-web">https://huggingface.co/spaces/Xenova/yolov9-web</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
