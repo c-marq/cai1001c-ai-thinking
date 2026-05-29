@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD07 — Recognize and Generate — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD07 — Recognize and Generate: A Vision Model in Motion</h1>
+  <div class="meta">
+    Session 7 · Wednesday, June 3, 2026 &nbsp;|&nbsp; Chapter 5: Computer Vision &nbsp;|&nbsp;
+    <strong>Demo tools:</strong> Hugging Face Spaces + Nano Banana (Google)
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the Chapter 5 lecture. Paced for roughly
+    <strong>20 minutes</strong>. This demo covers <em>both halves</em> of Chapter 5 — recognition
+    with a real object-detection Space, and generation with Nano Banana — previewing what students
+    do in the lab while building the bridge to Chapter 7 (Generative Media).
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>The demo lands only if students have just heard the "image is a grid of numbers" idea and are
+  ready to see math do work on it. Stage two browser tabs and two photos before students arrive.</p>
+  <ul>
+    <li>Open the assigned Space ahead of time and confirm it loads in your browser:
+      <code>huggingface.co/spaces/Xenova/yolov9-web</code>. The first load fetches the model into
+      your browser — once loaded, it runs offline for the rest of the demo.</li>
+    <li><strong>Fallback Space</strong> if the primary is down: <code>huggingface.co/spaces/atalaydenknalbant/Yolo11</code></li>
+    <li>Have <strong>two real images</strong> ready on your phone or in a folder:
+      <ul>
+        <li><strong>Clear:</strong> a busy outdoor scene with several COCO categories — a street with
+          cars, people, traffic lights, maybe a dog. The model should hit this confidently.</li>
+        <li><strong>Hard:</strong> something the model will struggle with — an unusual angle, deep
+          shadow, or an out-of-distribution subject (a Florida iguana on a wall, a piragua cart, a
+          guava on a kitchen counter, an oddly-cropped close-up).</li>
+      </ul>
+    </li>
+    <li>Sign in to <code>aistudio.google.com</code> with the <strong>Nano Banana</strong> image model
+      selected and a fresh prompt window open.</li>
+    <li>Mirror your screen; keep Chapter 5's <strong>Figure 5.2 (image as numbers)</strong> open in
+      a third tab for the framing moment.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame the problem — an image is numbers</span><span class="clock">⏱ 0:00 · ~2 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Pull up Chapter 5's Figure 5.2. Walk the zoom: photo → grid of pixels → each pixel is one
+      number for grayscale, or three for color. Point at the numbers.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Hold on to one fact: when a computer 'sees' an image, it receives <em>numbers</em>. Nothing
+      else. Tonight you watch two models do two opposite things with that idea. One finds patterns
+      in the numbers — that's recognition. The other builds a new grid of numbers from your words —
+      that's generation. Same chapter, two doors."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist the urge to talk about CNNs or transformers here. The chapter deliberately doesn't.
+      The teaching idea is <em>pixels are numbers, vision is math on numbers</em>, and that one
+      sentence carries the whole demo.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Recognition — run a clear image</span><span class="clock">⏱ 0:02 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open <code>huggingface.co/spaces/Xenova/yolov9-web</code>. Upload your clear photo. Read the
+      bounding boxes and the <strong>confidence scores</strong> out loud, one by one. Point to each
+      box as you say its label and percentage.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Look at what it did. It drew a rectangle around each thing and labeled it. And next to each
+      label is a number — the model's <em>confidence</em>. Not certainty. Confidence. It is not
+      'seeing' the street. It is running math on a grid of numbers and reporting that the numbers
+      in this region look 95% like the training examples labeled 'car.' Section 5.2 of the
+      chapter, live."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      The first load takes a few seconds while Transformers.js downloads the model into the browser.
+      Narrate it instead of waiting in silence: "The model is downloading into my browser right
+      now. That's why this runs without a server queue — once it loads, it lives here."</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Recognition — break it on purpose</span><span class="clock">⏱ 0:06 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Upload your hard image. Let students see the failures: a missed object, a wrong label, a
+      confident label on something absurd, or nothing detected at all. Read the confidence numbers
+      anyway.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Look at what it got wrong. A category it never saw in training — it picks the closest match
+      it knows, often confidently, often wrong. Or the box drifts. The machine is not <em>seeing</em>
+      wrong. The numbers in this image don't look like the numbers in its training examples. That
+      is the limit of the model, named honestly. Remember Chapter 4's accuracy trap — a confident
+      number is not the same as a correct one. That's tonight's lab in one slide."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist the urge to explain away a wrong answer. A confident wrong answer is the chapter's
+      best teaching moment. Name it plainly: "It says skateboard. There is no skateboard. That is
+      what overconfident classification looks like when the data shifts." An imperfect run beats a
+      perfect one every time.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Generation — Nano Banana</span><span class="clock">⏱ 0:10 · ~6 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Switch to Google AI Studio with <strong>Nano Banana</strong> selected. Type a specific,
+      sensory prompt:
+      <pre>A photorealistic photograph of a Miami palm tree at golden hour,
+shot on an iPhone, slightly overexposed, warm light.</pre>
+      Wait for the image. Display it next to a real Florida photo you have on hand.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Same chapter, opposite direction. The recognition model just now was <em>finding</em>
+      patterns in numbers. This model is <em>putting</em> patterns into numbers. <em>Diffusion</em>
+      is the word from Section 5.4 — it starts from random noise, a grid of nonsense numbers, and
+      refines that grid step by step toward the words I wrote. The output is a brand-new
+      photograph of a thing that was never photographed. Compare the two side by side. Could you,
+      honestly, tell which one came from a phone and which from a prompt? That is the world
+      Chapter 7 lives in — and it's the world your students live in already."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Not every generation comes out photorealistic. If it looks plasticky or off, do not redo it —
+      name it: "That faint plastic look is the model's blend of millions of training images,
+      visible. Now imagine that same imperfect blend depicting a real <em>person</em> in a real
+      place — that's Section 5.6's deepfake concern, in our hands."</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Land the point — and hand off to the lab</span><span class="clock">⏱ 0:16 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Two takeaways. First — a computer never sees the world. It does math on numbers. That is
+      why a vision model is more consistent than a tired human inspector, and also why it can be
+      broken by changes that wouldn't fool you for a second. Second, and bigger — the line between
+      <em>photographed</em> and <em>generated</em> is now math we can do in two browser tabs, for
+      free. The information world Chapter 2 described has changed for good, and your only real
+      defense is understanding how these systems actually work. That defense is what tonight's lab
+      builds."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Close AI Studio. Leave the Hugging Face Space open and post the link in the Zoom chat. "Your
+      turn — same Space I just used, your own images, your own use case." Pull up <strong>GRP06</strong>
+      and send students to breakout rooms.</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "can we use Nano Banana in the lab?"</span>
+      Be clear: tonight is the <em>recognition</em> lab — putting a vision model to work and finding
+      where it breaks. Generation gets its own night in Chapter 7. Keep them on the Space.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 5 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</a><br>
+  Group Lab GRP06 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp06.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp06.html</a><br>
+  Session 7 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session07/">https://c-marq.github.io/cai1001c-ai-thinking/session07/</a><br>
+  Primary Space (in-browser) — <a href="https://huggingface.co/spaces/Xenova/yolov9-web">https://huggingface.co/spaces/Xenova/yolov9-web</a><br>
+  Fallback Space (server-side) — <a href="https://huggingface.co/spaces/atalaydenknalbant/Yolo11">https://huggingface.co/spaces/atalaydenknalbant/Yolo11</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
