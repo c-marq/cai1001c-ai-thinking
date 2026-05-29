@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 7 — Computer Vision — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#9FB6D4;}
+  .masthead h1{margin:8px 0 10px;font-size:1.6rem;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.8rem;padding:3px 11px;border-radius:12px;margin:0 8px 6px 0;}
+  .masthead .meta{font-size:.93rem;color:#C9D2E3;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  p,li{font-size:.96rem;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .intro{background:#D6EAF8;border-left:5px solid var(--blue);padding:14px 16px;border-radius:4px;margin:18px 0;}
+  table.info{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.info td{border:1px solid var(--line);padding:8px 11px;font-size:.93rem;}
+  table.info td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  table.sched{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.sched th,table.sched td{border:1px solid var(--line);padding:8px 11px;text-align:left;font-size:.92rem;}
+  table.sched th{background:var(--blue);color:#fff;}
+  table.sched td:first-child{white-space:nowrap;font-weight:600;color:var(--blue-d);}
+  ul.checklist{list-style:none;padding-left:2px;margin:12px 0;}
+  ul.checklist li{margin:7px 0;}
+  ul.checklist label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;}
+  ul.checklist input{margin-top:4px;transform:scale(1.15);flex:0 0 auto;}
+  .blocks{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+  .blockcard{flex:1;min-width:250px;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px;padding:14px 16px;}
+  .blockcard h3{margin:0 0 6px;color:var(--navy);font-size:1.02rem;}
+  .blockcard p{margin:0;font-size:.93rem;}
+  .links{margin:14px 0;}
+  a.linkcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;padding:13px 16px;margin:11px 0;transition:background .12s,border-color .12s;}
+  a.linkcard:hover{background:#F4F9FD;border-left-color:var(--navy);}
+  .linkcard .lc-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);}
+  .linkcard .lc-title{display:block;font-weight:700;color:var(--navy);font-size:1.02rem;margin:2px 0 3px;}
+  .linkcard .lc-desc{font-size:.9rem;color:#555;}
+  .linkcard .lc-url{display:block;font-size:.8rem;color:#8893A2;word-break:break-all;margin-top:4px;}
+  .footer{margin-top:38px;border-top:1px solid var(--line);padding-top:14px;font-size:.85rem;color:#888;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .masthead,table.sched th,.pill,.blockcard,a.linkcard,.intro{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .blockcard,a.linkcard,table.sched,table.info,.intro{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a.linkcard:hover{background:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Course Session</div>
+  <h1>Session 7 — Computer Vision</h1>
+  <div>
+    <span class="pill">Session 7 of 11</span>
+    <span class="pill">Week 4</span>
+    <span class="pill">Chapter 5</span>
+  </div>
+  <div class="meta">Wednesday, June 3, 2026 &nbsp;·&nbsp; 6:00–9:20 PM</div>
+</div>
+
+<div class="intro">
+  A computer never sees a photograph the way you do. It receives a grid of numbers — and every
+  capability in Chapter 5 is math performed on that grid. Tonight we walk both halves of the
+  chapter: the four jobs machines do with images, the contested case of faces, and the bridge to
+  machines that do not just <em>recognize</em> images but <em>generate</em> them. In the second
+  half, your group puts a real vision model to work and tries to break it on purpose.
+</div>
+
+<table class="info">
+  <tr><td>Course</td><td>CAI1001C — AI Thinking</td></tr>
+  <tr><td>Chapter</td><td>Chapter 5: Computer Vision</td></tr>
+  <tr><td>Featured tool</td><td>Hugging Face Spaces &nbsp;(instructor demo also previews Nano Banana)</td></tr>
+</table>
+
+<h2>Tonight's schedule</h2>
+<table class="sched">
+  <tr><th>Time</th><th>Block</th><th>Focus</th></tr>
+  <tr><td>6:00–7:30</td><td>Block A</td><td>Recap, Chapter 5 lecture, and the Hugging Face Space + Nano Banana demo</td></tr>
+  <tr><td>7:30–7:45</td><td>Break</td><td>15-minute break</td></tr>
+  <tr><td>7:45–9:20</td><td>Block B</td><td>Breakout lab: stress-test a vision model with Hugging Face Spaces</td></tr>
+</table>
+
+<h2>Before class</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Read <strong>Chapter 5: Computer Vision</strong> (link below).</label></li>
+  <li><label><input type="checkbox"> No account needed for tonight's hands-on tool — the assigned Hugging Face Space runs in the browser at <code>huggingface.co/spaces</code>.</label></li>
+  <li><label><input type="checkbox"> Bring <strong>5–10 of your own photos</strong> on your phone or laptop — a mix of clear shots and unusual ones (odd angles, low light, partially hidden subjects, things a model might not recognize). Tonight's lab uses real images, and your own photos make it real.</label></li>
+</ul>
+
+<h2>What we're doing</h2>
+<div class="blocks">
+  <div class="blockcard">
+    <h3>Block A — Lecture &amp; guided demo</h3>
+    <p>Quick recap of Chapter 4's classifiers, then Chapter 5's core idea: an image is a grid of
+    numbers, and every vision task is math on that grid. Four jobs (classify, detect, segment,
+    track), the contested case of facial recognition, and the cross from recognition to
+    <em>generation</em>. The live demo runs an object-detection <strong>Hugging Face Space</strong>
+    on real photos — clear and broken on purpose — and ends with a short look at
+    <strong>Nano Banana</strong> generating an image from a prompt, as the bridge to Chapter 7.</p>
+  </div>
+  <div class="blockcard">
+    <h3>Block B — Breakout lab</h3>
+    <p>After the break you move into groups. Each group picks a real-world use case for an
+    object-detection model — accessibility, security, retail, traffic, healthcare, or environment —
+    feeds ten of its own images through the Space (five clear, five hard), diagnoses the failures
+    using Chapter 5's vocabulary, and decides whether the model is fit for that purpose.</p>
+  </div>
+</div>
+
+<h2>Wrap-up</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Finish the <strong>group lab</strong> worksheet (GRP06) and submit it as a PDF to Canvas (4 points).</label></li>
+  <li><label><input type="checkbox"> <strong>NG02 (Ch 3–4) and Quiz 2 (Ch 3–4) are both due Sunday June 7 at 11:59 PM</strong> — start tonight if you haven't.</label></li>
+  <li><label><input type="checkbox"> Answer the five review questions and the discussion question at the end of Chapter 5.</label></li>
+</ul>
+
+<h2>Session links</h2>
+<div class="links">
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">
+    <span class="lc-label">Chapter</span>
+    <span class="lc-title">Chapter 5: Computer Vision</span>
+    <span class="lc-desc">The full chapter — read this before class.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html">
+    <span class="lc-label">Guided Demo · GD07</span>
+    <span class="lc-title">Recognize and Generate: A Vision Model in Motion</span>
+    <span class="lc-desc">Instructor walkthrough of tonight's live demo — Hugging Face Space + Nano Banana glimpse.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp06.html">
+    <span class="lc-label">Group Lab · GRP06</span>
+    <span class="lc-title">Stress-Test a Vision Model</span>
+    <span class="lc-desc">Tonight's breakout worksheet — fill in and submit as a PDF.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp06.html</span>
+  </a>
+</div>
+
+<div class="footer">
+  CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez
+</div>
+
+</body>
+</html>
