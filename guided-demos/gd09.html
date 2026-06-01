@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD09 — Generating Music — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;white-space:pre-wrap;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD09 — Generating Music — and Glimpsing the Frontier</h1>
+  <div class="meta">
+    Session 9 · Wednesday, June 10, 2026 &nbsp;|&nbsp; Chapter 7: Generative Media &nbsp;|&nbsp;
+    <strong>Demo tools:</strong> Hugging Face Spaces (MusicGen) + Veo (state-of-the-art glimpse)
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the Chapter 7 lecture. Paced for roughly
+    <strong>20 minutes</strong>. The MusicGen portion previews the same tool students will use
+    in GRP08 — a deliberately different prompt so it doesn't spoil their lab. The Veo glimpse is
+    <em>demonstration only</em> (18+ and paid) and frames where the frontier is, ending on the
+    chapter's moral argument: <strong>the durable defense is provenance, not flaw-spotting.</strong>
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>Three things ready in three tabs. Audio in a classroom needs care — confirm sound works in
+  the Zoom share before class begins.</p>
+  <ul>
+    <li><strong>Tab 1 — MusicGen Space.</strong> Open <code>huggingface.co/spaces/facebook/MusicGen</code>
+      ahead of time and confirm it loads. <strong>Smoke-test Tuesday</strong> — Spaces go up and
+      down. If it's down, post a fallback Space link in Zoom chat at class start.</li>
+    <li><strong>Tab 2 — Veo glimpse.</strong> If you have access to Veo (Gemini Pro or Google
+      AI Studio with Veo enabled), have a short prompt ready to generate live. If not, have
+      <strong>one or two pre-saved Veo clips</strong> from a previous session, the Google DeepMind
+      Veo showcase page, or a public demo. Either path works — what matters is the moment of
+      "look at what video generation can do in 2026." Have the clip ready to play with audio.</li>
+    <li><strong>Tab 3 — Chapter 7's Figure 7.2</strong> (one engine, many media) and
+      <strong>Figure 7.4</strong> (SynthID + Content Credentials) open for the framing and
+      landing moments.</li>
+    <li><strong>Confirm Zoom audio share is enabled</strong> — "Share computer sound" must be
+      checked, or your students will see your screen and hear nothing. This is the single most
+      common failure mode for this demo.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame — one engine, many media</span><span class="clock">⏱ 0:00 · ~2 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Pull up Figure 7.2 from Chapter 7 — the diagram of one engine fanning out to text, image,
+      audio, and video. Point at the engine, then at each output.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Hold one fact for the next twenty minutes. Every generative AI you have heard of works the
+      same way: train on a massive collection of one kind of media, learn the patterns, generate
+      from a prompt. Text in Chapter 6. Images in Chapter 5. Tonight, audio and video — same
+      engine, new training data. There is no fourth secret. So when you watch what happens next,
+      do not be impressed by the magic. Be alert to the seams — because the seams are where this
+      technology still leaks."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist the urge to explain diffusion or transformers in depth here. The chapter already did
+      that work in Chapter 5 (image diffusion) and Chapter 6 (LLMs). Tonight is about applying
+      that understanding to two new media. One engine. Many media. That sentence is the frame.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">MusicGen — a deliberately ordinary prompt</span><span class="clock">⏱ 0:02 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open <code>huggingface.co/spaces/facebook/MusicGen</code>. In the prompt field, type a
+      deliberately weak prompt:
+      <pre>happy upbeat music</pre>
+      Set duration to 15 seconds. Click Generate. While it runs (about 60 seconds in a free
+      Space), narrate what's happening:
+      <em>"Behind that progress bar, a model is doing what every generative AI does — sampling
+      patterns it learned from a vast library of music, conditioned by my three words, building
+      a brand-new audio file fifteen seconds long. Same engine you saw with images. New training
+      data."</em>
+      When it finishes, play the clip.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Three words in. Listen to what came out. It is music. There is melody. There is rhythm.
+      And it sounds… vaguely competent? Maybe a little bland. The prompt I wrote was three words
+      — 'happy upbeat music' — and three words gave the model nothing to commit to. <em>Generic
+      in, generic out.</em> This is the same lesson Chapter 1 taught us about prompts: the model
+      cannot read your mind. What's about to change is not the model — it's me, getting clearer
+      about what I want."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Generation may take 30–90 seconds on a free Space. Do not fill the silence with apologies.
+      Use the wait to narrate what's happening, or to point at Figure 7.2 again. The wait is part
+      of the demo — students will experience the same latency in their lab.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Refine the prompt — then listen for the seams</span><span class="clock">⏱ 0:07 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Replace the prompt with a specific one. Type it slowly so students see the structure:
+      <pre>Upbeat acoustic indie folk, 110 bpm, banjo and tambourine,
+joyful summer road-trip feel, warm and bright.</pre>
+      Set duration to 15 seconds. Click Generate. When it finishes, play the clip — then
+      <strong>play it a second time</strong> and ask the class to listen analytically.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Same model. Same Space. Same fifteen seconds. Completely different result. That happened
+      because I gave the model a <em>genre</em>, a <em>tempo</em>, <em>instruments</em>, a
+      <em>feel</em>, and an <em>adjective for the mood</em>. The model's range was always there —
+      I just told it which part of the range I wanted. Now listen for the seams. Did it loop on
+      itself? Was the ending abrupt or natural? Do those instruments sound like real banjos and
+      tambourines or like something <em>like</em> them? Is there structure — a beginning, a
+      middle, an arrival — or does it just <em>play</em>? Those are the tells of generative audio
+      in 2026. They are shrinking. Listen while you still can."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do not pick a prompt that overlaps with what students will likely write in GRP08. Avoid
+      "study music," "podcast intro," "yoga," "lullaby" — those are on the lab menu. Pick a use
+      case the lab won't cover: road trip, sports highlight, holiday theme, retro arcade.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Veo — where the frontier is</span><span class="clock">⏱ 0:12 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Switch to Tab 2 — your Veo tab. Either generate a fresh clip live from a prepared prompt
+      (something cinematic and specific, e.g., <em>"a slow-motion close-up of rain falling on a
+      bronze statue at dusk, golden hour, photorealistic, cinematic"</em>) or play a pre-saved
+      clip you have ready. Play with audio on. Play it twice — once for impact, once for analysis.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is Veo, Google's high-end video model. It is <em>not</em> something you have access
+      to in this class — Veo is 18+ and requires a paid plan, so this is demonstration only. But
+      I want you to see where the frontier is in 2026. Watch what it did. It generated several
+      seconds of moving footage from a sentence. The light is consistent across frames. The
+      physics of the rain looks real. The texture of the bronze looks like bronze. <em>This did
+      not exist three years ago.</em> Now watch a second time and look for the seams — the
+      temporal consistency glitches from Section 7.3. A finger that subtly morphs. A background
+      that shifts when it shouldn't. The seams are still there. They are closing fast. That is
+      the world Chapter 7 wants you to think clearly about — not because video AI is bad, but
+      because the line between <em>recorded</em> and <em>generated</em> is now a line you cannot
+      see with your eyes alone."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if you don't have Veo access</span>
+      Skip the live generation. Play a pre-saved clip from a public source (Google DeepMind's
+      Veo showcase page has shareable examples). Name it plainly: "This was made by Google's
+      Veo. I'm playing a clip Google published. It's exactly what one of these tools produces
+      from a sentence today." The medium is the lesson, not the live click.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Land on provenance — and hand off to the lab</span><span class="clock">⏱ 0:16 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Switch to Tab 3 — Figure 7.4 (SynthID + Content Credentials). Point at the invisible
+      watermark on the left, the origin label on the right.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Here is the part of this chapter I will not let you miss. The MusicGen clip I made tonight
+      and the Veo clip Google made — could you, honestly, tell either was AI-made if you came
+      across it scrolling? Maybe yes today. Probably not next year. So how does an honest
+      information world survive this? Not by everyone becoming a forensic expert. That race
+      cannot be won. The answer is <em>provenance</em> — invisible watermarks like SynthID built
+      into the media at the moment of creation, and Content Credentials, the tamper-evident
+      origin label attached to the outside. Plus — and this is the link back to Chapter 2 — the
+      old habit of <em>checking the source.</em> Your eyes are not the defense. The defense is
+      the system. That is what this chapter, and tonight's lab, are really about."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Close Veo. Leave MusicGen open and post the link in Zoom chat:
+      <code>huggingface.co/spaces/facebook/MusicGen</code>. Pull up <strong>GRP08</strong>.
+      "Your turn — pick a real music use case, generate three versions, listen for the seams,
+      decide if it's fit for purpose." Send students to breakout rooms.</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "can we use Veo in the lab?"</span>
+      Be direct: no. Veo is 18+ and paid; tonight's hands-on tool is MusicGen, free and no
+      account. Veo was the glimpse, not the assignment.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 7 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/">https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/</a><br>
+  Group Lab GRP08 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp08.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp08.html</a><br>
+  Session 9 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session09/">https://c-marq.github.io/cai1001c-ai-thinking/session09/</a><br>
+  MusicGen Space — <a href="https://huggingface.co/spaces/facebook/MusicGen">https://huggingface.co/spaces/facebook/MusicGen</a><br>
+  Veo (for instructor reference) — <a href="https://deepmind.google/technologies/veo/">https://deepmind.google/technologies/veo/</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
