@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP07 — Build a Gem for Professional Work — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  .scenario-menu{border:1px solid var(--line);border-radius:6px;padding:6px 14px 14px;margin:14px 0;background:#FBFDFF;}
+  .scenario-menu h4{color:var(--blue-d);font-size:.95rem;margin:12px 0 4px;}
+  .scenario-menu p{font-size:.92rem;margin:0 0 4px;}
+  .instr-block{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:12px 14px;margin:12px 0;background:#FBFDFF;break-inside:avoid;}
+  .instr-block h4{margin:0 0 4px;color:var(--blue-d);font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;}
+  .instr-block .hint{font-size:.88rem;color:#555;margin:0 0 6px;font-style:italic;}
+  .instr-block .example{font-size:.86rem;color:#444;background:#fff;border:1px dashed var(--line);border-radius:3px;padding:6px 9px;margin:6px 0 8px;}
+  .instr-block .example strong{color:var(--blue-d);font-style:normal;}
+  table.tests th:nth-child(1){width:14%;}
+  table.tests th:nth-child(2){width:36%;}
+  table.tests th:nth-child(3){width:36%;}
+  table.tests th:nth-child(4){width:14%;}
+  table.tests td textarea{min-height:48px;padding:5px 7px;font-size:.9rem;}
+  table.tests td input[type=text]{padding:4px 6px;font-size:.9rem;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.instr-block,.scenario-menu{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP07 — Build a Gem for Professional Work</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~45 minutes</span><br>
+    Session 8 · Chapter 6: Language and Conversation &nbsp;|&nbsp; Featured tool: Gemini Gems &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group builds a <strong>Gemini Gem</strong> for a real professional task — the kind
+  of recurring work a financial analyst, an accountant, a web developer, an HR coordinator, or a
+  project manager actually does week after week. The center of gravity is the
+  <strong>instructions</strong> you write. As Chapter 6 puts it: <em>the instructions are the
+  heart of it.</em> Tonight your group writes them deliberately, using a six-part scaffold —
+  Role, Persona, Inputs, Outputs, Must Always, Must Never — and then tests whether the Gem
+  actually works.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs Gemini on the shared screen, types/pastes the instructions, runs the tests</td><td><input type="text"></td></tr>
+  <tr><td>Data Interpreter — reads each Gem response out loud and judges whether it fits the professional use case</td><td><input type="text"></td></tr>
+  <tr><td>Presenter — delivers the share-out to the class</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — writes the misbehavior-attempt prompt and fills this worksheet</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Pick a professional role and a recurring task</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, pick <strong>one professional role</strong> and <strong>one specific recurring task</strong>
+  within that role. The Gem you build tonight should be one a real person in that job would
+  actually use, on a real Tuesday, to save themselves 15 minutes. Pick from the menu below — or,
+  if a member of your group <em>actually does</em> a different professional job, build for that
+  instead.</div>
+
+<div class="scenario-menu">
+  <h4>1. Financial Analyst — Earnings Memo Drafter</h4>
+  <p>Turns raw quarterly numbers and bullet observations into a polished earnings-summary memo in the firm's house voice.</p>
+  <h4>2. Accountant (small business) — Transaction-to-Journal-Entry Assistant</h4>
+  <p>Takes a plain-language transaction description and returns the proper account categorization, journal entry, and any flags.</p>
+  <h4>3. Web Developer — Vague-Request-to-Dev-Ticket Translator</h4>
+  <p>Converts a vague client request ("make the navbar pop") into a structured developer ticket with acceptance criteria and effort estimate.</p>
+  <h4>4. Marketing Manager — Multi-Platform Social Rewriter</h4>
+  <p>Takes one product feature description and drafts three social posts — LinkedIn (formal), Instagram (casual), X (concise) — in the brand's voice.</p>
+  <h4>5. HR Coordinator — Job-Posting Harmonizer</h4>
+  <p>Turns a bullet-pointed job description into a polished, compliant, inclusive job posting with consistent voice.</p>
+  <h4>6. Real Estate Agent — Listing-Description Drafter</h4>
+  <p>Takes raw property data (sqft, beds, baths, location, comps) and drafts a listing description in the agent's voice.</p>
+  <h4>7. Project Manager — Meeting-Notes-to-Action-Items Extractor</h4>
+  <p>Takes raw meeting notes and extracts: decisions made, action items with owners, blockers, and open questions for next meeting.</p>
+  <h4>8. Teacher / Professor — Bloom's-Level Quiz Question Generator</h4>
+  <p>Takes a learning objective and generates five scenario-based quiz questions at a specified Bloom's level.</p>
+  <h4>9. Custom — A real job one of your members actually does</h4>
+  <p>If a member of your group works in healthcare, retail, education, law, hospitality, the trades, or something else not listed above — and they have a recurring task that fits this lab — go that direction. The lesson is the same either way.</p>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  A Gem is only useful if it serves a real, repeated job. "Build a chatbot" produces nothing of
+  value; "build the thing my colleague would actually use on Monday morning" produces the
+  conversation that teaches you what good instructions look like. Naming the role and the task
+  forces every decision that follows to answer a real question.</div>
+
+<label class="fld">The professional role we're building for:</label>
+<input type="text">
+<label class="fld">The specific recurring task this Gem handles (one or two sentences):</label>
+<textarea rows="2"></textarea>
+<label class="fld">Why a person in this role would actually use this Gem — what does it save them, and how often?</label>
+<textarea rows="2"></textarea>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Write the six-part instructions together</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  Fill in each of the six sections below as a group. <strong>Be specific.</strong> "Senior
+  accountant at a small Miami CPA firm" beats "accountant." "Direct, candid, no hedging" beats
+  "professional tone." The whole demo you just watched was about one thing: <em>you get clearer,
+  not the AI smarter.</em> This is where that work happens.</div>
+
+<div class="instr-block">
+  <h4>1. Role</h4>
+  <p class="hint">Who is the Gem? Job title, level, and context. Give it a real position with real authority — not a generic label.</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "You are a senior financial analyst at a mid-cap consumer goods company. You have ten years of experience drafting quarterly earnings memos for the CFO."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="instr-block">
+  <h4>2. Persona</h4>
+  <p class="hint">Voice, tone, expertise level, formality. What does it sound like — confident or cautious, warm or terse, bilingual or English-only?</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "Precise, sober, plain-English. You never use jargon when a regular word will do. You don't hedge — when the numbers point one way, you say so."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="instr-block">
+  <h4>3. Inputs it expects</h4>
+  <p class="hint">What does the user give it — a transaction description, raw numbers, a vague client request, meeting notes? Be specific so the Gem knows what's coming.</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "The user will paste a small table of quarterly numbers (revenue, costs, margin, year-over-year change) plus two or three bullet observations about the quarter."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="instr-block">
+  <h4>4. Outputs it produces</h4>
+  <p class="hint">Format, length, structure. A memo? A bulleted list? Three social posts in three styles? Specify so every response looks the same.</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "Produce a one-page memo with four labeled sections: HEADLINE (one sentence), KEY DRIVERS (3 bullets), RISKS (2 bullets), OUTLOOK (one sentence). Total length: 200–250 words."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="instr-block">
+  <h4>5. Must always do</h4>
+  <p class="hint">The non-negotiables. Tone rules, format rules, ethics rules. Two or three lines.</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "Always cite the exact number from the source data. Always flag any assumption you made. Always include year-over-year change in percentage terms."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="instr-block">
+  <h4>6. Must never do</h4>
+  <p class="hint">The guardrails. Things that would make this Gem a liability if it did them.</p>
+  <p class="example"><strong>Example (Financial Analyst):</strong> "Never invent numbers the user didn't provide. Never make forward-looking projections beyond the next quarter. Never replace the CFO's judgment on what counts as material."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Writing every section as one short line — "be professional," "be accurate," "be helpful." Those
+  are the weak instructions from the demo, just spread across six boxes. Sentences with the words
+  "always," "never," and concrete <em>numbers, names, or formats</em> beat adjectives every time.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before Step 3, every one of the six boxes has at least two sentences in it, and your Persona
+  and Must Never boxes describe behaviors specific to <em>this</em> professional role — not
+  generic AI behavior. If a box reads like it would fit any Gem, rewrite it.</div>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Build the Gem and test it</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  <ul>
+    <li>The Lead Driver opens <code>gemini.google.com</code>, finds <strong>Gems</strong> in the
+      sidebar, and clicks <strong>Create new Gem</strong>.</li>
+    <li>Name the Gem something descriptive — "Earnings Memo Drafter" or whatever fits your role.</li>
+    <li>In the Instructions field, paste your six sections from Step 2 (keep the labels).</li>
+    <li>Save the Gem and open a chat with it.</li>
+    <li>Run <strong>four test prompts</strong> as a group and fill in the table below. The QA
+      Reviewer writes the misbehavior-attempt prompt — the prompt designed to make the Gem step
+      out of its role or ignore a "must never" rule.</li>
+  </ul></div>
+
+<table class="tests">
+  <tr>
+    <th>Test type</th>
+    <th>Prompt we sent</th>
+    <th>Gem's response (summarize in 1–2 sentences)</th>
+    <th>Did it work?</th>
+  </tr>
+  <tr>
+    <td><strong>1. Standard request</strong> — a typical input a real user would send.</td>
+    <td><textarea rows="2"></textarea></td>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><strong>2. Standard request</strong> — a second typical input, slightly different.</td>
+    <td><textarea rows="2"></textarea></td>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><strong>3. Edge case</strong> — an unusual but valid input the Gem should still handle.</td>
+    <td><textarea rows="2"></textarea></td>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><strong>4. Misbehavior attempt</strong> — try to make it ignore a "must never" or step out of its role.</td>
+    <td><textarea rows="2"></textarea></td>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+  </tr>
+</table>
+
+<div class="box blueb"><span class="lbl">💡 WHY THE FOUR TESTS</span>
+  Two standard tests check that the Gem does its job. The edge case checks whether the
+  instructions cover what real users will actually throw at it (they always send something
+  unexpected). The misbehavior attempt checks whether the guardrails hold — if they don't, the
+  Gem is a liability the moment a real person uses it.</div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>Refine and document</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Based on your four tests, <strong>make at least one change to the instructions</strong>. It
+  might be tightening a "must never," adding a missing output format, sharpening the persona —
+  whatever the test results pointed at. Then write down what you changed and why.</div>
+<label class="fld">What we changed in the instructions:</label>
+<textarea rows="3"></textarea>
+<label class="fld">Why we changed it — what the test showed us:</label>
+<textarea rows="3"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Trying to fix a misbehaving Gem by <em>prompting</em> it harder in the chat. That's the wrong
+  reflex — and the chapter and the demo both warn against it. The instructions are where the
+  behavior lives. Edit the instructions, not the prompt.</div>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Verdict and share-out prep</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, answer the verdict honestly. Your Presenter delivers a 60-second report.</div>
+<label class="fld">Would this Gem actually be useful to a person in this role on a real Tuesday? Why or why not? (one short paragraph)</label>
+<textarea rows="3"></textarea>
+<label class="fld">The one part of your instructions you're proudest of, and what it does (one sentence):</label>
+<textarea rows="2"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Your Presenter will read your <em>final</em> instructions aloud to the class. Confirm Step 2's
+  six boxes are filled in, Step 3's four test rows are filled in, and Steps 4 and 5 are
+  complete. If any box is blank, fill it in now.</div>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your role and task (Step 1), all
+  six instruction sections (Step 2), all four test rows (Step 3), your refinement (Step 4), and
+  your verdict (Step 5).</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm every section is
+  visible — nothing cut off — then upload the PDF to the <strong>GRP07</strong> assignment in
+  Canvas. One submission per group, with every member's name in the roles table. Due by the end
+  of class.</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>Gemini Gems doesn't appear in the sidebar.</td><td>Try refreshing once. If it's still not there, click "Explore Gems" first — sometimes the Create option appears from inside that view. Worst case, the Lead Driver shares their screen and one member of the group runs the Gem from their own account.</td></tr>
+  <tr><td>The Gem keeps adding "As an AI language model..." preambles.</td><td>Add a line to "Must Never": <em>Never refer to yourself as an AI or a language model. You are a [role].</em> Save and retest.</td></tr>
+  <tr><td>The Gem ignored a "must never" in our misbehavior test.</td><td>That's a real finding — record it in the test table as a failure. Then in Step 4, sharpen that line: be specific about <em>what</em> not to do and <em>what to do instead.</em> "Never give legal advice" is weaker than "If asked for legal advice, respond exactly: 'I can't give legal advice — please consult an attorney.'"</td></tr>
+  <tr><td>Our outputs are way longer than we asked for.</td><td>Move the length requirement from "Must Always" to the "Outputs" section, and be specific: "Total length: 150–200 words. Do not exceed this." Save and retest.</td></tr>
+  <tr><td>The Gem is too generic — sounds like default Gemini.</td><td>The Persona section is doing the most work here. If it reads like a job description, rewrite it as <em>character</em>: "you don't hedge," "you push for outcomes," "you don't open with pleasantries." Behaviors beat traits.</td></tr>
+  <tr><td>One member doesn't have a Google account.</td><td>The Lead Driver runs the Gem on their account, with the whole group watching the shared screen. Every member can still contribute fully to writing the instructions and judging the responses.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 6 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/">https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/</a><br>
+  Guided Demo GD08 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd08.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd08.html</a><br>
+  Session 8 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session08/">https://c-marq.github.io/cai1001c-ai-thinking/session08/</a><br>
+  Gemini Gems — <a href="https://gemini.google.com">https://gemini.google.com</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
