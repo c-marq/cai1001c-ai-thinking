@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 8 — Language and Conversation — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#9FB6D4;}
+  .masthead h1{margin:8px 0 10px;font-size:1.6rem;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.8rem;padding:3px 11px;border-radius:12px;margin:0 8px 6px 0;}
+  .masthead .meta{font-size:.93rem;color:#C9D2E3;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  p,li{font-size:.96rem;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .intro{background:#D6EAF8;border-left:5px solid var(--blue);padding:14px 16px;border-radius:4px;margin:18px 0;}
+  table.info{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.info td{border:1px solid var(--line);padding:8px 11px;font-size:.93rem;}
+  table.info td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  table.sched{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.sched th,table.sched td{border:1px solid var(--line);padding:8px 11px;text-align:left;font-size:.92rem;}
+  table.sched th{background:var(--blue);color:#fff;}
+  table.sched td:first-child{white-space:nowrap;font-weight:600;color:var(--blue-d);}
+  ul.checklist{list-style:none;padding-left:2px;margin:12px 0;}
+  ul.checklist li{margin:7px 0;}
+  ul.checklist label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;}
+  ul.checklist input{margin-top:4px;transform:scale(1.15);flex:0 0 auto;}
+  .blocks{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+  .blockcard{flex:1;min-width:250px;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px;padding:14px 16px;}
+  .blockcard h3{margin:0 0 6px;color:var(--navy);font-size:1.02rem;}
+  .blockcard p{margin:0;font-size:.93rem;}
+  .links{margin:14px 0;}
+  a.linkcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;padding:13px 16px;margin:11px 0;transition:background .12s,border-color .12s;}
+  a.linkcard:hover{background:#F4F9FD;border-left-color:var(--navy);}
+  .linkcard .lc-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);}
+  .linkcard .lc-title{display:block;font-weight:700;color:var(--navy);font-size:1.02rem;margin:2px 0 3px;}
+  .linkcard .lc-desc{font-size:.9rem;color:#555;}
+  .linkcard .lc-url{display:block;font-size:.8rem;color:#8893A2;word-break:break-all;margin-top:4px;}
+  .footer{margin-top:38px;border-top:1px solid var(--line);padding-top:14px;font-size:.85rem;color:#888;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .masthead,table.sched th,.pill,.blockcard,a.linkcard,.intro{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .blockcard,a.linkcard,table.sched,table.info,.intro{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a.linkcard:hover{background:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Course Session</div>
+  <h1>Session 8 — Language and Conversation</h1>
+  <div>
+    <span class="pill">Session 8 of 11</span>
+    <span class="pill">Week 5</span>
+    <span class="pill">Chapter 6</span>
+  </div>
+  <div class="meta">Monday, June 8, 2026 &nbsp;·&nbsp; 6:00–9:20 PM</div>
+</div>
+
+<div class="intro">
+  Talk to a modern AI assistant and it can feel like understanding. It picks up your tone,
+  follows your point, remembers what you said three messages ago. Chapter 6 is about what is
+  actually happening underneath — a model predicting one word at a time — and what that fact
+  means for trust, fluency, and the line between a tool you'd hand a real task to and one you
+  wouldn't. Then in the second half, you build something of your own: a custom <strong>Gemini
+  Gem</strong> for a real professional task, designed with instructions you write deliberately.
+</div>
+
+<table class="info">
+  <tr><td>Course</td><td>CAI1001C — AI Thinking</td></tr>
+  <tr><td>Chapter</td><td>Chapter 6: Language and Conversation</td></tr>
+  <tr><td>Featured tool</td><td>Gemini Gems &nbsp;(<code>gemini.google.com</code>)</td></tr>
+</table>
+
+<h2>Tonight's schedule</h2>
+<table class="sched">
+  <tr><th>Time</th><th>Block</th><th>Focus</th></tr>
+  <tr><td>6:00–7:30</td><td>Block A</td><td>Recap, Chapter 6 lecture, and the live Gemini Gems build demo</td></tr>
+  <tr><td>7:30–7:45</td><td>Break</td><td>15-minute break</td></tr>
+  <tr><td>7:45–9:20</td><td>Block B</td><td>Breakout lab: build a Gem for a real professional task</td></tr>
+</table>
+
+<h2>Before class</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Read <strong>Chapter 6: Language and Conversation</strong> (link below).</label></li>
+  <li><label><input type="checkbox"> Have a <strong>Google account</strong> ready and confirm you can sign into <code>gemini.google.com</code>. Gems are free and available to anyone 13 or older.</label></li>
+  <li><label><input type="checkbox"> Think about a <strong>recurring task in your job, field of study, or daily work</strong> — something you do over and over that takes 15+ minutes each time. That is the kind of thing a Gem is built for. Bring one to share with your group.</label></li>
+</ul>
+
+<h2>What we're doing</h2>
+<div class="blocks">
+  <div class="blockcard">
+    <h3>Block A — Lecture &amp; guided demo</h3>
+    <p>Quick recap of Chapter 5, then Chapter 6's core ideas: tokenization, embeddings as
+    "meaning by context," the transformer's attention mechanism, and the honest truth at the
+    center — an LLM predicts <em>plausible</em> words, which is why <strong>fluency is not
+    understanding and not truth</strong>. Then a live build: starting from a deliberately weak
+    set of Gem instructions, watching the assistant be vague and unhelpful, and rewriting the
+    instructions with a real <strong>persona</strong> and <strong>constraints</strong> until the
+    Gem becomes a tool you would actually use.</p>
+  </div>
+  <div class="blockcard">
+    <h3>Block B — Breakout lab</h3>
+    <p>After the break you move into groups. Each group picks a <strong>professional role</strong>
+    (financial analyst, accountant, web developer, marketing manager, HR coordinator, real estate
+    agent, project manager, teacher — or one a group member actually does), names a recurring
+    task in that role, and builds a Gem for it. The center of gravity is the
+    <strong>instructions</strong> — the six-part scaffold you fill in together is the lab.</p>
+  </div>
+</div>
+
+<h2>Wrap-up</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Finish the <strong>group lab</strong> worksheet (GRP07) and submit it as a PDF to Canvas (4 points).</label></li>
+  <li><label><input type="checkbox"> <strong>NG03 (Ch 5–6) and Quiz 3 (Ch 5–6) are both due Sunday June 14 at 11:59 PM</strong> — both cover Wednesday's Chapter 5 material along with tonight's Chapter 6, so start them this week.</label></li>
+  <li><label><input type="checkbox"> Answer the five review questions and the discussion question at the end of Chapter 6.</label></li>
+</ul>
+
+<h2>Session links</h2>
+<div class="links">
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/">
+    <span class="lc-label">Chapter</span>
+    <span class="lc-title">Chapter 6: Language and Conversation</span>
+    <span class="lc-desc">The full chapter — read this before class.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd08.html">
+    <span class="lc-label">Guided Demo · GD08</span>
+    <span class="lc-title">Building a Gem: From Weak Instructions to Strong</span>
+    <span class="lc-desc">Instructor walkthrough — building a Résumé Reviewer Gem live, then rewriting the instructions until it actually works.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd08.html</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp07.html">
+    <span class="lc-label">Group Lab · GRP07</span>
+    <span class="lc-title">Build a Gem for Professional Work</span>
+    <span class="lc-desc">Tonight's breakout worksheet — fill in and submit as a PDF.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp07.html</span>
+  </a>
+</div>
+
+<div class="footer">
+  CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez
+</div>
+
+</body>
+</html>
