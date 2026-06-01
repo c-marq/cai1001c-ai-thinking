@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD08 — Building a Gem — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;white-space:pre-wrap;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD08 — Building a Gem: From Weak Instructions to Strong</h1>
+  <div class="meta">
+    Session 8 · Monday, June 8, 2026 &nbsp;|&nbsp; Chapter 6: Language and Conversation &nbsp;|&nbsp;
+    <strong>Demo tool:</strong> Gemini Gems (gemini.google.com)
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A, after the Chapter 6 lecture. Paced for roughly
+    <strong>20 minutes</strong>. Students do not follow along — Gemini Gems is 13+ and most have
+    a Google account, but the demo's clarity depends on you driving the screen and narrating the
+    instructions live. Their hands-on build is in the lab.
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>This demo lands only if students feel the contrast between a weak Gem and a strong one in
+  real time. The Résumé Reviewer is deliberately chosen because (a) every student in the room
+  cares about résumés, and (b) it is not on the GRP07 scenario menu, so it doesn't spoil the lab.</p>
+  <ul>
+    <li>Sign into <code>gemini.google.com</code> ahead of class. Find <strong>Gems</strong> in the
+      left sidebar (look for "Explore Gems" or a Gems section).</li>
+    <li>Have a <strong>sample résumé bullet</strong> ready to paste — something short and
+      real-looking, e.g.:
+      <pre>Responsible for managing customer service tickets and helping with team meetings as needed.</pre>
+      The bullet should be classically weak: vague verbs, no outcomes, no numbers. That gives both
+      the weak Gem and the strong Gem something to react to.</li>
+    <li>Have <strong>two prompts</strong> ready for the test rounds:
+      <ol>
+        <li>Paste the bullet and ask: "How can I make this stronger?"</li>
+        <li>Follow up with: "Should I include my high school job from 10 years ago?"</li>
+      </ol>
+    </li>
+    <li>Mirror your screen; keep <strong>Figure 6.4</strong> (Anatomy of a Custom Gem) open in a
+      second tab for the framing moment.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame — a Gem is instructions wrapped around an LLM</span><span class="clock">⏱ 0:00 · ~2 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Pull up Figure 6.4 from Chapter 6. Point at the three input cards: <strong>Name</strong>,
+      <strong>Instructions</strong>, <strong>Knowledge files (optional)</strong>. Point hard at
+      Instructions and read the caption out loud: <em>"This is the heart of it."</em></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "An LLM does one job — predict the next plausible word. A Gem is just <em>instructions</em>
+      wrapped around that LLM, shaping what counts as plausible for one specific task. Tonight
+      I'm going to build the same Gem twice — once with weak instructions, once with strong ones
+      — and you'll see for yourself that the AI didn't get smarter between them. <em>I</em> got
+      clearer. That's the whole skill."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist the urge to over-explain the underlying LLM here. The chapter already did that work.
+      The demo's job is to make instruction-writing feel concrete, not to teach the model.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Build a weak Gem on purpose</span><span class="clock">⏱ 0:02 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open Gemini, navigate to Gems, click <strong>Create new Gem</strong>. Name it
+      <code>Résumé Reviewer</code>. In the Instructions field, type a deliberately thin instruction:
+      <pre>Help me with my résumé.</pre>
+      Save. Open a chat with the Gem. Paste the weak bullet and ask: <em>"How can I make this stronger?"</em></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Watch what happens. The instruction was four words. Gemini will give us something — it
+      always will, because that's what LLMs do — but watch the shape of the answer."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Read the response out loud at full pace. Do not paraphrase it down. The point is that the
+      response is fluent, polite, vague, and gives six bullet points instead of one decision.
+      The students need to feel the wishy-washiness, not just be told about it.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Push the weak Gem until it cracks</span><span class="clock">⏱ 0:06 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Ask the second prompt in the same chat: <em>"Should I include my high school job from
+      10 years ago?"</em> Read the response out loud.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Six bullet points. <em>On the one hand, on the other hand.</em> A perfectly fluent way of
+      saying nothing. This is not a bad model — this is Gemini, the same Gemini you've all used.
+      It hedges because I never told it <em>who it is</em>. There's no recruiter in this room.
+      There's no opinion in this room. There's just me with four words of instruction asking an
+      LLM to be specific, and an LLM that has no idea what specific looks like for this job."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do not argue with the Gem. Do not try to coax a better answer out of it by prompting harder.
+      That is exactly the wrong instinct, and showing students that instinct fail is the demo's
+      whole pedagogical point. Close the chat.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Rewrite with a real persona and constraints</span><span class="clock">⏱ 0:09 · ~7 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Go back to the Gem's settings and replace the instructions with this — type it live, narrating
+      each section. <strong>The narration is the demo</strong>:
+      <pre>ROLE
+You are a senior technical recruiter at a Fortune 500 company who has
+reviewed 10,000+ résumés for entry- and mid-level technical roles.
+
+PERSONA
+Direct, candid, generous with concrete examples. You don't hedge. You decide.
+
+INPUTS YOU EXPECT
+The user will paste a résumé bullet, section, or whole résumé and ask
+for feedback.
+
+OUTPUTS YOU PRODUCE
+For each piece of input, you respond in three labeled parts:
+  1. THE REWRITE — your improved version of the weakest line.
+  2. THE ONE THING TO ADD — the single missing element that would move
+     them up the recruiter's pile.
+  3. THE SKIM CHECK — any line a recruiter would skim past, and why.
+
+MUST ALWAYS
+- Push for outcomes over duties. "Cut ticket response time 40%" beats
+  "responsible for tickets."
+- Name concrete numbers, tools, or scope wherever the user could plausibly add them.
+- Stay brief — recruiters skim, so do you.
+
+MUST NEVER
+- Open with "Great résumé!" or any other recruiter-doesn't-talk-this-way pleasantry.
+- Give five-option lists when one answer is the right answer.
+- Invent achievements the user did not mention.</pre>
+      Save. Open a fresh chat with the Gem. Paste the SAME bullet from Step 2 and ask the SAME
+      first question: <em>"How can I make this stronger?"</em></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Notice what I did. I gave it a <em>role</em> — a specific kind of person with a specific
+      kind of authority. I gave it a <em>persona</em> — direct, no hedging. I told it exactly
+      what to expect <em>in</em>, exactly what to produce <em>out</em>, and the things it must
+      and must never do. None of this is rocket science. All of it is just <em>me getting clearer.</em>
+      Now watch the same model, same conversation, give us something completely different."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do not skip the narration. The visible structure of the instructions — six labeled sections
+      — is what students will replicate in the lab. If you type it as one paragraph, they'll
+      replicate that.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Land the point — and hand off to the lab</span><span class="clock">⏱ 0:16 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Run the SECOND question from Step 3: <em>"Should I include my high school job from
+      10 years ago?"</em> Let the strong Gem answer. It should now decide — usually "no, unless X."</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Look at what just happened. Same model. Same conversation pattern. Different Gem, because
+      different instructions. The Gem that hedged is gone — this one decides. And the only thing
+      that changed is what I wrote. Three takeaways for tonight's lab. First — the chapter is
+      right: <em>the instructions are the heart of it.</em> Second — when a Gem isn't behaving,
+      you do not argue with it; you go back and edit the instructions. Third — a Gem worth
+      building is one a real person, in a real job, would actually use. That's what GRP07 asks
+      you to do — pick a professional role, name a recurring task, and write the instructions
+      that make the Gem useful in that specific context."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Pull up <strong>GRP07</strong>. Walk them through the six-part scaffold on screen — they will
+      see the same labels (ROLE, PERSONA, INPUTS, OUTPUTS, MUST ALWAYS, MUST NEVER) you just used.
+      Send them to breakouts.</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "do we have to use those six labels?"</span>
+      Be direct: yes, tonight. The scaffold is the lesson. Once they have done it deliberately
+      once, they can structure their own way. Tonight is the structured rep.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 6 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/">https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/</a><br>
+  Group Lab GRP07 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp07.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp07.html</a><br>
+  Session 8 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session08/">https://c-marq.github.io/cai1001c-ai-thinking/session08/</a><br>
+  Gemini Gems — <a href="https://gemini.google.com">https://gemini.google.com</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
