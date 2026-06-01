@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP08 — Generate Music in MusicGen — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  .scenario-menu{border:1px solid var(--line);border-radius:6px;padding:6px 14px 14px;margin:14px 0;background:#FBFDFF;}
+  .scenario-menu h4{color:var(--blue-d);font-size:.95rem;margin:12px 0 4px;}
+  .scenario-menu p{font-size:.92rem;margin:0 0 4px;}
+  .gen-block{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:12px 14px;margin:14px 0;background:#FBFDFF;break-inside:avoid;}
+  .gen-block h4{margin:0 0 4px;color:var(--blue-d);font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;}
+  .gen-block .hint{font-size:.88rem;color:#555;margin:0 0 6px;font-style:italic;}
+  table.seams th:nth-child(1){width:46%;}
+  table.seams th:nth-child(2){width:28%;}
+  table.seams th:nth-child(3){width:26%;}
+  table.seams td input[type=text]{padding:4px 6px;font-size:.9rem;}
+  table.seams td textarea{min-height:42px;padding:5px 7px;font-size:.9rem;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.gen-block,.scenario-menu{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP08 — Generate Music in MusicGen — and Listen for the Seams</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~45 minutes</span><br>
+    Session 9 · Chapter 7: Generative Media &nbsp;|&nbsp; Featured tool: Hugging Face Spaces (MusicGen) &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group generates short background music for a real use case in <strong>MusicGen</strong>,
+  iterates through three prompts to make it better, and then does the harder work: listens for the
+  <strong>seams</strong> — repetition, awkward transitions, instruments that sound <em>like</em>
+  banjos but aren't quite — and asks the chapter's harder question: <em>if we shared this on
+  social media as background music, how would a listener even know it was AI-made?</em> That
+  question, and the provenance answer to it, is the real point of the lab. The Space is free,
+  runs in the browser, and needs no account.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs MusicGen on the shared screen, types prompts, plays results</td><td><input type="text"></td></tr>
+  <tr><td>Data Interpreter — listens analytically, names what's working and what isn't on each version</td><td><input type="text"></td></tr>
+  <tr><td>Presenter — delivers the share-out to the class (will play your best clip)</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — fills the worksheet and leads the provenance discussion in Step 4</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Pick a use case and open MusicGen</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, pick <strong>one real use case</strong> for short background music — the kind a
+  person would actually use, on a real Tuesday, for a real project. Pick from the menu below, or
+  use one a group member actually needs.</div>
+
+<div class="scenario-menu">
+  <h4>1. Podcast intro music (15 sec)</h4>
+  <p>The first thing a listener hears before the host's voice — sets the show's tone instantly.</p>
+  <h4>2. Workout video background (loop-friendly)</h4>
+  <p>High-energy, steady tempo, no lyrics — for a 30-second exercise reel.</p>
+  <h4>3. Hold music for a small business phone line</h4>
+  <p>Pleasant, neutral, not annoying after 60 seconds. Harder than it sounds.</p>
+  <h4>4. Lullaby for a baby</h4>
+  <p>Gentle, slow, soothing — something a parent would actually press play on at 11 pm.</p>
+  <h4>5. Yoga or meditation session background</h4>
+  <p>Ambient, no sharp transitions, no melody pulling attention.</p>
+  <h4>6. 30-second product ad background</h4>
+  <p>Energetic, builds to a small "moment," fits a brand vibe of your group's choice.</p>
+  <h4>7. School spirit or event hype video</h4>
+  <p>Upbeat, anthemic, makes a crowd cheer.</p>
+  <h4>8. Study or focus session background</h4>
+  <p>Steady, no lyrics, doesn't pull attention from reading.</p>
+  <h4>9. Custom — a real music need a group member actually has</h4>
+  <p>A small business someone in the group runs, a video they're editing, a podcast they host — go that direction.</p>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
+  AI-generated music is judged the same way the vision model was last week — <em>fitness for
+  purpose.</em> "Pretty good music" is not the question; "good enough for hold music callers
+  won't hate after 60 seconds" is. Naming the use case forces every prompt decision and every
+  judgment call that follows to answer a real question.</div>
+
+<label class="fld">The use case our group is generating music for:</label>
+<textarea rows="2"></textarea>
+<label class="fld">The person who would use it, and the decision they'd make from hearing it:</label>
+<textarea rows="2"></textarea>
+<label class="fld">Now open the Space: <code>huggingface.co/spaces/facebook/MusicGen</code> (or the fallback link your instructor posted in chat).</label>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Generate three versions with refinement</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  Generate <strong>three versions</strong>, each refined based on what the previous one sounded
+  like. Keep duration at <strong>15 seconds</strong> for all three. After each generation, the
+  Data Interpreter says one sentence on what's working and one sentence on what isn't — fill
+  those in immediately so the next prompt can react.</div>
+
+<div class="gen-block">
+  <h4>Version 1 — first attempt</h4>
+  <p class="hint">Specify genre, tempo, instruments, mood. Be more specific than "happy music."</p>
+  <label class="fld">Prompt we sent:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What's working in this version (one sentence):</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What isn't (one sentence):</label>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="gen-block">
+  <h4>Version 2 — refined</h4>
+  <p class="hint">Change one or two things in the prompt based on what V1 sounded like. Don't rewrite from scratch — refine.</p>
+  <label class="fld">Prompt we sent:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What changed for the better (one sentence):</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What's still off (one sentence):</label>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="gen-block">
+  <h4>Version 3 — final</h4>
+  <p class="hint">One more refinement — this is the one you'll share with the class.</p>
+  <label class="fld">Prompt we sent:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">Is this the one we'd share? Why (one or two sentences):</label>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Treating each version like a totally fresh start. The skill is <em>refinement</em> — keeping
+  what worked, changing what didn't, paying attention to which words in the prompt actually moved
+  the result. If V2 and V3 sound completely different from V1 in every dimension, you weren't
+  refining — you were rolling dice.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before Step 3, you have three real generated clips (not just three prompts), all three "what's
+  working / what isn't" rows are filled in, and the group agrees on which version is V3 — the
+  one you'll share. If any of that isn't true, finish it now.</div>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Study the seams in your best version</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  Take your V3 (the version you'd share). <strong>Play it three more times</strong> as a group —
+  not background-listening, focused listening. Each time, listen for a different thing. Fill in
+  the table with at least <strong>three seams</strong> — flaws, oddities, or "tells" that hint
+  it was machine-made. Rate honestly how hard each was to spot.</div>
+<table class="seams">
+  <tr>
+    <th>What we noticed (the seam)</th>
+    <th>Type — pick one: repetition / weak ending / fake-sounding instrument / structural / pitch or rhythm / other</th>
+    <th>How hard to spot — Obvious / Took a listen / Subtle</th>
+  </tr>
+  <tr>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  </tr>
+  <tr>
+    <td><textarea rows="2"></textarea></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  </tr>
+</table>
+<div class="box blueb"><span class="lbl">💡 WHY THE "HOW HARD" COLUMN MATTERS</span>
+  The chapter's myth-vs-reality says: <em>"I would recognize a fake — it would sound off"</em>
+  is not a safe defense, because the tells are unevenly distributed and shrinking. The seams
+  you find <strong>now</strong>, in 2026, on a free Space, are the ones that will not be there
+  next year. The "Subtle" ratings are the honest ones — those are the future of all of this.</div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>The provenance check — the hard question</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  Imagine your group posted V3 on TikTok, Instagram, or a podcast feed as background music with
+  <strong>no caption saying it was AI</strong>. The QA Reviewer leads this discussion. As a group,
+  answer the two questions below in two-to-three sentences each.</div>
+<label class="fld">How would a listener even know it was AI-made? Could anyone? If not by ear, then how?</label>
+<textarea rows="3"></textarea>
+<label class="fld">What would make it easier — for the listener, for the platform, for everyone? (Use Chapter 7 vocabulary — <em>SynthID, Content Credentials, watermarking, provenance, source-checking</em> — at least one of these terms should appear in your answer.)</label>
+<textarea rows="3"></textarea>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Verdict and share-out prep</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, deliver the verdict honestly. Your Presenter plays V3 for the class and gives a
+  60-second report.</div>
+<label class="fld">Is V3 fit for the use case from Step 1? Why or why not? (one short paragraph)</label>
+<textarea rows="3"></textarea>
+<label class="fld">The most surprising thing about your seams — or about their absence (one sentence):</label>
+<textarea rows="2"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Confirm: three versions recorded, at least three seams in the Step 3 table with honest
+  difficulty ratings, both provenance answers written, verdict written. Your Presenter knows
+  which clip is V3 and how to play it for the class.</div>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your use case, three generated
+  versions with prompts and reactions, at least three seams with difficulty ratings, both
+  provenance answers, and your verdict.</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm every section is
+  visible — including all three version blocks and the seams table. Upload the PDF to the
+  <strong>GRP08</strong> assignment in Canvas. One submission per group, with every member's
+  name in the roles table. Due by the end of class.
+</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>The MusicGen Space won't load.</td><td>Refresh once. If it's still down, your instructor will post a fallback Space link in chat — switch and continue.</td></tr>
+  <tr><td>Generation is taking forever (60–90 seconds).</td><td>That's the free-tier queue. While it runs, the group can be writing the "what's working / what isn't" row from the previous version — the worksheet is designed so there's always something to fill in.</td></tr>
+  <tr><td>The audio doesn't play, or plays without sound.</td><td>Check that Zoom's "Share computer sound" is enabled. On a phone, check that the device is not on silent mode.</td></tr>
+  <tr><td>The music has a weird abrupt ending or loops on itself.</td><td>That is exactly what Step 3 is about — record it as a seam, not a problem to fix. The seams are the lesson.</td></tr>
+  <tr><td>The Space won't let us download the audio file.</td><td>For the share-out, the Presenter can simply share their screen and play it from MusicGen directly. You don't need to download anything.</td></tr>
+  <tr><td>The group can't agree on whether V3 "works."</td><td>Go back to your Step 1 use case. <em>Works</em> is a context question — V3 might be perfect for a workout reel and terrible for a yoga session. The use case decides.</td></tr>
+  <tr><td>We finished early — what now?</td><td>Generate a fourth version pushing in a totally different direction (different genre, different mood) to feel the model's range. Or write a one-sentence prompt your group thinks would <em>break</em> the model, and try it.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 7 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/">https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/</a><br>
+  Guided Demo GD09 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd09.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd09.html</a><br>
+  Session 9 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session09/">https://c-marq.github.io/cai1001c-ai-thinking/session09/</a><br>
+  MusicGen Space — <a href="https://huggingface.co/spaces/facebook/MusicGen">https://huggingface.co/spaces/facebook/MusicGen</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
