@@ -1,240 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Group Lab GRP06 — Stress-Test a Vision Model — CAI1001C</title>
-<style>
-  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
-  *{box-sizing:border-box;}
-  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
-  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
-  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
-  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
-  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
-  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
-  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
-  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
-  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
-  p,li{font-size:.96rem;}
-  ul{padding-left:22px;}
-  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
-  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
-  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
-  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
-  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
-  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
-  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
-  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
-  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
-  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
-  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
-  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
-  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
-  table{border-collapse:collapse;width:100%;margin:12px 0;}
-  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
-  th{background:var(--blue);color:#fff;}
-  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
-  table.results th:nth-child(1){width:34%;}
-  table.results th:nth-child(2){width:24%;}
-  table.results th:nth-child(3){width:14%;}
-  table.results th:nth-child(4){width:28%;}
-  table.results td input[type=text]{padding:4px 6px;font-size:.9rem;}
-  table.results td textarea{min-height:44px;padding:5px 7px;font-size:.9rem;}
-  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
-  .footer a{color:var(--blue);word-break:break-word;}
-  .footer strong{color:var(--blue-d);}
-  @media print{
-    body{padding:0;max-width:100%;font-size:11pt;}
-    .box,table{break-inside:avoid;}
-    textarea,input[type=text]{border:1px solid #999;}
-    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    h2{break-after:avoid;}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Lab GRP06 — YOLO vs. Gemini: Two Ways to See — CAI1001C</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; line-height: 1.6; color: #333; }
+    .eyebrow { color: #2E86C1; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.85em; }
+    h1 { color: #2C3E50; border-bottom: 3px solid #2E86C1; padding-bottom: 10px; margin-bottom: 8px; }
+    h2 { color: #2E86C1; margin-top: 34px; }
+    .badge-line { background: #EBF5FB; border-radius: 6px; padding: 12px 16px; font-size: 0.95em; margin: 14px 0 6px; }
+    .badge-line strong { color: #2C3E50; }
+    .pill { display: inline-block; background: #2E86C1; color: #fff; border-radius: 12px; padding: 2px 12px; font-size: 0.82em; font-weight: 600; margin-right: 6px; }
+    code { background: #F4F4F4; padding: 2px 6px; border-radius: 3px; font-size: 0.95em; }
+    .step-num { display: inline-block; background: #2C3E50; color: #fff; width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; font-weight: 700; margin-right: 8px; }
+    .box-green { background-color: #D5F5E3; border-left: 5px solid #27AE60; padding: 15px; margin: 15px 0; border-radius: 4px; }
+    .box-blue { background-color: #D6EAF8; border-left: 5px solid #2E86C1; padding: 15px; margin: 15px 0; border-radius: 4px; }
+    .box-yellow { background-color: #FEF9E7; border-left: 5px solid #F1C40F; padding: 15px; margin: 15px 0; border-radius: 4px; }
+    .box-red { background-color: #FADBD8; border-left: 5px solid #E74C3C; padding: 15px; margin: 15px 0; border-radius: 4px; }
+    .box-green strong { color: #1E8449; }
+    .box-blue strong { color: #1A5276; }
+    .box-yellow strong { color: #7D6608; }
+    .box-red strong { color: #922B21; }
+    table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; vertical-align: top; }
+    th { background-color: #2E86C1; color: white; }
+    td[contenteditable] { min-height: 44px; background: #fff; }
+    td[contenteditable]:empty:before { content: ""; }
+    .fill { border: 1px dashed #999; min-height: 60px; padding: 10px; margin: 10px 0; border-radius: 4px; background: #fff; }
+    .fill.short { min-height: 38px; }
+    .fill.tall { min-height: 90px; }
+    .hint { color: #888; font-size: 0.85em; font-style: italic; }
+    .meta { display: flex; gap: 24px; flex-wrap: wrap; margin: 10px 0 20px; }
+    .meta .fill { flex: 1; min-width: 200px; }
+    .graded { border-left: 5px solid #8E44AD; background: #F5EEF8; padding: 4px 12px; border-radius: 4px; display: inline-block; font-size: 0.85em; color: #6C3483; font-weight: 600; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 0.85em; color: #666; }
+    a { color: #2E86C1; }
+    @media print {
+      .box-green, .box-blue, .box-yellow, .box-red, table, .fill { break-inside: avoid; }
+      .hint { display: none; }
+      body { padding: 0; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="masthead">
-  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
-  <h1>GRP06 — Stress-Test a Vision Model</h1>
-  <div class="meta">
+  <div class="eyebrow">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP06 — YOLO vs. Gemini: Two Ways to See</h1>
+
+  <div class="badge-line">
     <span class="pill">4 points</span>
     <span class="pill">Group of 3–4</span>
     <span class="pill">~40 minutes</span><br>
-    Session 7 · Chapter 5: Computer Vision &nbsp;|&nbsp; Featured tool: Hugging Face Spaces &nbsp;|&nbsp;
-    <strong>Due: end of class</strong>
+    <strong>Session 7 · Chapter 5: Computer Vision</strong> · Featured tool: <strong>Google AI Studio (Gemini)</strong> · sign-in required · <strong>Due: end of class</strong>
   </div>
-</div>
 
-<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
-  Tonight your group puts a real <strong>object-detection model</strong> to work — and then tries
-  to break it on purpose. You will pick a real-world use case (accessibility, security, retail,
-  traffic, healthcare, or wildlife), feed it ten of your own images, and decide whether the model
-  is fit for that purpose. Honest evaluation is the point — not a perfect score. The Space is free,
-  runs in the browser, and needs no account.</div>
+  <div class="meta">
+    <div class="fill short" contenteditable="true"><span class="hint">Group name / number…</span></div>
+    <div class="fill short" contenteditable="true"><span class="hint">Date…</span></div>
+  </div>
 
-<h3>Group members &amp; roles</h3>
-<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
-<table class="roles">
-  <tr><th>Role</th><th>Member name</th></tr>
-  <tr><td>Lead Driver — runs the Space on the shared screen and uploads images</td><td><input type="text"></td></tr>
-  <tr><td>Data Interpreter — reads and records the model's outputs and confidence scores</td><td><input type="text"></td></tr>
-  <tr><td>Presenter — delivers the share-out to the class</td><td><input type="text"></td></tr>
-  <tr><td>QA Reviewer — stress-tests the diagnosis and fills this worksheet</td><td><input type="text"></td></tr>
-</table>
+  <div class="box-blue">
+    <strong>💡 WHAT THIS LAB IS</strong><br>
+    Tonight you watched <strong>YOLO</strong> draw bounding boxes around objects — tight rectangles snapped to about 80 fixed categories. Now your group tries a completely different way to understand an image: you'll upload photos to <strong>Google AI Studio</strong> and <em>ask</em> a multimodal AI (<strong>Gemini</strong>) to describe what it sees, in plain language. Same task — understanding images — two fundamentally different approaches. You'll compare where each one wins, then try to break Gemini on purpose. Honest evaluation is the point, not a perfect score.
+  </div>
 
-<!-- STEP 1 -->
-<h2><span class="step">1</span>Pick a use case and open the Space</h2>
-<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
-  As a group, pick <strong>one real-world use case</strong> for an object-detection model. The
-  model you'll use is trained on <strong>COCO</strong> — about 80 everyday categories like people,
-  vehicles, animals, household items, and sports equipment. Pick a use case it might plausibly
-  serve:
-  <ul>
-    <li><strong>Accessibility</strong> — a smartphone app that describes a scene out loud to a person with low vision.</li>
-    <li><strong>Security / safety</strong> — a school-hallway camera flagging unattended bags.</li>
-    <li><strong>Retail</strong> — a self-checkout camera identifying produce on the belt.</li>
-    <li><strong>Traffic / city ops</strong> — a downtown camera counting cars, buses, and bicycles.</li>
-    <li><strong>Healthcare</strong> — a clinic camera checking the contents of a supply shelf.</li>
-    <li><strong>Wildlife / environment</strong> — a Florida camera trap identifying animals.</li>
-  </ul>
-  Then open the Space your instructor posted in the Zoom chat — primary:
-  <code>huggingface.co/spaces/Xenova/yolov9-web</code>. It runs in your browser; give it 10 seconds
-  to load the model the first time.</div>
-<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
-  A vision model is excellent at the things it was trained on and useless at the things it has
-  never seen. Naming a use case forces you to evaluate the model in <em>context</em> — "is it good
-  enough for the job we'd ask it to do?" — instead of cheering an impressive number. That is the
-  habit Section 4.4 and Section 5.2 want you to carry forward into every model from now on.</div>
-<label class="fld">The use case our group is evaluating the model for:</label>
-<textarea rows="2"></textarea>
-<label class="fld">The person who would use it, and the decision they'd make from its output:</label>
-<textarea rows="2"></textarea>
+  <div class="box-green">
+    <strong>✅ WHAT YOU NEED</strong><br>
+    A laptop or phone with a browser. Go to <code>aistudio.google.com</code> and sign in with a Google account. Pick <strong>any available Gemini model</strong> — version doesn't matter for this lab. Each group member should have <strong>3–5 images ready</strong> on their phone or laptop (everyday objects, food, places, signs).
+  </div>
 
-<!-- STEP 2 -->
-<h2><span class="step">2</span>Run 5 clear images and record</h2>
-<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
-  As a group, feed the Space <strong>five clear, ordinary images</strong> from a member's phone —
-  the kind of photo a normal user of your use case would upload. For each, write down what the
-  model said (its top label or labels), the confidence score, and whether the answer was right
-  <em>for your use case</em>.</div>
-<table class="results">
-  <tr><th>Image (one-line description)</th><th>Model's top label(s)</th><th>Confidence</th><th>Right for our use case? (Y/N + 1 line)</th></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-</table>
-<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
-  Five clear examples establish a baseline. If the model already fails on easy photos in your use
-  case, you can stop — it isn't the right tool. If it succeeds on the easy ones, you've earned the
-  right to ask the harder question next: where does it break, and does that matter?</div>
+  <h2>Group members &amp; roles</h2>
+  <p>Every member picks one role. All roles contribute — <strong>no coding is required for any of them.</strong></p>
+  <table>
+    <tr><th style="width:55%">Role</th><th>Member name</th></tr>
+    <tr><td><strong>Lead Driver</strong> — runs AI Studio on the shared screen, uploads images, types the prompts</td><td contenteditable="true"></td></tr>
+    <tr><td><strong>Data Interpreter</strong> — reads and records Gemini's responses into the tables</td><td contenteditable="true"></td></tr>
+    <tr><td><strong>Presenter</strong> — delivers the 60-second share-out to the class</td><td contenteditable="true"></td></tr>
+    <tr><td><strong>QA Reviewer</strong> — stress-tests the group's answers and fills this worksheet</td><td contenteditable="true"></td></tr>
+  </table>
 
-<!-- STEP 3 -->
-<h2><span class="step">3</span>Now try to break it on purpose</h2>
-<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
-  Feed the Space <strong>five hard images</strong>. Push deliberately on at least three of the
-  stress dimensions below — note which one you pushed on in column 2:
-  <ul>
-    <li><strong>Unusual angle</strong> — from above, from below, extreme close-up.</li>
-    <li><strong>Poor lighting</strong> — backlit, deep shadow, low light, glare.</li>
-    <li><strong>Partial occlusion</strong> — the subject is half hidden behind something.</li>
-    <li><strong>Out-of-distribution subject</strong> — something COCO probably wasn't trained on (a
-      Florida iguana, a guava, a piragua cart, a Cuban café cup, a specific cultural object).</li>
-    <li><strong>Cluttered scene</strong> — many overlapping objects, busy background.</li>
-    <li><strong>Ambiguous case</strong> — could plausibly be two categories.</li>
-  </ul></div>
-<table class="results">
-  <tr><th>Image (one-line description)</th><th>What we pushed on</th><th>Confidence</th><th>What it missed or got wrong</th></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-  <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><textarea rows="1"></textarea></td></tr>
-</table>
-<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
-  Picking "hard" images that are also tiny, hopelessly blurry, or just bad photos. A model failing
-  on a 50-pixel-wide smudge teaches no one anything. <em>Hard</em> means clear-enough that a
-  person reads it fine, but with one stress dimension pushed on. The chapter's point is that a
-  model can fail on images <em>you</em> read instantly.</div>
+  <!-- STEP 1 -->
+  <h2><span class="step-num">1</span>First contact with Gemini Vision</h2>
 
-<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
-  Before Step 4, your two tables have ten rows of real outputs and confidence numbers — actual
-  labels the Space produced, not "I think it would say…" If a row is blank or guessed, go fix it.</div>
+  <div class="box-green">
+    <strong>✅ DO THIS — 8 min</strong><br>
+    Start simple. Upload a clear photo of <strong>one common object on a plain background</strong>.<br><br>
+    <strong>Task 1A.</strong> Type this prompt: <code>What objects do you see in this image?</code> Record what Gemini says.
+  </div>
 
-<!-- STEP 4 -->
-<h2><span class="step">4</span>Diagnose one failure using Chapter 5</h2>
-<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
-  Pick the most <em>interesting</em> failure from your tables — not the worst, the most
-  <em>instructive</em>. As a group, write <strong>three sentences</strong> explaining why it
-  failed, using vocabulary from Chapters 4 and 5. Reach for the right words: <em>pixels-as-numbers,
-  training data, confidence score, decision boundary, out-of-distribution, overfitting,
-  generalization, bias in training data.</em></div>
-<div class="box blueb"><span class="lbl">💡 WHY ARE WE DOING THIS?</span>
-  "It got it wrong" is not a diagnosis. "It got it wrong <em>because</em> [chapter language]" is
-  the skill this chapter is teaching. Naming <em>why</em> a model fails is the difference between
-  a person who knows what AI does and a person who knows what it <em>is</em>.</div>
-<label class="fld">Three-sentence diagnosis (this is graded):</label>
-<textarea rows="4"></textarea>
+  <table>
+    <tr><th style="width:50%">What image did you upload?</th><th>What did Gemini say?</th></tr>
+    <tr><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  </table>
 
-<!-- STEP 5 -->
-<h2><span class="step">5</span>Verdict and share-out prep</h2>
-<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
-  As a group, answer the verdict honestly. Your Presenter delivers a 60-second report to the
-  class.</div>
-<label class="fld">Would we trust this model for our use case? Why or why not? (one short paragraph)</label>
-<textarea rows="4"></textarea>
-<label class="fld">The one failure we'll show the class, and what it reveals (one sentence):</label>
-<textarea rows="2"></textarea>
+  <div class="box-green">
+    <strong>✅ DO THIS</strong><br>
+    <strong>Task 1B.</strong> Ask Gemini a more specific follow-up about the <em>same</em> image. Pick one (or write your own):
+    <em>"Describe the colors and lighting in this image" · "What is happening in this scene?" · "How many objects can you count?"</em>
+  </div>
 
-<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
-  Your verdict isn't a single word. "Yes" or "no" alone is not a verdict — <em>why</em> is the
-  verdict. If the answer fits on one line, you haven't argued it yet.</div>
+  <table>
+    <tr><th style="width:50%">What prompt did you use?</th><th>What did Gemini say?</th></tr>
+    <tr><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  </table>
 
-<!-- SUBMIT -->
-<h2>What to submit</h2>
-<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
-  This completed worksheet is your submission. It must include your use case, your ten image
-  observations, your three-sentence diagnosis, and your verdict.</div>
-<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
-  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm both tables and all
-  text fields are visible — nothing cut off — then upload the PDF to the <strong>GRP06</strong>
-  assignment in Canvas. One submission per group, with every member's name in the roles table.
-  Due by the end of class.</div>
+  <div class="box-blue">
+    <strong>💡 WHY ARE WE DOING THIS?</strong><br>
+    Tonight's YOLO demo answered "what's here?" with boxes, confidence percentages, and labels locked to ~80 categories. Gemini answers the same question with flowing, flexible language — and will happily keep a conversation going about the picture. Right away you're seeing two different answers to the exact same question: <em>what is in this image?</em>
+  </div>
 
-<!-- TROUBLESHOOTING -->
-<h2>Troubleshooting</h2>
-<table>
-  <tr><th>Problem</th><th>Fix</th></tr>
-  <tr><td>The Space won't load, or shows an error.</td><td>Refresh once. If it's still down, your instructor will post the fallback Space link in chat — switch to that and keep going.</td></tr>
-  <tr><td>The model reports nothing on what looks like a clear image.</td><td>It only detects ~80 COCO categories. If your subject isn't one of them (a guava, a piragua, an iguana), it may not appear at all — and <em>that</em> is a finding worth recording, not a problem to fix.</td></tr>
-  <tr><td>The bounding box covers half the image, or two objects in one.</td><td>A confident wrong answer. Record it as a failure mode — exactly the kind of mistake a deployed model needs a human to catch.</td></tr>
-  <tr><td>The model reads 99% confidence on a clearly wrong answer.</td><td>Section 4.4: confidence and correctness are not the same thing. Record both numbers and use this image as your Step 4 diagnosis — it is the chapter's lesson made visible.</td></tr>
-  <tr><td>The group can't agree on whether an output is "right."</td><td>Go back to your Step 1 use case. <em>Right</em> is a context question. 60% confidence on "person" might be plenty for crowd-counting and nowhere near enough for a security alert.</td></tr>
-  <tr><td>Uploading from a phone is slow.</td><td>Have one member AirDrop or email the photos to the Lead Driver, who uploads from a laptop. Faster than uploading one at a time from phones.</td></tr>
-</table>
+  <!-- STEP 2 -->
+  <h2><span class="step-num">2</span>Same image, different results</h2>
 
-<div class="footer">
-  <strong>Related materials</strong><br>
-  Chapter 5 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</a><br>
-  Guided Demo GD07 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html</a><br>
-  Session 7 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session07/">https://c-marq.github.io/cai1001c-ai-thinking/session07/</a><br>
-  Object detection Space — <a href="https://huggingface.co/spaces/Xenova/yolov9-web">https://huggingface.co/spaces/Xenova/yolov9-web</a>
-  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
-</div>
+  <div class="box-green">
+    <strong>✅ DO THIS — 10 min</strong><br>
+    <strong>Task 2A.</strong> Upload an image with <strong>many objects</strong> — a busy desk, a kitchen counter, a street scene, a cafeteria tray. Ask: <code>List every object you can identify in this image.</code> Then, as a group, predict what YOLO would likely catch (think about its ~80 COCO categories: people, vehicles, animals, common household items).
+  </div>
 
-<script>
-  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
-  document.querySelectorAll('textarea').forEach(function(t){
-    t.addEventListener('input', function(){ grow(t); });
-    grow(t);
-  });
-  window.addEventListener('beforeprint', function(){
-    document.querySelectorAll('textarea').forEach(grow);
-  });
-</script>
+  <table>
+    <tr><th>Image description</th><th>What Gemini identified</th><th>What would YOLO probably detect?</th></tr>
+    <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  </table>
+
+  <div class="box-green">
+    <strong>✅ DO THIS</strong><br>
+    <strong>Task 2B.</strong> Based on what you've seen, list <strong>two things Gemini can do that YOLO can't</strong>, and <strong>one thing YOLO does that Gemini doesn't</strong>.
+  </div>
+
+  <p><strong>Gemini can, but YOLO can't:</strong></p>
+  <div class="fill" contenteditable="true"></div>
+  <p><strong>YOLO does, but Gemini doesn't:</strong></p>
+  <div class="fill short" contenteditable="true"></div>
+
+  <div class="box-yellow">
+    <strong>⚠️ COMMON MISTAKE</strong><br>
+    Writing "Gemini is better" or "YOLO is better." Neither is true — they're built for different jobs. The point isn't to crown a winner; it's to notice <em>which approach fits which task</em>. Keep both answers specific.
+  </div>
+
+  <!-- STEP 3 -->
+  <h2><span class="step-num">3</span>Now try to break Gemini</h2>
+
+  <div class="box-green">
+    <strong>✅ DO THIS — 12 min</strong><br>
+    Every system has weak spots. Divide these three tests among your members and run all three.<br><br>
+    <strong>Task 3A — Tricky image.</strong> Upload something <em>challenging</em> — blurry, odd angle, dim light, or uncommon — and ask Gemini to describe it.<br>
+    <strong>Task 3B — Impossible question.</strong> Upload any image and ask something it <em>can't</em> know from the picture alone: "What does this food taste like?" · "How old is this person?" · "What happens next?" · "Who took this photo?"<br>
+    <strong>Task 3C — Text-in-image.</strong> Upload an image with visible text (a sign, menu, label, book cover) and ask: <code>What text can you see in this image?</code>
+  </div>
+
+  <table>
+    <tr><th>Test</th><th>What you tried</th><th>What Gemini said</th><th>Accurate? What did it get wrong?</th></tr>
+    <tr><td><strong>3A</strong> Tricky image</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    <tr><td><strong>3B</strong> Impossible Q</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    <tr><td><strong>3C</strong> Text-in-image</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  </table>
+
+  <div class="box-blue">
+    <strong>💡 WHY ARE WE DOING THIS? — the honesty question</strong><br>
+    Remember the <strong>confidence numbers</strong> from tonight's demo — every YOLO box came with a percentage like "person 88%," the model's built-in signal for "how sure am I." Gemini usually gives you <strong>no number at all</strong> — and on the impossible question, it will often state a confident guess in the same calm voice it uses for facts. Watch for that. Which approach is more honest about what it doesn't know?
+  </div>
+
+  <div class="box-yellow">
+    <strong>⚠️ COMMON MISTAKE</strong><br>
+    For the tricky-image test, picking a photo that's <em>hopelessly</em> bad — a tiny, pitch-black smudge. A model failing on something <em>no one</em> can read teaches nothing. "Tricky" means a person reads it fine but one thing is pushed: odd angle, low light, partial cover.
+  </div>
+
+  <div class="box-red">
+    <strong>🛑 STOP AND CHECK</strong><br>
+    Before Step 4, your three test rows hold <em>actual</em> Gemini responses — what it really said, not "I think it would say…". If a row is blank or guessed, go run it for real.
+  </div>
+
+  <!-- STEP 4 -->
+  <h2><span class="step-num">4</span>Diagnose &amp; decide when to use each</h2>
+
+  <div class="box-green">
+    <strong>✅ DO THIS — 6 min</strong><br>
+    <strong>Task 4A.</strong> As a group, fill in which tool fits each real-world job — and why.
+  </div>
+
+  <table>
+    <tr><th>Scenario</th><th style="width:18%">YOLO or Gemini?</th><th>Why?</th></tr>
+    <tr><td>A security camera monitoring a parking lot 24/7</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    <tr><td>An app describing a photo out loud to a blind user</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    <tr><td>Counting cars on I-95 for a traffic report</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    <tr><td>Helping a restaurant owner figure out what's in a kitchen photo</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+  </table>
+
+  <div class="box-green">
+    <strong>✅ DO THIS</strong> &nbsp; <span class="graded">★ GRADED</span><br>
+    <strong>Task 4B.</strong> Pick the most <em>instructive</em> moment from your lab — a surprising win or a revealing failure. In <strong>three sentences</strong>, explain what happened and <em>why</em>, using vocabulary from Chapters 4 and 5: <em>training data, confidence, out-of-distribution, generalization, multimodal, bias in training data, pattern vs. memorization.</em>
+  </div>
+
+  <div class="fill tall" contenteditable="true"><span class="hint">Three-sentence diagnosis using chapter language…</span></div>
+
+  <div class="box-blue">
+    <strong>💡 WHY ARE WE DOING THIS?</strong><br>
+    "It got it wrong" is not a diagnosis. "It got it wrong <em>because</em> [chapter language]" is the skill this chapter teaches. Naming <em>why</em> a model behaves the way it does is the difference between knowing what AI <em>does</em> and knowing what it <em>is</em>.
+  </div>
+
+  <!-- STEP 5 -->
+  <h2><span class="step-num">5</span>Verdict &amp; share-out prep</h2>
+
+  <div class="box-green">
+    <strong>✅ DO THIS — 4 min</strong><br>
+    <strong>Task 5A.</strong> If you had to pick <strong>one tool</strong> to build a real product around — YOLO or Gemini — which would your group choose, and for what kind of product? Could you use <em>both</em>? Answer in one short paragraph. Your Presenter delivers a 60-second report.
+  </div>
+
+  <div class="fill tall" contenteditable="true"></div>
+
+  <p><strong>Task 5B.</strong> The one moment we'll show the class, and what it reveals (one sentence):</p>
+  <div class="fill" contenteditable="true"></div>
+
+  <div class="box-red">
+    <strong>🛑 STOP AND CHECK</strong><br>
+    Your verdict isn't a single word. "YOLO" or "Gemini" alone isn't a verdict — the <em>why</em> is the verdict. If your answer fits on one line, you haven't argued it yet.
+  </div>
+
+  <!-- SUBMIT -->
+  <h2>What to submit</h2>
+
+  <div class="box-blue">
+    <strong>💡 ONE WORKSHEET PER GROUP</strong><br>
+    This completed worksheet is your submission. It must include every member's name in the roles table, your Step 2–3 observations, your graded three-sentence diagnosis (Task 4B), and your verdict (Step 5).
+  </div>
+
+  <div class="box-green">
+    <strong>✅ HOW TO SUBMIT</strong><br>
+    Type your answers directly into the fields above, then in your browser choose <strong>File → Print → Save as PDF</strong>. Confirm every table and text box is fully visible — nothing cut off — then upload the PDF to the <strong>GRP06</strong> assignment in Canvas. One submission per group. Due by the end of class.
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <h2>Troubleshooting</h2>
+  <table>
+    <tr><th style="width:42%">Problem</th><th>Fix</th></tr>
+    <tr><td>AI Studio won't load, or a sign-in fails.</td><td>Try a different member's Google account on the shared screen. If it's still blocked, your instructor will post a fallback link in the Zoom chat — switch to it and keep going.</td></tr>
+    <tr><td>Gemini refuses an image or returns a safety message.</td><td>Swap in a different, neutral image (no faces of strangers, no sensitive content). Note that it refused — that's a finding about guardrails, not a failure of the lab.</td></tr>
+    <tr><td>Gemini answers with a giant wall of text.</td><td>Narrow the prompt: "List only the objects, one per line" or "Answer in one sentence." Controlling the output is part of using the tool well.</td></tr>
+    <tr><td>Gemini states a guess as if it were fact (Step 3B).</td><td>That's the lesson, not a bug. Record it word-for-word — it's strong material for your Task 4B diagnosis.</td></tr>
+    <tr><td>The group can't agree whether an answer is "right."</td><td>Go back to your scenario in Step 4. <em>Right</em> is a context question — a loose description might be plenty for a blind-user app and nowhere near enough for a security alert.</td></tr>
+    <tr><td>Uploading from a phone is slow.</td><td>Have one member AirDrop or email the photos to the Lead Driver, who uploads from a laptop — faster than one-at-a-time from phones.</td></tr>
+  </table>
+
+  <footer>
+    <strong>Related materials</strong><br>
+    Chapter 5 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</a><br>
+    Guided Demo GD07 (tonight's YOLO demo) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd07.html">guided-demos/gd07.html</a><br>
+    Session 7 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session07/">session07</a><br>
+    Google AI Studio — <a href="https://aistudio.google.com">aistudio.google.com</a><br><br>
+    CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez
+  </footer>
 
 </body>
 </html>
