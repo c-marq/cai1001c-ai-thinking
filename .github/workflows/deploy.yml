@@ -43,7 +43,7 @@ jobs:
       # duplicated here.
       - name: Copy standalone HTML files into the build
         run: |
-          cp -r guided-demos group-labs homeworks _build/html/
+          cp -r guided-demos group-labs homeworks final-capstone _build/html/
           mkdir -p _build/html/sessions && cp sessions/*.html _build/html/sessions/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
