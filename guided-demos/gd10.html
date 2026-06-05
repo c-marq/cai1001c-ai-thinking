@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guided Demo GD10 — Build a Headshot Generator — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --navy2:#22315A; --orange:#F39C12; --ink:#333; --line:#E2E5EA; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{color:var(--orange);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;}
+  .masthead h1{margin:6px 0 4px;font-size:1.55rem;}
+  .masthead .meta{font-size:.92rem;color:#C9D2E3;}
+  .masthead .meta strong{color:#fff;}
+  .placement{margin-top:14px;padding:11px 14px;background:var(--navy2);border-left:4px solid var(--orange);border-radius:4px;font-size:.9rem;color:#E8ECF4;}
+  h2{color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  .prep{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:6px;padding:16px 18px;margin:18px 0;background:#FFF9F0;break-inside:avoid;}
+  .prep h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+  .card{border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:11px 16px;}
+  .num{background:var(--orange);color:var(--navy);font-weight:800;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:1.05rem;}
+  .card-head .t{font-weight:700;font-size:1.05rem;flex:1;}
+  .clock{background:#fff;color:var(--navy);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .card-body{padding:14px 18px;}
+  .box{padding:12px 14px;margin:12px 0;border-radius:4px;break-inside:avoid;}
+  .do{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .say{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .warn{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .box .lbl{display:block;margin-bottom:4px;font-size:.82rem;letter-spacing:.03em;font-weight:700;}
+  .do .lbl{color:#1E8449;}
+  .say .lbl{color:#1A5276;}
+  .warn .lbl{color:#7D6608;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  pre{background:#2D2D2D;color:#F8F8F2;padding:13px 15px;border-radius:6px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0;white-space:pre-wrap;}
+  ul{margin:8px 0;padding-left:22px;}
+  li{margin:4px 0;}
+  .say em{font-style:normal;background:#fff;padding:1px 5px;border-radius:3px;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  th{background:var(--navy);color:#fff;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.9rem;}
+  .footer strong{color:var(--navy);}
+  .footer a{color:#2E86C1;word-break:break-word;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11.5pt;}
+    .card,.box,.prep,pre,table{break-inside:avoid;}
+    .masthead,.card-head,.num,.clock{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Instructor Guided Demo</div>
+  <h1>GD10 — Build a Professional Headshot Generator</h1>
+  <div class="meta">
+    Session 10 · Monday, June 15, 2026 &nbsp;|&nbsp; Chapter 8: AI in the Real World &nbsp;|&nbsp;
+    <strong>Demo tool:</strong> Google AI Studio — Build Mode (with Nano Banana)
+  </div>
+  <div class="placement">
+    <strong>Where this runs:</strong> Block A4, after the Ch 8 compressed lecture, the AI for
+    Oceans activity, and the Final App Builder Q&amp;A. Paced for roughly <strong>30 minutes</strong>.
+    This is a <strong>demonstration only</strong> — students do not follow along here. They will
+    do their own version in GRP09 right after the break. The demo's job is to show them that
+    <em>describing</em> a polished app produces <em>a polished app</em>, in real time, with no code.
+  </div>
+</div>
+
+<div class="prep">
+  <h3>Before class — set up the demo</h3>
+  <p>This demo lands because students see something genuinely impressive come into existence in
+  90 seconds. Confirm everything works in advance — Build Mode demos look spectacular when they
+  work and confusing when they hiccup.</p>
+  <ul>
+    <li>Sign into <code>aistudio.google.com</code> ahead of class. In the left sidebar, locate
+      <strong>Build</strong> — confirm you're not in Prompts or Playground.</li>
+    <li>Have <strong>2–3 test photos</strong> ready on your phone or in a folder — selfies,
+      casual portraits, anything with a clearly visible face. You'll upload them in the live
+      preview after the app builds.</li>
+    <li>Have the full <strong>app description prompt</strong> ready to paste — the one from your
+      published guide, with the detailed photographic specifications for Nano Banana. Loading it
+      from a text file or a tab is faster than typing it live.</li>
+    <li>If you've run this demo before, consider <strong>opening last term's deployed version
+      in a separate tab</strong> as a fallback in case Build Mode is slow tonight. Naming what
+      the finished app does, then building it, is the demo's spine — having an existing version
+      as a safety net means you can keep narrating even if generation hangs.</li>
+    <li>Mirror your screen; close any Gmail or personal tabs you don't want students to see when
+      you switch contexts.</li>
+  </ul>
+</div>
+
+<h2>The Demo</h2>
+
+<!-- CARD 1 -->
+<div class="card">
+  <div class="card-head"><span class="num">1</span><span class="t">Frame — describing an app is "vibe coding"</span><span class="clock">⏱ 0:00 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Open <code>aistudio.google.com</code>. Show the left sidebar. Point at <strong>Build</strong> —
+      not Prompts, not Playground. Click Build. Show the interface. Click <strong>New</strong> /
+      <strong>Build a new app</strong>.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This is Build Mode. It is not the chat window. It is not the playground where we test
+      prompts. This is something else — a place where you <em>describe</em> an application in
+      plain English and the AI builds a real, working, deployable web app. People call this
+      <em>vibe coding</em>. You bring the idea, the judgment, and the testing; the AI handles
+      the code. You will not write a line of HTML, CSS, or JavaScript tonight. By the end of
+      class, every one of your groups will have one of these running on screen."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Resist the urge to over-explain at this stage. The demo's power comes from <em>showing</em>,
+      not telling. The students will not believe what's about to happen until they watch it.
+      Keep this framing under three minutes.</div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+  <div class="card-head"><span class="num">2</span><span class="t">Paste the description — specifics, not vibes</span><span class="clock">⏱ 0:03 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Paste the full headshot generator app description into the prompt field. Scroll through it
+      slowly so students see how detailed it is. Highlight a few specific parts as you scroll:
+      <ul>
+        <li>The user flow — upload, transform, preview, download</li>
+        <li>The Nano Banana model specified by name</li>
+        <li>The transformation prompt itself — paragraph-long, specifying lighting, attire, lens, depth of field</li>
+        <li>UI/UX requirements — color scheme, button labels, mobile responsive</li>
+      </ul></div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Look at how specific this is. The instinct everybody has the first time is to type 'build
+      a photo app.' Watch what would happen with that — you'd get something that does <em>something</em>
+      with photos, and you'd spend the next hour arguing with the AI about which something. The
+      length of this description is the work. I told it the user flow, the model to use, the
+      exact look of the output, the color scheme, the responsive behavior. Section 1.4 of the
+      book made this point about prompts. Here it is again, doing real work."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — pacing</span>
+      Don't read the whole description out loud — students will tune out. Scroll, highlight, and
+      narrate the <em>structure</em> of the prompt instead of its every word. The fact that it's
+      this long is the lesson. The contents are tonight's reusable artifact, which you'll share
+      with them after class.</div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="card">
+  <div class="card-head"><span class="num">3</span><span class="t">Click Build — and narrate while AI works</span><span class="clock">⏱ 0:08 · ~5 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Click the Build / Generate button. The AI Studio interface will start producing project
+      files, code, and a live preview. While it builds (usually 30–90 seconds), narrate what
+      students are watching:</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Watch what's happening. On the left, the AI is generating a complete React application —
+      HTML, CSS, JavaScript, the API call to Nano Banana, the responsive design, all of it.
+      Five years ago, a developer would have charged a small business two to five thousand
+      dollars for this and taken a couple of weeks. We're watching the same work happen in
+      about a minute, for free, while we narrate it. <em>This is not nothing.</em> This is a
+      real shift in who gets to build software — and Section 8.4 of Chapter 8 has been telling
+      you that all week."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Do <em>not</em> fill the wait with silence. The longer the AI takes, the more impressive
+      the eventual reveal will feel — but only if you're narrating the stakes. If generation
+      stalls past two minutes, refresh once and re-trigger; don't troubleshoot live for more
+      than 30 seconds.</div>
+  </div>
+</div>
+
+<!-- CARD 4 -->
+<div class="card">
+  <div class="card-head"><span class="num">4</span><span class="t">Test the preview — upload a real photo</span><span class="clock">⏱ 0:13 · ~10 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      When the preview appears on the right, drag in one of your test photos. Click the
+      <strong>Transform to Professional Headshot</strong> button. While Nano Banana processes
+      (~15–20 seconds), continue narrating. Then show the result side by side with the original.
+      Try a second photo — ideally one that's a harder case (poor lighting, unusual angle) to
+      show the model's limits.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "There it is. Same person, transformed into a clean corporate headshot — studio lighting,
+      sharp focus, neutral background, the works. Now look honestly. Did the model preserve the
+      person's identity? Mostly, yes. Did it preserve every detail of their actual face? Almost
+      never — and that's the Section 5.6 deepfake question made into a feature instead of a
+      problem. That tension is what your Ethics Reflection on the Final asks you to think about:
+      <em>what does it mean for a person's photo to be re-rendered by a model?</em> Whose
+      photograph is the output, legally and morally? You will not answer those in 30 seconds,
+      but the app gives you something concrete to argue with."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — testing honestly</span>
+      Try the harder photo. If it fails or distorts, do not hide that. Section 8.4's "Watch Out"
+      is explicit: <em>a working preview is not a finished app.</em> A failure mid-demo is the
+      perfect setup for the next card.</div>
+  </div>
+</div>
+
+<!-- CARD 5 -->
+<div class="card">
+  <div class="card-head"><span class="num">5</span><span class="t">Refine — judgment is the loop</span><span class="clock">⏱ 0:23 · ~4 min</span></div>
+  <div class="card-body">
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN</span>
+      Go back to the prompt area and ask for one refinement live — something visible, fast, and
+      improving. Examples:
+      <ul>
+        <li><em>"Add a loading indicator with a friendly message — 'Transforming your photo, about 20 seconds…'"</em></li>
+        <li><em>"Add a Reset button that clears both images."</em></li>
+        <li><em>"If no image is uploaded, show a hint instead of a blank box."</em></li>
+      </ul>
+      Watch Build Mode regenerate the relevant part. Show the updated preview.</div>
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "This refinement loop — describe, build, test, refine — is the same loop Chapter 1 sketched
+      and Section 8.4 names as the four phases of your capstone. The first version is never the
+      last version. The skill is not arguing with the AI; it's writing the next instruction more
+      clearly than the last one. Tonight in GRP09 your group will run this loop on a small app
+      of your choosing, at least once. Wednesday at 11:59 PM, you'll have done it three or four
+      times on your individual Final — and your reflection will tell the honest story of <em>which
+      refinement mattered most.</em>"</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT</span>
+      Keep the refinement small and visible. Don't ask for a sweeping architectural change live —
+      it might break the working preview and eat the rest of your demo time. Pick something
+      students can see improve.</div>
+  </div>
+</div>
+
+<!-- CARD 6 -->
+<div class="card">
+  <div class="card-head"><span class="num">6</span><span class="t">Land the point — and hand off to GRP09</span><span class="clock">⏱ 0:27 · ~3 min</span></div>
+  <div class="card-body">
+    <div class="box say"><span class="lbl">🗣️ SAY</span>
+      "Three things to carry into the break. First — what you just watched is what you can do
+      tonight, with no programming experience, for free. The barrier to creating software has
+      changed permanently. Second — describing what you want clearly is now the work. The
+      careful, specific prompt is where your effort goes. Third — and this is from Chapter 8 —
+      the working preview is not the finished app. A polished-looking thing produced in 60
+      seconds can still hide real flaws. You verify. You click every button. You try the
+      strange inputs. <em>You</em> stay in charge of the judgment. That is the whole point of
+      the course's title."</div>
+    <div class="box do"><span class="lbl">👉 DO ON SCREEN — transition</span>
+      Close the headshot app. Pull up <strong>GRP09</strong>. Walk through the worksheet structure
+      briefly — pick a problem, write a description, build, test, refine, decide. "By 9:20 every
+      group has a working app on screen. After the break, that's your job. Breakout rooms in 15
+      minutes."</div>
+    <div class="box warn"><span class="lbl">⚠️ WATCH OUT — if asked "can we deploy our apps live?"</span>
+      Be honest about the path: AI Studio Build Mode can deploy to Cloud Run, but that's a paid
+      step requiring billing setup. For tonight's GRP09 and the Final, <em>the live preview is
+      the deliverable</em> — students take a screenshot or share the AI Studio URL. Deployment
+      is optional, and not required for full credit. Keep them focused on building, not
+      deploying.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 8 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/">https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/</a><br>
+  Group Lab GRP09 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html</a><br>
+  Final App Builder spec — <a href="https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html">https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html</a><br>
+  Session 10 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session10/">https://c-marq.github.io/cai1001c-ai-thinking/session10/</a><br>
+  Google AI Studio — <a href="https://aistudio.google.com">https://aistudio.google.com</a><br>
+  Carlos's no-code headshot generator guide (full reference) — your personal copy
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · Instructor reference — not for student distribution.</p>
+</div>
+
+</body>
+</html>
