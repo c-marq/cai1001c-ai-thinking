@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Lab GRP09 — Group App Build — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .step{background:var(--blue);color:#fff;border-radius:50%;padding:1px 9px;font-size:1rem;margin-right:8px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:64px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .roles td:first-child{font-weight:600;color:var(--blue-d);width:38%;}
+  .scenario-menu{border:1px solid var(--line);border-radius:6px;padding:6px 14px 14px;margin:14px 0;background:#FBFDFF;}
+  .scenario-menu h4{color:var(--blue-d);font-size:.95rem;margin:12px 0 4px;}
+  .scenario-menu p{font-size:.92rem;margin:0 0 4px;}
+  .desc-scaffold{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:12px 14px;margin:14px 0;background:#FBFDFF;break-inside:avoid;}
+  .desc-scaffold h4{margin:0 0 4px;color:var(--blue-d);font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;}
+  .desc-scaffold .hint{font-size:.88rem;color:#555;margin:0 0 6px;font-style:italic;}
+  .paste{border:2px dashed var(--blue);border-radius:6px;min-height:100px;padding:10px;margin:8px 0;background:#FBFDFF;}
+  .paste:empty:before{content:attr(data-ph);color:#9AA;font-style:italic;}
+  table.tests th:nth-child(1){width:34%;}
+  table.tests th:nth-child(2){width:46%;}
+  table.tests th:nth-child(3){width:20%;}
+  table.tests td textarea{min-height:48px;padding:5px 7px;font-size:.9rem;}
+  table.tests td input[type=text]{padding:4px 6px;font-size:.9rem;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.desc-scaffold,.scenario-menu,.paste{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,h2 .step,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Group Lab</div>
+  <h1>GRP09 — Group App Build · The Rehearsal for the Final</h1>
+  <div class="meta">
+    <span class="pill">4 points</span>
+    <span class="pill">Group of 3–4</span>
+    <span class="pill">~90 minutes</span><br>
+    Session 10 · Chapter 8: AI in the Real World &nbsp;|&nbsp; Featured tool: Google AI Studio — Build Mode &nbsp;|&nbsp;
+    <strong>Due: end of class</strong>
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS LAB IS</span>
+  Tonight your group builds a small but real working app in <strong>AI Studio Build Mode</strong> —
+  the same tool your instructor just demoed. Pick a small real problem, describe an app
+  precisely, watch AI Studio build it, test it honestly, refine the description, and ship a
+  working prototype. <strong>This is not just a lab — it is your dress rehearsal for the
+  individual Final App Builder Project due Wednesday at 11:59 PM.</strong> By the end of class
+  your group should have a clickable preview on screen and you should know exactly how the loop
+  feels.</div>
+
+<h3>Group members &amp; roles</h3>
+<p>Every member picks one role. All roles contribute — no coding is required for any of them.</p>
+<table class="roles">
+  <tr><th>Role</th><th>Member name</th></tr>
+  <tr><td>Lead Driver — runs AI Studio Build Mode on the shared screen, pastes the description, runs refinements</td><td><input type="text"></td></tr>
+  <tr><td>App Designer — leads the writing of the app description, owns the user-flow decisions</td><td><input type="text"></td></tr>
+  <tr><td>Tester — clicks every control in the preview, finds what breaks, reports honestly</td><td><input type="text"></td></tr>
+  <tr><td>QA Reviewer — fills this worksheet and prepares the share-out</td><td><input type="text"></td></tr>
+</table>
+
+<!-- STEP 1 -->
+<h2><span class="step">1</span>Pick a tiny problem worth building for</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, pick <strong>one small, real, useful task</strong> from a member's life. The best
+  apps tonight are not ambitious — they are <em>specific.</em> Pick from the menu, or use
+  something a member actually needs.</div>
+
+<div class="scenario-menu">
+  <h4>1. Tip and bill splitter</h4>
+  <p>Enter bill, pick a tip percentage (15/18/20), split N ways. Show tip and total in large text.</p>
+  <h4>2. Unit converter for a trade</h4>
+  <p>Inches ↔ centimeters, gallons ↔ liters, °F ↔ °C, with a preset list of common conversions.</p>
+  <h4>3. Study-session planner</h4>
+  <p>Enter a reading list and exam date; the app splits it across the days available.</p>
+  <h4>4. Event countdown / deadline tracker</h4>
+  <p>Add events with names and dates; show days/hours remaining; sort by soonest.</p>
+  <h4>5. Quick-quote estimator for a small business</h4>
+  <p>Pick a service, enter a few inputs (e.g., sqft, hours), get a price estimate. Useful for tradespeople, tutors, photographers.</p>
+  <h4>6. Recipe scaler</h4>
+  <p>Paste a recipe; enter desired servings; the app rewrites ingredient amounts proportionally.</p>
+  <h4>7. Household chore-rotation tracker</h4>
+  <p>Enter family members and chores; the app rotates assignments week-to-week with a clear view of who does what.</p>
+  <h4>8. Medication-schedule organizer</h4>
+  <p>Add medications with doses and times; the app lays them out across a day and flags overlaps. (No real medical data tonight — use test data.)</p>
+  <h4>9. Custom — a tiny tool someone in the group actually needs</h4>
+  <p>If a member has a recurring task that fits this scope, build that instead. The lesson is the same either way.</p>
+</div>
+
+<label class="fld">The problem we picked, in one sentence — and whose life it serves:</label>
+<textarea rows="2"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Picking something ambitious — "a social media platform for students," "an AI tutor for
+  calculus." Tonight is 90 minutes. The chapter is clear: the best capstones are not
+  ambitious; they're <em>specific.</em> A working tip splitter beats a vaporware tutor every time.</div>
+
+<!-- STEP 2 -->
+<h2><span class="step">2</span>Write the app description together</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  Fill in the five-part scaffold below as a group, then assemble it into a single description
+  to paste into AI Studio. <strong>Be specific.</strong> The demo you just watched succeeded
+  because the description was paragraph-long, not three-word. Same skill as the Gemini Gems
+  instructions you wrote two weeks ago — applied to a different tool.</div>
+
+<div class="desc-scaffold">
+  <h4>1. What the app is and who it's for</h4>
+  <p class="hint">One sentence. "A tip-and-bill splitter for groups eating out who want to split fairly without arguing."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="desc-scaffold">
+  <h4>2. What the user enters</h4>
+  <p class="hint">List the inputs. Be specific about format. "Bill amount in dollars, tip percentage (chosen from buttons 15/18/20), number of people splitting."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="desc-scaffold">
+  <h4>3. What the app shows / does</h4>
+  <p class="hint">The output. "Tip amount in dollars, total with tip in large text, per-person amount split equally."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="desc-scaffold">
+  <h4>4. Look and feel</h4>
+  <p class="hint">Color scheme, button style, mobile-friendly? "Clean, modern, with a green accent. Mobile-responsive. Large readable numbers."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="desc-scaffold">
+  <h4>5. The edge cases — what should happen when something is off</h4>
+  <p class="hint">"If the bill is empty, show a hint. If the number of people is zero, do not divide. Round per-person amounts to the nearest cent."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<label class="fld">Now assemble the five parts into a single complete description (paste below — this is what goes into AI Studio):</label>
+<textarea rows="8"></textarea>
+
+<!-- STEP 3 -->
+<h2><span class="step">3</span>Build it in AI Studio Build Mode</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 15 min</span>
+  <ul>
+    <li>The Lead Driver opens <code>aistudio.google.com</code> and signs in with their Google account.</li>
+    <li>In the left sidebar, click <strong>Build</strong> — not Prompts, not Playground.</li>
+    <li>Click <strong>New</strong> / <strong>Build a new app</strong>.</li>
+    <li>Paste your assembled description from Step 2 into the prompt field.</li>
+    <li>Click <strong>Build</strong> and wait — generation usually takes 30–90 seconds.</li>
+    <li>Watch the preview appear. <strong>Don't touch it yet.</strong> Step 4 is the test phase.</li>
+  </ul></div>
+<label class="fld">Paste a screenshot of your preview after AI Studio finishes building (click below, then Ctrl/Cmd+V):</label>
+<div class="paste" contenteditable="true" data-ph="Click here and paste your preview screenshot…"></div>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Clicking on the preview the second it appears. The Tester role is to wait until everyone is
+  ready, then click through systematically. Random fast clicking hides what's broken.</div>
+
+<!-- STEP 4 -->
+<h2><span class="step">4</span>Test honestly — click everything, try strange inputs</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  The Tester runs the preview with the group watching. Try the app as a stranger would. Click
+  every button. Try empty inputs, very large numbers, very small numbers, zero, negative
+  numbers. Document at least four findings — what worked, what didn't.</div>
+
+<table class="tests">
+  <tr>
+    <th>What we tested (input or action)</th>
+    <th>What the app did</th>
+    <th>Worked? (Y / partial / N)</th>
+  </tr>
+  <tr><td><textarea rows="2"></textarea></td><td><textarea rows="2"></textarea></td><td><input type="text"></td></tr>
+  <tr><td><textarea rows="2"></textarea></td><td><textarea rows="2"></textarea></td><td><input type="text"></td></tr>
+  <tr><td><textarea rows="2"></textarea></td><td><textarea rows="2"></textarea></td><td><input type="text"></td></tr>
+  <tr><td><textarea rows="2"></textarea></td><td><textarea rows="2"></textarea></td><td><input type="text"></td></tr>
+</table>
+
+<div class="box blueb"><span class="lbl">💡 WHY HONEST TESTING MATTERS</span>
+  Section 8.4 of the chapter warned plainly: <em>a working preview is not a finished app.</em>
+  Build Mode produces polished-looking output in seconds, which is exactly what makes it easy
+  to call the first version "done." It almost never is. The strange inputs you'd never try as
+  the developer are the ones a real user will hit on day one. Test like you mean it.</div>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Before Step 5: at least four real test rows are filled in with honest results. If every row
+  says "worked perfectly" you haven't tested the hard inputs. Try the empty input, the absurd
+  input, the wrong-type input. Then refine.</div>
+
+<!-- STEP 5 -->
+<h2><span class="step">5</span>Refine — at least one improvement</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 10 min</span>
+  Based on your testing, write <strong>one refinement instruction</strong> for AI Studio and
+  apply it. Send it into Build Mode and let the app regenerate. Things that make good
+  refinements: handling an empty input, adding a reset button, making a number bigger,
+  improving an error message, fixing math on an edge case.</div>
+
+<label class="fld">The refinement instruction we sent:</label>
+<textarea rows="2"></textarea>
+
+<label class="fld">What changed in the app (one or two sentences):</label>
+<textarea rows="2"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Asking AI Studio to "fix the bugs" or "make it better." Build Mode is not psychic — it works
+  on specific, named instructions. <em>"If the bill input is empty, show a friendly message
+  instead of NaN"</em> is a refinement. <em>"Make it better"</em> is a wish.</div>
+
+<!-- STEP 6 -->
+<h2><span class="step">6</span>Verdict and share-out prep</h2>
+<div class="box green"><span class="lbl">✅ DO THIS — 5 min</span>
+  As a group, answer honestly. Your Presenter delivers a 60-second report to the class — name
+  the problem, show the app, name the best refinement.</div>
+
+<label class="fld">Would the person this app was built for actually use it? Why or why not? (one paragraph)</label>
+<textarea rows="3"></textarea>
+
+<label class="fld">The single best refinement we made tonight, and what it taught us about working with Build Mode (one sentence):</label>
+<textarea rows="2"></textarea>
+
+<label class="fld">The one thing about this rehearsal you'll do differently on your individual Final (one sentence):</label>
+<textarea rows="2"></textarea>
+
+<div class="box red"><span class="lbl">🛑 STOP AND CHECK</span>
+  Confirm: problem picked (Step 1), five-part description and assembled version written
+  (Step 2), screenshot of working preview (Step 3), four real test rows (Step 4), refinement
+  instruction and result (Step 5), verdict written (Step 6). If any of those are blank, fill
+  them in now.</div>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box blueb"><span class="lbl">💡 ONE WORKSHEET PER GROUP</span>
+  This completed worksheet is your submission. It must include your problem, your assembled
+  description, your screenshot, your four test rows, your refinement, and your verdict.</div>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm every section is
+  visible — including the screenshot — then upload the PDF to the <strong>GRP09</strong>
+  assignment in Canvas. One submission per group, with every member's name in the roles table.
+  Due by the end of class.</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td>Build Mode doesn't appear in the AI Studio sidebar.</td><td>Make sure you're signed into your Google account at <code>aistudio.google.com</code> (not just Gemini). If still missing, click "Apps" or "Studio Apps" — Google occasionally renames the entry point.</td></tr>
+  <tr><td>The Build button isn't doing anything when clicked.</td><td>Refresh the page. If it stalls again, try a different browser tab in incognito mode. Google's cache occasionally tangles with extensions.</td></tr>
+  <tr><td>Generation has been running for more than two minutes.</td><td>It's stuck. Refresh and re-paste your description. Don't sit silently waiting — your time matters more than this one attempt.</td></tr>
+  <tr><td>The preview generated but looks completely wrong.</td><td>Your description was too vague. Don't argue with the preview in chat — go back to Step 2, sharpen the description, and rebuild. The skill is editing the description, not editing the result.</td></tr>
+  <tr><td>The app works but it's ugly / off-brand.</td><td>Send a refinement just for the visual: <em>"Make the primary color teal instead of blue. Make the button text larger."</em> Build Mode handles UI changes well.</td></tr>
+  <tr><td>One member doesn't have a Google account.</td><td>The Lead Driver runs Build Mode on their account, with the whole group watching the shared screen. Every member still contributes to writing the description and judging the result.</td></tr>
+  <tr><td>We finished early.</td><td>Send a second refinement. Test it. Or run a totally different app description for 10 minutes as practice for the individual Final.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 8 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/">https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/</a><br>
+  Guided Demo GD10 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd10.html">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd10.html</a><br>
+  Session 10 page — <a href="https://c-marq.github.io/cai1001c-ai-thinking/session10/">https://c-marq.github.io/cai1001c-ai-thinking/session10/</a><br>
+  Final App Builder Project (the individual capstone this rehearses for) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html">https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html</a><br>
+  Google AI Studio — <a href="https://aistudio.google.com">https://aistudio.google.com</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
