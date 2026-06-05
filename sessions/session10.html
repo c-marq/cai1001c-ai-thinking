@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 10 — App Builder Workshop — CAI1001C</title>
+<style>
+  :root{ --navy:#16213E; --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--navy);color:#fff;border-radius:8px;padding:24px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#9FB6D4;}
+  .masthead h1{margin:8px 0 10px;font-size:1.6rem;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.8rem;padding:3px 11px;border-radius:12px;margin:0 8px 6px 0;}
+  .masthead .meta{font-size:.93rem;color:#C9D2E3;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  p,li{font-size:.96rem;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .intro{background:#D6EAF8;border-left:5px solid var(--blue);padding:14px 16px;border-radius:4px;margin:18px 0;}
+  table.info{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.info td{border:1px solid var(--line);padding:8px 11px;font-size:.93rem;}
+  table.info td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  table.sched{border-collapse:collapse;width:100%;margin:14px 0;}
+  table.sched th,table.sched td{border:1px solid var(--line);padding:8px 11px;text-align:left;font-size:.92rem;}
+  table.sched th{background:var(--blue);color:#fff;}
+  table.sched td:first-child{white-space:nowrap;font-weight:600;color:var(--blue-d);}
+  ul.checklist{list-style:none;padding-left:2px;margin:12px 0;}
+  ul.checklist li{margin:7px 0;}
+  ul.checklist label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;}
+  ul.checklist input{margin-top:4px;transform:scale(1.15);flex:0 0 auto;}
+  .blocks{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+  .blockcard{flex:1;min-width:250px;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px;padding:14px 16px;}
+  .blockcard h3{margin:0 0 6px;color:var(--navy);font-size:1.02rem;}
+  .blockcard p{margin:0;font-size:.93rem;}
+  .links{margin:14px 0;}
+  a.linkcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;padding:13px 16px;margin:11px 0;transition:background .12s,border-color .12s;}
+  a.linkcard:hover{background:#F4F9FD;border-left-color:var(--navy);}
+  .linkcard .lc-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);}
+  .linkcard .lc-title{display:block;font-weight:700;color:var(--navy);font-size:1.02rem;margin:2px 0 3px;}
+  .linkcard .lc-desc{font-size:.9rem;color:#555;}
+  .linkcard .lc-url{display:block;font-size:.8rem;color:#8893A2;word-break:break-all;margin-top:4px;}
+  .footer{margin-top:38px;border-top:1px solid var(--line);padding-top:14px;font-size:.85rem;color:#888;}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .masthead,table.sched th,.pill,.blockcard,a.linkcard,.intro{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .blockcard,a.linkcard,table.sched,table.info,.intro{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a.linkcard:hover{background:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Course Session</div>
+  <h1>Session 10 — App Builder Workshop</h1>
+  <div>
+    <span class="pill">Session 10 of 11</span>
+    <span class="pill">Week 6</span>
+    <span class="pill">Chapter 8</span>
+  </div>
+  <div class="meta">Monday, June 15, 2026 &nbsp;·&nbsp; 6:00–9:20 PM</div>
+</div>
+
+<div class="intro">
+  Eight chapters in, you have everything you need: you know how AI is built, how it sees and
+  speaks, how it generates and where it fails, and where it tends to go wrong in the real world.
+  Tonight is where that knowledge lands as <em>work</em>. We close out Chapter 8 — the synthesis
+  chapter — and then we build. You will watch a real, polished application come into existence
+  from a paragraph of plain English, and then your group will do the same thing with an app of
+  your own. By the end of class, every group has a working prototype on screen. <strong>Your
+  individual Final is two days away — tonight is its dress rehearsal.</strong>
+</div>
+
+<table class="info">
+  <tr><td>Course</td><td>CAI1001C — AI Thinking</td></tr>
+  <tr><td>Chapter</td><td>Chapter 8: AI in the Real World</td></tr>
+  <tr><td>Featured tool</td><td>Google AI Studio — Build Mode (<code>aistudio.google.com</code>)</td></tr>
+</table>
+
+<h2>Tonight's schedule</h2>
+<table class="sched">
+  <tr><th>Time</th><th>Block</th><th>Focus</th></tr>
+  <tr><td>6:00–6:30</td><td>Block A1</td><td>Recap of Ch 7 + compressed Chapter 8 lecture (organizational adoption, the six ethics principles, AVs)</td></tr>
+  <tr><td>6:30–6:45</td><td>Block A2</td><td><strong>AI for Oceans</strong> activity — train a classifier, watch bias enter, in your own hands (Section 8.3 "Try This")</td></tr>
+  <tr><td>6:45–7:00</td><td>Block A3</td><td>Final App Builder Project — Q&amp;A, walk-through of the spec, presentation logistics for Wed 6/17</td></tr>
+  <tr><td>7:00–7:30</td><td>Block A4</td><td><strong>GD10 — Headshot Generator Demo</strong> — live build in AI Studio Build Mode</td></tr>
+  <tr><td>7:30–7:45</td><td>Break</td><td>15-minute break</td></tr>
+  <tr><td>7:45–9:20</td><td>Block B</td><td><strong>GRP09 — Group App Build</strong> — every group ships a working prototype</td></tr>
+</table>
+
+<h2>Before class</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Read <strong>Chapter 8: AI in the Real World</strong> (link below). This is the synthesis chapter — it pulls every ethics thread from the term together.</label></li>
+  <li><label><input type="checkbox"> Bring a small, real problem in mind — something you or someone you know does repeatedly that an app could help with. The Final App Builder asks for one, and tonight's GRP09 is a low-stakes rehearsal. <em>Capstone-quality scope:</em> a tip calculator that splits the bill, a household-chore rotator, a study-session planner, a unit converter for a trade, a quick-quote estimator for a small business.</label></li>
+  <li><label><input type="checkbox"> Confirm you can sign into <code>aistudio.google.com</code> with your Google account ahead of class. We will be in <strong>Build Mode</strong> — not the Prompts or Playground panes.</label></li>
+  <li><label><input type="checkbox"> Try <strong>code.org/oceans</strong> for a few minutes if you have the time — we'll do part of it together, but seeing the bias-training activity once in advance lets the in-class version land harder.</label></li>
+</ul>
+
+<h2>What we're doing</h2>
+<div class="blocks">
+  <div class="blockcard">
+    <h3>Block A — Chapter 8 + headshot demo</h3>
+    <p>Chapter 8 is compressed tonight because it is a <em>synthesis</em> chapter — not new
+    technical content, but the durable principles every chapter built toward. We cover the
+    organizational reality of AI ("the hardest part is almost never the AI"), the six ethics
+    principles, the honest state of autonomous vehicles, and then run the AI for Oceans
+    bias-training activity for 15 minutes. Then a quick Final App Builder walk-through, and
+    finally a live demo of <strong>a no-code professional headshot generator</strong> built
+    end-to-end in AI Studio Build Mode from one paragraph of plain English.</p>
+  </div>
+  <div class="blockcard">
+    <h3>Block B — Group app build (GRP09)</h3>
+    <p>After the break, you move into groups. Each group picks a small real problem — a tip
+    splitter, a unit converter, a study planner, a quick-quote tool — writes a precise app
+    description together, builds it in AI Studio Build Mode, tests it honestly, and refines
+    based on what broke. By 9:20 every group has a working prototype on screen. This
+    <em>is</em> the practice run for your individual Final due Wednesday night.</p>
+  </div>
+</div>
+
+<h2>Wrap-up</h2>
+<ul class="checklist">
+  <li><label><input type="checkbox"> Finish the <strong>group lab</strong> worksheet (GRP09) and submit it as a PDF to Canvas (4 points).</label></li>
+  <li><label><input type="checkbox"> <strong>Quiz 4 (Ch 7–8) is due Tuesday June 16 at 11:59 PM EST</strong> — take it after class tonight or tomorrow.</label></li>
+  <li><label><input type="checkbox"> <strong>Final App Builder Project is due Wednesday June 17 at 11:59 PM EST.</strong> Live presentations are <em>in class</em> on Wed 6/17 — 5 minutes per student, hard cap. Recorded 5-min video submission is the alternative only for documented absences.</label></li>
+  <li><label><input type="checkbox"> Answer the five review questions and the discussion question at the end of Chapter 8.</label></li>
+</ul>
+
+<h2>Session links</h2>
+<div class="links">
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/">
+    <span class="lc-label">Chapter</span>
+    <span class="lc-title">Chapter 8: AI in the Real World</span>
+    <span class="lc-desc">The full chapter — read this before class. The synthesis chapter.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd10.html">
+    <span class="lc-label">Guided Demo · GD10</span>
+    <span class="lc-title">Build a Professional Headshot Generator (Live)</span>
+    <span class="lc-desc">Instructor walkthrough — describing an app in plain English, watching AI Studio Build Mode produce a deployable web application.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/guided-demos/gd10.html</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html">
+    <span class="lc-label">Group Lab · GRP09</span>
+    <span class="lc-title">Group App Build — Rehearsal for the Final</span>
+    <span class="lc-desc">Tonight's breakout worksheet — every group ships a working prototype. Fill in and submit as a PDF.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html</span>
+  </a>
+  <a class="linkcard" href="https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html">
+    <span class="lc-label">Final · Capstone Project</span>
+    <span class="lc-title">Final App Builder Project (150 pts) — Due Wed 6/17 at 11:59 PM</span>
+    <span class="lc-desc">The full project spec, rubric, and submission requirements. Live demo on Wed 6/17 in class.</span>
+    <span class="lc-url">https://c-marq.github.io/cai1001c-ai-thinking/final/final-app-builder.html</span>
+  </a>
+  <a class="linkcard" href="https://code.org/oceans">
+    <span class="lc-label">External tool · Code.org</span>
+    <span class="lc-title">AI for Oceans — Bias-Training Activity</span>
+    <span class="lc-desc">Free, no-account, browser-based. We will run it together for 15 minutes.</span>
+    <span class="lc-url">https://code.org/oceans</span>
+  </a>
+</div>
+
+<div class="footer">
+  CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez
+</div>
+
+</body>
+</html>
