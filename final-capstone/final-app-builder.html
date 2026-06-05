@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final App Builder Project — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:900px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .subtitle{font-size:1.02rem;color:#EAF2FA;margin:0 0 12px;font-weight:600;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;margin-bottom:6px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .part{background:var(--blue);color:#fff;border-radius:4px;padding:2px 10px;font-size:.92rem;margin-right:10px;font-weight:700;letter-spacing:.04em;}
+  h2 .pts{float:right;font-size:.88rem;color:var(--blue-d);font-weight:600;letter-spacing:.04em;margin-top:6px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul,ol{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  label.fld .wc{float:right;font-size:.85rem;color:#888;font-weight:500;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:80px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .header-table td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  .scaffold{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:12px 14px;margin:14px 0;background:#FBFDFF;break-inside:avoid;}
+  .scaffold h4{margin:0 0 4px;color:var(--blue-d);font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;}
+  .scaffold .hint{font-size:.88rem;color:#555;margin:0 0 6px;font-style:italic;}
+  .paste{border:2px dashed var(--blue);border-radius:6px;min-height:100px;padding:10px;margin:8px 0;background:#FBFDFF;}
+  .paste:empty:before{content:attr(data-ph);color:#9AA;font-style:italic;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.scaffold,.paste{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,.pill,h2 .part{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+    h2 .pts{float:none;display:block;margin-top:4px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Final Capstone Project</div>
+  <h1>Final App Builder Project</h1>
+  <p class="subtitle">Build a Working AI-Powered Application That Solves a Real Problem</p>
+  <div>
+    <span class="pill">150 points</span>
+    <span class="pill">Individual</span>
+    <span class="pill">Capstone (37.5% of course grade)</span>
+  </div>
+  <div class="meta">
+    <strong>Due:</strong> Wednesday, June 17, 2026 at 11:59 PM EST
+    &nbsp;·&nbsp; <strong>Live presentation:</strong> in class, Wed 6/17 (5 min strict)
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT YOU'RE BUILDING</span>
+  Your capstone is a working, AI-powered web application <strong>you</strong> design, build,
+  test, and analyze — using <strong>Google AI Studio Build Mode</strong> (the same tool from
+  your headshot generator demo and GRP09 rehearsal). The app must solve a <strong>real problem
+  that you or someone you know actually has</strong>. Not a toy demo, not a showcase of every
+  feature you can think of — one specific tool that a real person could use on a real Tuesday.
+  Six weeks ago AI was something most of you had typed into a chat box twice. Tonight you have
+  the skills to ship one of these from scratch. Let's go.</div>
+
+<h3>Your information</h3>
+<table class="header-table">
+  <tr><td>Your name</td><td><input type="text"></td></tr>
+  <tr><td>Course / Section</td><td>CAI1001C — Summer 2026 (Class #22658631)</td></tr>
+  <tr><td>Date submitted</td><td><input type="text"></td></tr>
+</table>
+
+<h2>The Four Deliverables &amp; The Timeline</h2>
+
+<table>
+  <tr>
+    <th>Deliverable</th>
+    <th>Points</th>
+    <th>What it is</th>
+  </tr>
+  <tr>
+    <td><strong>1. The Working App</strong></td>
+    <td>60</td>
+    <td>A real, functioning, AI-powered web application built in AI Studio Build Mode. Solves a clear, specific problem. Tested and refined. Shareable via link or screen-share.</td>
+  </tr>
+  <tr>
+    <td><strong>2. Documentation</strong></td>
+    <td>30</td>
+    <td>150–200 words describing the purpose, the user, how it works, how to use it, and known limitations. Section 3 of this worksheet.</td>
+  </tr>
+  <tr>
+    <td><strong>3. Ethics &amp; Bias Reflection</strong></td>
+    <td>30</td>
+    <td>200+ words engaging at least three of the six ethics principles from Chapter 8, with at least one explicit connection to Chapter 7 (provenance / generative media) if your app uses generated content. Section 4.</td>
+  </tr>
+  <tr>
+    <td><strong>4. Live Demo</strong></td>
+    <td>30</td>
+    <td>A strict 5-minute live demo, delivered in class on Wednesday June 17. Recorded 5-minute video fallback only for students with a documented absence.</td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong>Total</strong></td>
+    <td><strong>150 points</strong></td>
+  </tr>
+</table>
+
+<h3>Timeline</h3>
+<table>
+  <tr><th>Date</th><th>What happens</th></tr>
+  <tr><td><strong>Mon 6/8</strong></td><td>Project introduced at end of Session 8. Start thinking about your problem.</td></tr>
+  <tr><td><strong>Mon 6/15</strong></td><td>App Builder Workshop (Session 10) — instructor demos the headshot generator; you build the GRP09 group prototype that rehearses this loop.</td></tr>
+  <tr><td><strong>Tue 6/16</strong></td><td>Quiz 4 due 11:59 PM (Ch 7–8). Get it out of the way before the Final's final push.</td></tr>
+  <tr><td><strong>Wed 6/17 · in class</strong></td><td>Live 5-min presentations during Session 11.</td></tr>
+  <tr><td><strong>Wed 6/17 · 11:59 PM</strong></td><td><strong>Final App Builder Project DUE.</strong> All four deliverables submitted as one PDF (with shareable app link inside).</td></tr>
+</table>
+
+<div class="box yellow"><span class="lbl">⚠️ CHOICE OF TOOL</span>
+  This project is designed around <strong>Google AI Studio Build Mode</strong> (the tool from
+  GD10 and GRP09). It's the right default for most of you. <strong>Gemini Canvas</strong>
+  (covered in Section 8.4 of the chapter) is an acceptable alternative — same "vibe coding"
+  paradigm, slightly simpler interface, prompts via <code>gemini.google.com</code>. Pick one,
+  build there. Don't try to mix tools mid-project.</div>
+
+<!-- SECTION 1 -->
+<h2><span class="part">SECTION 1</span>Plan Your App <span class="pts">part of app score</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Complete this section <em>before</em> you open AI Studio. The chapter is right: the work is
+  in defining the problem clearly. A 10-minute planning sprint here saves you an hour of
+  refinement later.</div>
+
+<div class="scaffold">
+  <h4>1. The real problem</h4>
+  <p class="hint">One or two sentences. Not "improve productivity" — "my mom runs a small Cuban café and spends 20 min every night calculating the next day's bread order based on yesterday's sales. She does this on paper."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>2. The user — name them</h4>
+  <p class="hint">Who specifically would use this? "My mom (Marta, 58, runs Café Versailles in Hialeah)." Vague users produce vague apps.</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>3. What the user enters</h4>
+  <p class="hint">List every input. Be specific about format. "Yesterday's bread sales (a number), today's day of week (a dropdown), and any special event for tomorrow (a free-text note)."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>4. What the app shows / does</h4>
+  <p class="hint">The output, exactly. "A suggested bread order for tomorrow with a sentence of reasoning, broken out by bread type."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>5. Look and feel</h4>
+  <p class="hint">Color scheme, mobile responsiveness, button style. "Warm colors — terracotta and cream. Large readable text. Mobile-first since she'll use her phone."</p>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>6. Edge cases — what should happen when things are weird</h4>
+  <p class="hint">"If yesterday's sales were zero, suggest a starter quantity. If she enters an event, factor it into the suggestion. Never suggest fewer than 5 loaves."</p>
+  <textarea rows="3"></textarea>
+</div>
+
+<label class="fld">Now assemble the six sections above into a single complete app description — the one you'll paste into AI Studio Build Mode:</label>
+<textarea rows="10"></textarea>
+
+<!-- SECTION 2 -->
+<h2><span class="part">SECTION 2</span>Build, Test, &amp; Refine <span class="pts">main app score · 60 pts</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Open <code>aistudio.google.com</code>, navigate to <strong>Build</strong> in the sidebar
+  (not Prompts, not Playground), and paste your description. Then run the four-phase loop from
+  Chapter 8 Section 8.4: <strong>Define → Build → Test → Refine</strong> — and document it
+  honestly below.</div>
+
+<label class="fld">Link or screenshot of your working app:</label>
+<input type="text" placeholder="Shareable AI Studio link, or paste a screenshot below">
+<div class="paste" contenteditable="true" data-ph="Click here and paste your final app screenshot…"></div>
+
+<h3>Your build log — three honest test &amp; refine rounds</h3>
+
+<p>List <strong>at least three rounds</strong> of testing and refinement. For each round, name what you tested, what broke or worked, and what refinement you made next. Honest documentation of imperfect rounds earns full credit — manufactured-perfect rounds earn less.</p>
+
+<div class="scaffold">
+  <h4>Round 1</h4>
+  <label class="fld">What I tested:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What happened (honest result):</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What I refined next:</label>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>Round 2</h4>
+  <label class="fld">What I tested:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What happened:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What I refined next:</label>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="scaffold">
+  <h4>Round 3</h4>
+  <label class="fld">What I tested:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What happened:</label>
+  <textarea rows="2"></textarea>
+  <label class="fld">What I refined next (or "this was the final version" + why):</label>
+  <textarea rows="2"></textarea>
+</div>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Listing three rounds that all "worked perfectly." The chapter and the demo were both explicit:
+  the first version is never the last version. If yours was, you didn't test hard enough.
+  Section 8.4's warning, in full: <em>a working preview is not a finished app.</em>
+</div>
+
+<!-- SECTION 3 -->
+<h2><span class="part">SECTION 3</span>Documentation <span class="pts">30 pts</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Write 150–200 words documenting your app for someone who has never seen it before. This is
+  the README a colleague or your future self would want to read. Cover all four points below
+  in clear paragraphs.</div>
+
+<div class="box blueb"><span class="lbl">💡 COVER ALL FOUR POINTS</span>
+  <ol>
+    <li><strong>Purpose and user.</strong> What problem does the app solve, and for whom?</li>
+    <li><strong>How it works.</strong> Plain-language explanation of what the app does internally, including which AI model or capability does the work (Nano Banana, Gemini text, etc.).</li>
+    <li><strong>How to use it.</strong> Step-by-step user flow — what someone clicks, types, and sees, in order.</li>
+    <li><strong>Known limitations.</strong> Specific things your app does <em>not</em> handle well, and why. Honesty here is graded; "no limitations" is a red flag.</li>
+  </ol>
+</div>
+
+<label class="fld">Your documentation — 150–200 words.<span class="wc">target: 150–200 words</span></label>
+<textarea rows="10"></textarea>
+
+<!-- SECTION 4 -->
+<h2><span class="part">SECTION 4</span>Ethics &amp; Bias Reflection <span class="pts">30 pts</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Write 200+ words on the ethics of <em>your</em> app — not a generic ethics essay. Engage at
+  least <strong>three of the six ethics principles</strong> from Chapter 8 Section 8.3, and if
+  your app uses generated content, include at least one explicit reference to Chapter 7
+  (provenance, watermarking, the "study the seams" idea). <strong>Argue, don't list.</strong>
+  Pick a position and defend it.</div>
+
+<div class="box blueb"><span class="lbl">💡 THE SIX ETHICS PRINCIPLES (CH 8 SECTION 8.3)</span>
+  Pick at least three to apply specifically to your app. Don't just define them — name the
+  decision <em>you</em> made (or didn't make) about each.
+  <ol>
+    <li><strong>Bias</strong> — what was your AI model trained on, and how could that bias show up in your app's output?</li>
+    <li><strong>Privacy</strong> — does your app handle personal data? Whose? Would they consent?</li>
+    <li><strong>Fairness</strong> — does your app work as well for every group it's meant to serve? How would you measure?</li>
+    <li><strong>Accountability</strong> — if your app gives a wrong or harmful output, who's responsible? You? The user? Google? Name it.</li>
+    <li><strong>Transparency</strong> — does the user know AI is involved? Do they know how it makes decisions?</li>
+    <li><strong>Human oversight</strong> — for the consequential decisions your app supports, can a human review and overrule it? Should they?</li>
+  </ol>
+</div>
+
+<label class="fld">Your reflection — 200+ words. Engage three+ ethics principles by name, with a Ch 7 reference if your app uses generated content.<span class="wc">target: 200+ words</span></label>
+<textarea rows="14"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ COMMON MISTAKE</span>
+  Writing a generic "ethics is important" essay that could apply to any app. The rubric rewards
+  specificity: <em>this</em> app, <em>these</em> three principles, <em>this</em> decision I made
+  or am still wrestling with. Cite a section number from Ch 7 or Ch 8 when you reference an
+  idea. Make it clear you have read the chapters.</div>
+
+<!-- SECTION 5 -->
+<h2><span class="part">SECTION 5</span>Live Demo · 5 Minutes Strict <span class="pts">30 pts</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Deliver a <strong>5-minute live demo</strong> in class on Wednesday June 17. The class will
+  have 10–15 presenters; every minute over yours is a minute someone else loses. <strong>Rehearse
+  with a timer at least twice this week.</strong> Your instructor will signal at 4:30 (one-min
+  warning) and cut at 5:00.</div>
+
+<h3>The 5-minute structure</h3>
+<table>
+  <tr><th>Time</th><th>What you cover</th></tr>
+  <tr><td>0:00–0:30</td><td><strong>The problem &amp; user.</strong> One sentence each.</td></tr>
+  <tr><td>0:30–2:30</td><td><strong>The live demo.</strong> Show the app working. Walk through the user flow. Use real and weird inputs. Show one thing that works beautifully and one thing that's still imperfect.</td></tr>
+  <tr><td>2:30–3:30</td><td><strong>The build story.</strong> Your most useful refinement and what it taught you. The moment your judgment, not AI's speed, made the difference.</td></tr>
+  <tr><td>3:30–4:30</td><td><strong>The ethics moment.</strong> One specific ethics principle from Section 4 above, and how you addressed it.</td></tr>
+  <tr><td>4:30–5:00</td><td><strong>Close.</strong> Who would use this in real life, and what you'd build next.</td></tr>
+</table>
+
+<h3>Rehearsal checklist</h3>
+<ul>
+  <li>Run the full demo with a timer at least twice. Aim for 4:45 so you have a buffer.</li>
+  <li>Have the app open in a browser tab, ready to share via Zoom screen-share.</li>
+  <li>Confirm "Share computer sound" is enabled if your app uses audio.</li>
+  <li>Have a 30-second pre-recorded video of the app working as a fallback in case it misbehaves live.</li>
+  <li>Submit your Final to Canvas <em>before</em> class if you can — that way your demo rests on a finished submission.</li>
+</ul>
+
+<div class="box red"><span class="lbl">🛑 RECORDED FALLBACK — ABSENTEES ONLY</span>
+  If you have a <strong>documented absence</strong> on Wednesday 6/17 (illness, work conflict
+  with proof), you may submit a <strong>recorded 5-minute video</strong> instead of presenting
+  live. The recording follows the same 5-minute structure above and the same 5-minute strict
+  cap. <strong>Email your instructor by Monday 6/15 with your absence documentation</strong>
+  to be approved for the recorded path. This is not an opt-out — it's an accommodation for
+  real conflicts. Default is live presentation.</div>
+
+<!-- RUBRIC -->
+<h2>Grading Rubric · 150 points</h2>
+
+<p>Each component is graded on three tiers: Excellent / Good / Needs Work. Partial credit is available everywhere — an honest attempt with thin execution earns more than a polished surface with no real work behind it. The rubric rewards reasoning and process.</p>
+
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Excellent</th>
+    <th>Good</th>
+    <th>Needs Work</th>
+  </tr>
+  <tr>
+    <td><strong>1. Working App<br>(60 pts)</strong></td>
+    <td><strong>60</strong> — App works end-to-end on the intended user flow. Solves a clear, specific real problem. Three+ honest test &amp; refine rounds documented. UI is usable on first sight.</td>
+    <td><strong>45</strong> — App works but has rough edges. User flow is mostly clear. Two rounds of refinement documented. Some test cases were skipped.</td>
+    <td><strong>25</strong> — App runs but breaks on basic inputs, or the problem isn't clearly specified, or no real refinement happened.</td>
+  </tr>
+  <tr>
+    <td><strong>2. Documentation<br>(30 pts)</strong></td>
+    <td><strong>30</strong> — All four points covered substantively (purpose, how it works, how to use it, limitations). 150+ words. Limitations are specific and honest.</td>
+    <td><strong>22</strong> — All four points addressed but one is thin or generic. Word count met.</td>
+    <td><strong>12</strong> — Documentation is short, vague, or skips one of the four points. "No limitations" stated.</td>
+  </tr>
+  <tr>
+    <td><strong>3. Ethics &amp; Bias Reflection<br>(30 pts)</strong></td>
+    <td><strong>30</strong> — Engages three+ ethics principles with specificity to <em>this</em> app. Cites Ch 7 or Ch 8 sections by name. Makes a real argument, not a list. 200+ words.</td>
+    <td><strong>22</strong> — Engages three principles but at least one is generic. Word count met. Chapter references implicit but not cited.</td>
+    <td><strong>12</strong> — Reflection is generic, short, or treats all principles as one undifferentiated paragraph. Could apply to any app.</td>
+  </tr>
+  <tr>
+    <td><strong>4. Live Demo<br>(30 pts)</strong></td>
+    <td><strong>30</strong> — Delivered live in class within 5:00. All five segments covered (problem, demo, build story, ethics, close). Live demo actually worked. Confident pacing.</td>
+    <td><strong>22</strong> — Delivered live but ran over the cap (cut at 5:00), or missed one of the five segments, or the live demo had a technical issue that wasn't gracefully handled.</td>
+    <td><strong>12</strong> — Did not present live without an approved recorded fallback, or recorded video was incomplete / under-prepared.</td>
+  </tr>
+</table>
+
+<!-- SUBMISSION -->
+<h2>Submission</h2>
+
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  <ol>
+    <li>Fill in every section of this worksheet (Sections 1–5).</li>
+    <li>Make sure your app's <strong>shareable link</strong> is pasted in Section 2 (AI Studio's Share feature, or a clear screenshot).</li>
+    <li>In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm every section is visible.</li>
+    <li>Upload the PDF to the <strong>Final App Builder Project</strong> assignment in Canvas.</li>
+    <li><strong>Live demo</strong> happens in class on Wed 6/17 (recorded video upload only for absentees with prior approval).</li>
+  </ol>
+</div>
+
+<div class="box red"><span class="lbl">🛑 DUE</span>
+  <strong>Wednesday, June 17, 2026 at 11:59 PM EST.</strong> Late submissions follow the
+  standard 10%-per-day deduction policy. If you submit late, you also cannot present live —
+  the in-class demo slot belongs to students who submitted on time.
+</div>
+
+<div class="box yellow"><span class="lbl">⚠️ ACADEMIC INTEGRITY</span>
+  This is an <strong>individual project</strong>. The course is built around using AI tools —
+  that is the entire point. What is <em>not</em> permitted: copying another student's app,
+  having an AI write your reflection for you, or submitting work that is materially someone
+  else's. Section 4 in particular must be your own thinking. <em>Use</em> AI Studio Build Mode
+  for the app; <em>do not</em> outsource the reflection.
+</div>
+
+<!-- TROUBLESHOOTING -->
+<h2>Troubleshooting &amp; FAQs</h2>
+<table>
+  <tr><th>Question</th><th>Answer</th></tr>
+  <tr><td>Can I use Gemini Canvas instead of AI Studio Build Mode?</td><td>Yes — same paradigm, simpler interface, prompts via <code>gemini.google.com</code>. Pick one, stick with it. Section 8.4 of the chapter walks through Canvas if you want a reference.</td></tr>
+  <tr><td>Does my app have to be deployed to a public URL?</td><td>No. The live preview in AI Studio (or the Canvas link) counts as the deliverable. Deployment to Cloud Run is optional and not graded.</td></tr>
+  <tr><td>What if my app idea is "too small"?</td><td>It probably isn't. Section 8.4 makes the case: "the best capstones are not ambitious — they are specific." A working tip splitter beats a half-built tutor every time.</td></tr>
+  <tr><td>Can I use real personal data (medical, financial) to test?</td><td>No. Section 8.4 is explicit: "never put genuinely private data into an app you are still testing." Use test data.</td></tr>
+  <tr><td>The app worked in my GRP09 build but Build Mode is producing different code today.</td><td>Build Mode is non-deterministic. Save a working version's link or code immediately when you have something good. Don't rely on regenerating the same result.</td></tr>
+  <tr><td>What if Build Mode is down on the day I'm working?</td><td>Switch to Gemini Canvas as your fallback. The five-part description scaffold works in either tool.</td></tr>
+  <tr><td>How strict is the 5-minute presentation cap?</td><td>Strict. With 10–15 presenters, every minute over yours is a minute someone else loses. Rehearse with a timer.</td></tr>
+  <tr><td>What if I can't present live on Wed 6/17?</td><td>Email your instructor by Mon 6/15 with documentation of your conflict. If approved, you submit a 5-minute recorded video instead. Recorded fallback is not an opt-out — it's an accommodation.</td></tr>
+</table>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 8 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/">https://c-marq.github.io/cai1001c-ai-thinking/ch08-ai-real-world/</a><br>
+  Chapter 7 (provenance, generative media) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/">https://c-marq.github.io/cai1001c-ai-thinking/ch07-generative-media/</a><br>
+  GRP09 (your rehearsal) — <a href="https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html">https://c-marq.github.io/cai1001c-ai-thinking/group-labs/grp09.html</a><br>
+  Google AI Studio Build Mode — <a href="https://aistudio.google.com">https://aistudio.google.com</a><br>
+  Gemini Canvas (alternative tool) — <a href="https://gemini.google.com">https://gemini.google.com</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez · <em>Mind the machine. Go make something real.</em></p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
