@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NG03 — Bias in AI Systems that See and Speak — CAI1001C</title>
+<style>
+  :root{ --blue:#2E86C1; --blue-d:#1A5276; --ink:#333; --line:#D8DEE6; }
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;line-height:1.6;color:var(--ink);background:#fff;}
+  .masthead{background:var(--blue);color:#fff;border-radius:8px;padding:22px 26px;}
+  .masthead .kicker{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#D6EAF8;}
+  .masthead h1{margin:6px 0 6px;font-size:1.5rem;}
+  .masthead .subtitle{font-size:1.02rem;color:#EAF2FA;margin:0 0 8px;font-weight:600;}
+  .masthead .meta{font-size:.92rem;color:#EAF2FA;}
+  .pill{display:inline-block;background:#fff;color:var(--blue-d);font-weight:700;font-size:.82rem;padding:3px 10px;border-radius:12px;margin-right:8px;}
+  h2{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:6px;margin-top:34px;font-size:1.2rem;}
+  h2 .part{background:var(--blue);color:#fff;border-radius:4px;padding:2px 10px;font-size:.92rem;margin-right:10px;font-weight:700;letter-spacing:.04em;}
+  h2 .pts{float:right;font-size:.88rem;color:var(--blue-d);font-weight:600;letter-spacing:.04em;margin-top:6px;}
+  h3{color:var(--blue-d);font-size:1rem;margin-bottom:6px;}
+  p,li{font-size:.96rem;}
+  ul,ol{padding-left:22px;}
+  code{background:#F1F2F4;padding:2px 6px;border-radius:3px;font-size:.92em;}
+  .box{padding:12px 14px;margin:14px 0;border-radius:4px;break-inside:avoid;}
+  .green{background:#D5F5E3;border-left:5px solid #27AE60;}
+  .blueb{background:#D6EAF8;border-left:5px solid #2E86C1;}
+  .yellow{background:#FEF9E7;border-left:5px solid #F1C40F;}
+  .red{background:#FADBD8;border-left:5px solid #E74C3C;}
+  .box .lbl{display:block;font-weight:700;margin-bottom:4px;font-size:.84rem;}
+  .green .lbl{color:#1E8449;} .blueb .lbl{color:#1A5276;}
+  .yellow .lbl{color:#7D6608;} .red .lbl{color:#922B21;}
+  label.fld{display:block;font-weight:600;color:var(--blue-d);margin:14px 0 4px;font-size:.92rem;}
+  label.fld .wc{float:right;font-size:.85rem;color:#888;font-weight:500;}
+  input[type=text]{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:1px solid var(--line);border-radius:4px;}
+  textarea{width:100%;font-family:inherit;font-size:.95rem;line-height:1.5;padding:8px 10px;border:1px solid var(--line);border-radius:4px;resize:vertical;overflow:hidden;min-height:80px;}
+  input:focus,textarea:focus{outline:2px solid #AED6F1;border-color:var(--blue);}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:.92rem;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  .header-table td:first-child{font-weight:600;color:var(--blue-d);width:34%;background:#F7F9FB;}
+  .path-block{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:12px 14px;margin:12px 0;background:#FBFDFF;break-inside:avoid;}
+  .path-block h4{margin:0 0 4px;color:var(--blue-d);font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;}
+  .path-block p{font-size:.92rem;margin:4px 0;}
+  table.tests th:nth-child(1){width:8%;}
+  table.tests th:nth-child(2){width:46%;}
+  table.tests th:nth-child(3){width:46%;}
+  table.tests td textarea{min-height:60px;padding:5px 7px;font-size:.9rem;}
+  table.tests td input[type=text]{padding:4px 6px;font-size:.9rem;}
+  .footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:.88rem;}
+  .footer a{color:var(--blue);word-break:break-word;}
+  .footer strong{color:var(--blue-d);}
+  @media print{
+    body{padding:0;max-width:100%;font-size:11pt;}
+    .box,table,.path-block{break-inside:avoid;}
+    textarea,input[type=text]{border:1px solid #999;}
+    .masthead,th,.pill,h2 .part{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    h2{break-after:avoid;}
+    h2 .pts{float:none;display:block;margin-top:4px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">CAI1001C · AI Thinking — Non-Guided Project (Take-Home)</div>
+  <h1>NG03 — Bias in AI Systems that See and Speak</h1>
+  <p class="subtitle">Chapters 5 &amp; 6 · Computer Vision &amp; Language</p>
+  <div>
+    <span class="pill">30 points</span>
+    <span class="pill">Individual</span>
+    <span class="pill">Allow 90–120 minutes</span><br>
+  </div>
+  <div class="meta" style="margin-top:8px;">
+    <strong>Due:</strong> Sunday, June 14, 2026 at 11:59 PM EST
+  </div>
+</div>
+
+<div class="box blueb"><span class="lbl">💡 WHAT THIS PROJECT IS</span>
+  In Chapters 5 and 6 you watched machines do astonishing things with images and language — and
+  in both chapters, the same uncomfortable pattern surfaced: <strong>these systems are only as
+  good as the data they learned from</strong>, and that data is rarely fair. A facial-recognition
+  system trained mostly on lighter skin tones works worse on darker ones. A language model trained
+  mostly on standard English performs worse on AAVE, Spanglish, or regional dialect. These aren't
+  glitches — they are <em>fairness problems</em>, predictable from how the systems were built. In
+  this project, you will document one real case of AI bias, surface a limit yourself in a system
+  you can use, and reflect honestly on who is harmed, who is responsible, and what habit
+  <em>you</em> will carry forward.</div>
+
+<h3>Your information</h3>
+<table class="header-table">
+  <tr><td>Your name</td><td><input type="text"></td></tr>
+  <tr><td>Course / Section</td><td>CAI1001C — Summer 2026 (Class #22658631)</td></tr>
+  <tr><td>Date submitted</td><td><input type="text"></td></tr>
+</table>
+
+<!-- PART 1 -->
+<h2><span class="part">PART 1</span>A Case Study in AI Bias <span class="pts">/ 10 points</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Find <strong>one real, well-documented case</strong> of bias in an AI system — computer vision
+  (facial recognition, image search, content moderation, medical imaging) <em>or</em> language
+  (translation, chatbot, automated hiring, sentiment analysis). It must be a case that actually
+  happened, reported by a credible source — a news outlet, an academic paper, a civil rights
+  organization, a government audit. <strong>Cite at least one source by name and link.</strong></div>
+
+<div class="box blueb"><span class="lbl">💡 WHERE TO LOOK</span>
+  Good starting places — none of these are endorsements, just places to find documented cases:
+  <ul>
+    <li>The <strong>Algorithmic Justice League</strong> (ajl.org) — published reports on facial recognition bias</li>
+    <li>The <strong>AI Incident Database</strong> (incidentdatabase.ai) — searchable archive of real cases</li>
+    <li>Major news outlets — reporting on AI deployment failures (NYT, WaPo, Reuters, ProPublica)</li>
+    <li>Academic papers — e.g., the 2018 "Gender Shades" study by Buolamwini and Gebru</li>
+    <li>Government audits — e.g., NIST evaluations of facial recognition systems</li>
+  </ul>
+  Do not invent a case. Do not paraphrase from a forum post or social media. Use a real, citable source.</div>
+
+<label class="fld">Title of the case (one line):</label>
+<input type="text">
+
+<label class="fld">Source citation — organization or outlet, article title, link:</label>
+<textarea rows="2"></textarea>
+
+<label class="fld">Your write-up — 250–300 words. Cover all four points below in clear paragraphs.<span class="wc">target: 250–300 words</span></label>
+<textarea rows="14"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ COVER ALL FOUR POINTS</span>
+  <ol>
+    <li><strong>What happened?</strong> Describe the case briefly.</li>
+    <li><strong>Who was affected?</strong> Be specific — which group of people, in what context, with what consequence.</li>
+    <li><strong>Why did it happen?</strong> Use vocabulary from Chapter 5 or Chapter 6 — training data, embeddings, decision boundary, out-of-distribution, generalization. Show you understand the <em>mechanism</em>, not just the headline.</li>
+    <li><strong>What was the response?</strong> Did the company fix it? Was there regulation? Did anything change? "Nothing changed" is a legitimate answer if it's true.</li>
+  </ol>
+</div>
+
+<!-- PART 2 -->
+<h2><span class="part">PART 2</span>Hands-On — Surface a Limit Yourself <span class="pts">/ 10 points</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Pick <strong>one path</strong> below — vision or language — and run <strong>5 systematic tests</strong>
+  on a system you can actually use. The point is to push deliberately along one dimension and see
+  where the system handles it well and where it stumbles. Honest results matter more than clean
+  narratives. If your tests show the system works fine, that is also a finding — write that up.</div>
+
+<div class="path-block">
+  <h4>Path A — Vision</h4>
+  <p>Use the HF Spaces object-detection model from GRP06 (<code>huggingface.co/spaces/Xenova/yolov9-web</code>) or any other free vision tool. Run 5 images that <strong>systematically vary along one dimension</strong>:</p>
+  <ul>
+    <li>5 portraits across a range of skin tones (use stock photos, your own, or family photos with permission)</li>
+    <li>5 everyday objects from different cultures (Cuban café cup vs. plain coffee mug, piragua cart vs. ice-cream truck, mango on the tree vs. apple on a counter, dominos vs. playing cards)</li>
+    <li>5 photos of the same scene at 5 different times of day (varying lighting)</li>
+    <li>5 photos of common workplace items in 5 different settings (home office, garage, food truck, salon, school)</li>
+    <li>Your own systematic variation — describe the dimension</li>
+  </ul>
+</div>
+
+<div class="path-block">
+  <h4>Path B — Language</h4>
+  <p>Use Gemini (<code>gemini.google.com</code>), your GRP07 Gem, or any other LLM you can access. Send <strong>the same request</strong> in 5 different language registers — choose registers you can use authentically (don't fake AAVE, Spanglish, or a dialect you don't actually use). Examples:</p>
+  <ul>
+    <li>The same question in Standard English / Casual English / Texting style / Spanglish / Spanish</li>
+    <li>The same résumé feedback request in formal English / AAVE / casual English / Caribbean English / a creole or pidgin you know</li>
+    <li>The same legal question with vocabulary at a college level / 8th-grade level / casual / dialect / non-English</li>
+    <li>The same emotional support message in 5 registers</li>
+    <li>Your own systematic variation — describe the dimension</li>
+  </ul>
+</div>
+
+<label class="fld">Which path I chose (A or B), and the dimension I varied:</label>
+<textarea rows="2"></textarea>
+
+<label class="fld">Tool I used (name and link):</label>
+<input type="text">
+
+<h3>The 5 tests</h3>
+<table class="tests">
+  <tr>
+    <th>#</th>
+    <th>Test input (image description or prompt sent)</th>
+    <th>What the system did (be honest — what worked, what didn't)</th>
+  </tr>
+  <tr><td>1</td><td><textarea rows="3"></textarea></td><td><textarea rows="3"></textarea></td></tr>
+  <tr><td>2</td><td><textarea rows="3"></textarea></td><td><textarea rows="3"></textarea></td></tr>
+  <tr><td>3</td><td><textarea rows="3"></textarea></td><td><textarea rows="3"></textarea></td></tr>
+  <tr><td>4</td><td><textarea rows="3"></textarea></td><td><textarea rows="3"></textarea></td></tr>
+  <tr><td>5</td><td><textarea rows="3"></textarea></td><td><textarea rows="3"></textarea></td></tr>
+</table>
+
+<label class="fld">Your write-up — 200–250 words. What did your 5 tests reveal? Where did the system handle things well, where did it struggle? Connect what you saw to the system's likely <em>training data</em> (Chapter 5 or 6 vocabulary).<span class="wc">target: 200–250 words</span></label>
+<textarea rows="12"></textarea>
+
+<div class="box yellow"><span class="lbl">⚠️ HONESTY OVER A CLEAN STORY</span>
+  If the system worked fine on all 5 tests, say so. If it worked great on 4 and failed badly on
+  1, say <em>that</em>. Do not tune your tests until the system "fails on cue" — that is the
+  opposite of what testing for limits means. The pedagogical lesson lives in the <em>real</em>
+  result, not a manufactured one.</div>
+
+<!-- PART 3 -->
+<h2><span class="part">PART 3</span>Ethics, Responsibility &amp; What You'll Carry Forward <span class="pts">/ 10 points</span></h2>
+
+<div class="box green"><span class="lbl">✅ DO THIS</span>
+  Write 300–350 words addressing the three questions below. <strong>Don't list — argue.</strong>
+  Pick a position on each question and defend it.</div>
+
+<div class="box blueb"><span class="lbl">💡 THE THREE QUESTIONS</span>
+  <ol>
+    <li><strong>Who is harmed?</strong> When the kinds of biases from Parts 1 and 2 show up in a deployed system, who actually feels the consequence? Name a specific person, group, or scenario — not "people in general."</li>
+    <li><strong>Who is responsible?</strong> The training data? The developers who built the model? The company that deployed it? The user who relied on it? Make an argument about where the weight of responsibility should sit, and why.</li>
+    <li><strong>What habit will YOU carry forward?</strong> Looking at your career, your daily life, or a role you imagine taking — what <em>one</em> habit from this work (testing for limits, demanding provenance, questioning fluency, checking sources, reading guarantees critically) will you bring with you, and where specifically will you apply it?</li>
+  </ol>
+</div>
+
+<label class="fld">Your reflection — 300–350 words.<span class="wc">target: 300–350 words</span></label>
+<textarea rows="20"></textarea>
+
+<div class="box red"><span class="lbl">🛑 BEFORE YOU SUBMIT — SELF-CHECK</span>
+  <ul style="margin-bottom:0;">
+    <li>Part 1 has a real cited source — not made up, not from social media.</li>
+    <li>Part 1 uses Chapter 5 or 6 vocabulary to explain <em>why</em> the bias happened.</li>
+    <li>Part 2 has 5 test rows filled in with honest results.</li>
+    <li>Part 2's write-up connects observations to training data limits.</li>
+    <li>Part 3 names a <em>specific</em> person, group, or scenario in question 1.</li>
+    <li>Part 3 makes a real argument in question 2, not just a list of possibilities.</li>
+    <li>Part 3 names a <em>specific</em> habit and a <em>specific</em> place to apply it in question 3.</li>
+    <li>Word counts are in range — short answers earn partial credit, but write enough to show real thinking.</li>
+  </ul>
+</div>
+
+<!-- SUBMIT -->
+<h2>What to submit</h2>
+<div class="box green"><span class="lbl">✅ HOW TO SUBMIT</span>
+  In your browser, choose <strong>File → Print → Save as PDF</strong>. Confirm every section is
+  visible — nothing cut off, no text fields blank that you meant to fill. Upload the PDF to the
+  <strong>NG03</strong> assignment in Canvas. <strong>Individual submission</strong> — your name
+  in the header is your signature.</div>
+
+<div class="box yellow"><span class="lbl">⚠️ ACADEMIC INTEGRITY</span>
+  This is a <strong>take-home individual project</strong>. Discussing the concepts with classmates
+  is fine; submitting copied work is not. <strong>Using AI to write your reflection for you
+  defeats the entire purpose</strong> — Part 3 in particular has to be your own thinking. The
+  course is built around using AI tools; this assignment is about thinking <em>about</em> AI tools,
+  in your own voice.</div>
+
+<div class="footer">
+  <strong>Related materials</strong><br>
+  Chapter 5 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/">https://c-marq.github.io/cai1001c-ai-thinking/ch05-computer-vision/</a><br>
+  Chapter 6 — <a href="https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/">https://c-marq.github.io/cai1001c-ai-thinking/ch06-language-conversation/</a><br>
+  HF Spaces (vision option) — <a href="https://huggingface.co/spaces/Xenova/yolov9-web">https://huggingface.co/spaces/Xenova/yolov9-web</a><br>
+  Gemini (language option) — <a href="https://gemini.google.com">https://gemini.google.com</a>
+  <p style="color:#888;margin-top:14px;font-size:.85rem;">CAI1001C — AI Thinking · Miami Dade College · Professor Carlos Marquez</p>
+</div>
+
+<script>
+  function grow(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+  document.querySelectorAll('textarea').forEach(function(t){
+    t.addEventListener('input', function(){ grow(t); });
+    grow(t);
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('textarea').forEach(grow);
+  });
+</script>
+
+</body>
+</html>
